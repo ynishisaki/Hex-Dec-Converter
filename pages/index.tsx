@@ -4,13 +4,10 @@ import styles from "../styles/Home.module.css";
 import { Box, HStack, Input, Text, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { ToHex } from "../components/ToHex";
-import { ToDex } from "../components/ToDec";
+import { ToSignedDec } from "../components/ToSignedDec";
+import { ToUnsignedDec } from "../components/ToUnsignedDec";
 
 const Home: NextPage = () => {
-	const toDec = (hex: number | string) => {
-		return parseInt(String(hex), 16);
-	};
-
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -21,7 +18,8 @@ const Home: NextPage = () => {
 			<main>
 				<VStack spacing={10}>
 					<ToHex></ToHex>
-					<ToDex></ToDex>
+					<ToUnsignedDec></ToUnsignedDec>
+					<ToSignedDec></ToSignedDec>
 				</VStack>
 			</main>
 
