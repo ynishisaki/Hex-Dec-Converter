@@ -76,6 +76,9 @@ export const ToUnsignedDec = () => {
 						/>
 					</InputGroup>
 				</Box>
+				<Center>
+					<Icon as={CgMathEqual} boxSize={"6"} />
+				</Center>
 				<Box>
 					<InputGroup size={"lg"}>
 						<Input

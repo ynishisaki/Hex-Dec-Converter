@@ -6,6 +6,7 @@ import {
 	Icon,
 	Input,
 	InputGroup,
+	InputLeftElement,
 	InputRightAddon,
 	InputRightElement,
 	Text,
@@ -14,57 +15,21 @@ import React from "react";
 import { useState } from "react";
 import { CgMathEqual } from "react-icons/cg";
 
-export const ToSignedDec = () => {
+export const ToUnsignedHex = () => {
 	const initialValue = "";
 	const [inputValue, setInputValue] = useState<number | string>(initialValue);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
 		setInputValue(event.target.value.toUpperCase());
 
-	// two's complement
-	const toDec = (hex: any) => {
-		const unSignedDec = parseInt(hex, 16);
-		const bitLength = hex.toString().length * 4; // bit
+	// one's complement
+	const toHex = (dec: any) => Number(dec).toString(16).toUpperCase();
 
-		// 8, 16, 24bit かつ 最上位bitが1の場合
-		if (
-			(bitLength == 8 || bitLength == 16 || bitLength == 24) &&
-			unSignedDec >>> (bitLength - 1) == 1
-		) {
-			return unSignedDec - 2 ** bitLength;
-		}
-		// 8, 16, 24bit かつ 最上位bitが0の場合
-		else if (
-			(bitLength == 8 || bitLength == 16 || bitLength == 24) &&
-			unSignedDec >>> (bitLength - 1) == 0
-		) {
-			return unSignedDec;
-		}
-		// 32bit の場合
-		else if (bitLength == 32) {
-			return unSignedDec >> 0;
-		}
-		// その他: 8, 16, 24, 32bit以外の場合
-		else {
-			return "ERR";
-		}
-	};
-
-	const showBitLength = (hex: any) => {
-		const bitLength = hex.toString().length * 4;
-		if (bitLength % 8 == 0) {
-			return bitLength + "bit";
-		} else {
-			return bitLength + "bit: ERROR!";
-		}
-	};
-
-	const toBin = (hex: any) => parseInt(hex, 16).toString(2);
+	const toBin = (dec: any) => parseInt(dec, 16).toString(2);
 
 	return (
 		<Box w={"auto"} fontSize={"2xl"}>
-			<Text>signed two's complement</Text>
-			<Text>{showBitLength(inputValue)}</Text>
+			<Text>unsigned one's complement</Text>
 			<HStack>
 				<Button
 					colorScheme="teal"
@@ -72,16 +37,16 @@ export const ToSignedDec = () => {
 					onClick={() => setInputValue(initialValue)}>
 					clear
 				</Button>
+
 				<Box>
 					<InputGroup size={"lg"}>
 						<Input
 							htmlSize={16}
 							width="auto"
-							type="alphanumeric"
-							placeholder="FF"
-							value={inputValue}
-							onChange={handleChange}
+							value={toHex(inputValue)}
+							isReadOnly={true}
 							fontSize={"2xl"}
+							bg={"gray.100"}
 						/>
 						<InputRightElement
 							pointerEvents="none"
@@ -96,14 +61,24 @@ export const ToSignedDec = () => {
 				</Center>
 				<Box>
 					<InputGroup size={"lg"}>
+						{/* <InputLeftElement>
+							<Button
+								// px={30}
+								colorScheme="teal"
+								// size="90%"
+								size={"lg"}
+								onClick={() => setInputValue(initialValue)}>
+								clear
+							</Button>
+						</InputLeftElement> */}
 						<Input
 							htmlSize={16}
 							width="auto"
-							placeholder="FF"
-							value={toDec(inputValue)}
+							placeholder="255"
+							onChange={handleChange}
 							fontSize={"2xl"}
-							isReadOnly={true}
-							bg={"gray.100"}
+							// isReadOnly={true}
+							value={inputValue}
 						/>
 						<InputRightElement
 							pointerEvents="none"

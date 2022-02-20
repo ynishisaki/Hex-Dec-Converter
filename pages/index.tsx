@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { ToHex } from "../components/ToHex";
 import { ToSignedDec } from "../components/ToSignedDec";
 import { ToUnsignedDec } from "../components/ToUnsignedDec";
+import { ToUnsignedHex } from "../components/ToUnsignedHex";
 
 const Home: NextPage = () => {
 	return (
@@ -20,6 +21,7 @@ const Home: NextPage = () => {
 					<ToHex></ToHex>
 					<ToUnsignedDec></ToUnsignedDec>
 					<ToSignedDec></ToSignedDec>
+					<ToUnsignedHex></ToUnsignedHex>
 				</VStack>
 			</main>
 
