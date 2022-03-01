@@ -14,7 +14,7 @@ import React from "react";
 import { useState } from "react";
 import { CgMathEqual } from "react-icons/cg";
 
-export const ToSignedDec = () => {
+export const ToSignedHex = () => {
 	const initialValue = "";
 	const [inputValue, setInputValue] = useState<number | string>(initialValue);
 
@@ -22,42 +22,64 @@ export const ToSignedDec = () => {
 		setInputValue(event.target.value.toUpperCase());
 
 	// two's complement
-	const toDec = (hex: any) => {
-		const unSignedDec = parseInt(hex, 16);
-		const bitLength = hex.toString().length * 4; // bit
+	const toHex = (dec: any) => {};
 
-		// 8, 16, 24bit かつ 最上位bitが1の場合
-		if (
-			(bitLength == 8 || bitLength == 16 || bitLength == 24) &&
-			unSignedDec >>> (bitLength - 1) == 1
-		) {
-			return unSignedDec - 2 ** bitLength;
-		}
-		// 8, 16, 24bit かつ 最上位bitが0の場合
-		else if (
-			(bitLength == 8 || bitLength == 16 || bitLength == 24) &&
-			unSignedDec >>> (bitLength - 1) == 0
-		) {
-			return unSignedDec;
-		}
-		// 32bit の場合
-		else if (bitLength == 32) {
-			return unSignedDec >> 0;
-		}
-		// その他: 8, 16, 24, 32bit以外の場合
-		else {
-			return "ERR";
-		}
-	};
-
-	const showBitLength = (hex: any) => {
-		const bitLength = hex.toString().length * 4;
-		if (bitLength % 8 == 0 && bitLength <= 32) {
-			return bitLength + "bit";
-		} else {
-			return bitLength + "bit: ERROR!";
-		}
-	};
+	const showBitLength = (dec: any) => {
+		const value = Math.abs(dec);
+		const bitLength = () => {
+			if (value == 0) {
+				return 0;
+			} else if (value < 2 ** 8) {
+				return 8;
+			} else if (value < 2 ** 16) {
+				return 16;
+			} else if (value < 2 ** 24) {
+				return 24;
+			} else if (value < 2 ** 32) {
+				return 32;
+			} else {
+				return NaN;
+			}
+			// const value = Math.abs(dec);
+			// if (value == 0) {
+			// 	return 0 + "bit";
+			// } else if (value < 2 ** 8) {
+			// 	return "8bit";
+			// } else if (value < 2 ** 16) {
+			// 	return "16bit";
+			// } else if (value < 2 ** 24) {
+			// 	return "24bit";
+			// } else if (value < 2 ** 32) {
+			// 	return "32bit";
+			// } else {
+			// 	return "ERROR!";
+			// }
+		};
+	return (
+			if (typeof bitLength == "string") {
+				return bitLength + "ERROR!";
+			} 
+			else {
+				return bitLength + "bit";
+			}
+		)
+		};
+	// const bitLength = (dec: any) => {
+	// 	const value = Math.abs(dec);
+	// 	if (value == 0) {
+	// 		return 0;
+	// 	} else if (value < 2 ** 8) {
+	// 		return 8;
+	// 	} else if (value < 2 ** 16) {
+	// 		return 16;
+	// 	} else if (value < 2 ** 24) {
+	// 		return 24;
+	// 	} else if (value < 2 ** 32) {
+	// 		return 32;
+	// 	} else {
+	// 		return NaN;
+	// 	}
+	// };
 
 	const toBin = (hex: any) => parseInt(hex, 16).toString(2);
 
@@ -79,9 +101,10 @@ export const ToSignedDec = () => {
 							width="auto"
 							type="alphanumeric"
 							placeholder="FF"
-							value={inputValue}
-							onChange={handleChange}
 							fontSize={"2xl"}
+							value={toHex(inputValue)}
+							isReadOnly={true}
+							bg={"gray.100"}
 						/>
 						<InputRightElement
 							pointerEvents="none"
@@ -100,10 +123,9 @@ export const ToSignedDec = () => {
 							htmlSize={16}
 							width="auto"
 							placeholder="FF"
-							value={toDec(inputValue)}
 							fontSize={"2xl"}
-							isReadOnly={true}
-							bg={"gray.100"}
+							value={inputValue}
+							onChange={handleChange}
 						/>
 						<InputRightElement
 							pointerEvents="none"

@@ -5,6 +5,7 @@ import { Box, HStack, Input, Text, VStack } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { ToHex } from "../components/ToHex";
 import { ToSignedDec } from "../components/ToSignedDec";
+import { ToSignedHex } from "../components/ToSignedHex";
 import { ToUnsignedDec } from "../components/ToUnsignedDec";
 import { ToUnsignedHex } from "../components/ToUnsignedHex";
 
@@ -22,6 +23,7 @@ const Home: NextPage = () => {
 					<ToUnsignedDec></ToUnsignedDec>
 					<ToSignedDec></ToSignedDec>
 					<ToUnsignedHex></ToUnsignedHex>
+					<ToSignedHex></ToSignedHex>
 				</VStack>
 			</main>
 
