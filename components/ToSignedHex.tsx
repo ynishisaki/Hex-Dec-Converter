@@ -22,64 +22,70 @@ export const ToSignedHex = () => {
 		setInputValue(event.target.value.toUpperCase());
 
 	// two's complement
-	const toHex = (dec: any) => {};
+	const toHex = (dec: any) => {
+		// const toHex = (dec: any) => {
+		if (dec >= 0) {
+			return Number(dec).toString(16).toUpperCase();
+		}
+		// 8bit
+		else if (dec >= -128) {
+			let dec_unsigned = 256 - Math.abs(dec);
+			return Number(dec_unsigned).toString(16).toUpperCase();
+		}
+		// 16bit
+		else if (dec >= -32768) {
+			let dec_unsigned = 65536 - Math.abs(dec);
+			return Number(dec_unsigned).toString(16).toUpperCase();
+		}
+		// 24bit
+		else if (dec >= -8388608) {
+			let dec_unsigned = 16777216 - Math.abs(dec);
+			return Number(dec_unsigned).toString(16).toUpperCase();
+		}
+		// 32bit
+		else if (dec >= -2147483648) {
+			let dec_unsigned = 4294967296 - Math.abs(dec);
+			return Number(dec_unsigned).toString(16).toUpperCase();
+		}
+		// 40bit
+		else if (dec >= -2147483648) {
+			let dec_unsigned = 1099511627774 - Math.abs(dec);
+			return Number(dec_unsigned).toString(16).toUpperCase();
+		}
+		// 48bit
+		else if (dec >= -2147483648) {
+			let dec_unsigned = 281474976710654 - Math.abs(dec);
+			return Number(dec_unsigned).toString(16).toUpperCase();
+		}
+		// 56bit
+		else if (dec >= -2147483648) {
+			let dec_unsigned = 72057594037927939 - Math.abs(dec);
+			return Number(dec_unsigned).toString(16).toUpperCase();
+		}
+		// 64bit
+		else if (dec >= -2147483648) {
+			let dec_unsigned = 18446744073709551999 - Math.abs(dec);
+			return Number(dec_unsigned).toString(16).toUpperCase();
+		} else {
+			return "ERROR";
+		}
+	};
 
-	const showBitLength = (dec: any) => {
-		const value = Math.abs(dec);
-		const bitLength = () => {
-			if (value == 0) {
-				return 0;
-			} else if (value < 2 ** 8) {
-				return 8;
-			} else if (value < 2 ** 16) {
-				return 16;
-			} else if (value < 2 ** 24) {
-				return 24;
-			} else if (value < 2 ** 32) {
-				return 32;
-			} else {
-				return NaN;
-			}
-			// const value = Math.abs(dec);
-			// if (value == 0) {
-			// 	return 0 + "bit";
-			// } else if (value < 2 ** 8) {
-			// 	return "8bit";
-			// } else if (value < 2 ** 16) {
-			// 	return "16bit";
-			// } else if (value < 2 ** 24) {
-			// 	return "24bit";
-			// } else if (value < 2 ** 32) {
-			// 	return "32bit";
-			// } else {
-			// 	return "ERROR!";
-			// }
-		};
-	return (
-			if (typeof bitLength == "string") {
-				return bitLength + "ERROR!";
-			} 
-			else {
-				return bitLength + "bit";
-			}
-		)
-		};
-	// const bitLength = (dec: any) => {
-	// 	const value = Math.abs(dec);
-	// 	if (value == 0) {
-	// 		return 0;
-	// 	} else if (value < 2 ** 8) {
-	// 		return 8;
-	// 	} else if (value < 2 ** 16) {
-	// 		return 16;
-	// 	} else if (value < 2 ** 24) {
-	// 		return 24;
-	// 	} else if (value < 2 ** 32) {
-	// 		return 32;
-	// 	} else {
-	// 		return NaN;
-	// 	}
-	// };
+	const showBitLength = (dec: number) => {
+		if (dec == 0) {
+			return 0 + "bit";
+		} else if (dec >= -128 && dec <= 127) {
+			return "8bit";
+		} else if (dec >= -32768 && dec <= 32767) {
+			return "16bit";
+		} else if (dec >= -8388608 && dec <= 8388607) {
+			return "24bit";
+		} else if (dec >= -2147483648 && dec <= 2147483647) {
+			return "32bit";
+		} else {
+			return "over 32bit: ERROR!";
+		}
+	};
 
 	const toBin = (hex: any) => parseInt(hex, 16).toString(2);
 
@@ -104,7 +110,8 @@ export const ToSignedHex = () => {
 							fontSize={"2xl"}
 							value={toHex(inputValue)}
 							isReadOnly={true}
-							bg={"gray.100"}
+							// bg={"gray.100"}
+							bg={"blue.100"}
 						/>
 						<InputRightElement
 							pointerEvents="none"

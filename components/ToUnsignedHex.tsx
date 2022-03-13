@@ -27,9 +27,31 @@ export const ToUnsignedHex = () => {
 
 	const toBin = (dec: any) => parseInt(dec, 16).toString(2);
 
+	const showBitLength = (value: number) => {
+		const bitLength = () => {
+			if (value < 0) {
+				return "minus: ERROR!";
+			} else if (value == 0) {
+				return 0 + "bit";
+			} else if (value < 2 ** 8) {
+				return "8bit";
+			} else if (value < 2 ** 16) {
+				return "16bit";
+			} else if (value < 2 ** 24) {
+				return "24bit";
+			} else if (value < 2 ** 32) {
+				return "32bit";
+			} else {
+				return "over 32bit: ERROR!";
+			}
+		};
+		return bitLength();
+	};
+
 	return (
 		<Box w={"auto"} fontSize={"2xl"}>
 			<Text>unsigned one's complement</Text>
+			<Text>{showBitLength(inputValue)}</Text>
 			<HStack>
 				<Button
 					colorScheme="teal"
