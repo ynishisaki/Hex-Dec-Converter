@@ -25,7 +25,7 @@ export const ToUnsignedHex = () => {
 	// one's complement
 	const toHex = (dec: any) => Number(dec).toString(16).toUpperCase();
 
-	const toBin = (dec: any) => parseInt(dec, 16).toString(2);
+	const toBin = (dec: any) => parseInt(dec, 10).toString(2);
 
 	const showBitLength = (value: number) => {
 		const bitLength = () => {

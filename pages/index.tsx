@@ -8,6 +8,7 @@ import { ToSignedDec } from "../components/ToSignedDec";
 import { ToSignedHex } from "../components/ToSignedHex";
 import { ToUnsignedDec } from "../components/ToUnsignedDec";
 import { ToUnsignedHex } from "../components/ToUnsignedHex";
+import { ToSignedHex2 } from "../components/ToSignedHex2";
 
 const Home: NextPage = () => {
 	return (
@@ -24,6 +25,7 @@ const Home: NextPage = () => {
 					<ToSignedDec></ToSignedDec>
 					<ToUnsignedHex></ToUnsignedHex>
 					<ToSignedHex></ToSignedHex>
+					<ToSignedHex2></ToSignedHex2>
 				</VStack>
 			</main>
 

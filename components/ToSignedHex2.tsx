@@ -3,18 +3,20 @@ import {
 	Button,
 	Center,
 	HStack,
+	VStack,
 	Icon,
 	Input,
 	InputGroup,
 	InputRightAddon,
 	InputRightElement,
+	Spacer,
 	Text,
 } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 import { CgMathEqual } from "react-icons/cg";
 
-export const ToSignedHex = () => {
+export const ToSignedHex2 = () => {
 	const initialValue = "";
 	const [inputValue, setInputValue] = useState<number | string>(initialValue);
 
@@ -91,81 +93,79 @@ export const ToSignedHex = () => {
 	const toBin = (hex: any) => parseInt(hex, 16).toString(2);
 
 	return (
-		<Box w={"auto"} fontSize={"2xl"}>
-			<Text>signed two's complement</Text>
-			<Text>{showBitLength(inputValue)}</Text>
-			<HStack>
-				<Button
-					colorScheme="teal"
-					size="lg"
-					onClick={() => setInputValue(initialValue)}>
-					clear
-				</Button>
-				<Box>
-					<InputGroup size={"lg"}>
-						<Input
-							htmlSize={16}
-							width="auto"
-							type="alphanumeric"
-							placeholder="FF"
-							fontSize={"2xl"}
-							value={toHex(inputValue)}
-							isReadOnly={true}
-							// bg={"gray.100"}
-							bg={"gray.200"}
-						/>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(16)"
-						/>
-					</InputGroup>
-				</Box>
-				<Center>
-					<Icon as={CgMathEqual} boxSize={"6"} />
-				</Center>
-				<Box>
-					<InputGroup size={"lg"}>
-						<Input
-							htmlSize={16}
-							width="auto"
-							placeholder="255"
-							fontSize={"2xl"}
-							value={inputValue}
-							onChange={handleChange}
-						/>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(10)"
-						/>
-					</InputGroup>
-				</Box>
-				<Center>
-					<Icon as={CgMathEqual} boxSize={"6"} />
-				</Center>
-				<Box>
-					<InputGroup size={"lg"}>
-						<Input
-							htmlSize={16}
-							width="auto"
-							placeholder="FF"
-							value={toBin(toHex(inputValue))}
-							fontSize={"2xl"}
-							isReadOnly={true}
-							bg={"gray.100"}
-						/>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(2)"
-						/>
-					</InputGroup>
-				</Box>
-			</HStack>
-		</Box>
+		<>
+			<Button
+				colorScheme="teal"
+				size="lg"
+				onClick={() => setInputValue(initialValue)}>
+				clear
+			</Button>
+
+			<Box w={"auto"} fontSize={"4xl"}>
+				<Text fontSize={"xl"}>signed two's complement</Text>
+				<Text fontSize={"xl"}>{showBitLength(inputValue)}</Text>
+				<VStack>
+					<Box>
+						<InputGroup size={"lg"}>
+							<Input
+								htmlSize={30}
+								width="auto"
+								placeholder="255"
+								fontSize={"2xl"}
+								value={inputValue}
+								onChange={handleChange}
+							/>
+							<InputRightElement
+								pointerEvents="none"
+								fontSize={"sm"}
+								m={"1.5"}
+								children="(10)"
+							/>
+						</InputGroup>
+					</Box>
+					<Spacer />
+					<Box>
+						<InputGroup size={"lg"}>
+							<Input
+								htmlSize={30}
+								width="auto"
+								type="alphanumeric"
+								placeholder="FF"
+								fontSize={"2xl"}
+								value={toHex(inputValue)}
+								isReadOnly={true}
+								bg={"gray.200"}
+							/>
+							<InputRightElement
+								pointerEvents="none"
+								fontSize={"sm"}
+								m={"1.5"}
+								children="(16)"
+							/>
+						</InputGroup>
+					</Box>
+					<Spacer />
+					<Box>
+						<InputGroup size={"lg"}>
+							<Input
+								htmlSize={30}
+								width="auto"
+								placeholder="FF"
+								value={toBin(toHex(inputValue))}
+								fontSize={"2xl"}
+								isReadOnly={true}
+								bg={"gray.200"}
+							/>
+							<InputRightElement
+								pointerEvents="none"
+								fontSize={"sm"}
+								m={"1.5"}
+								children="(2)"
+							/>
+						</InputGroup>
+					</Box>
+				</VStack>
+			</Box>
+		</>
 	);
 };
