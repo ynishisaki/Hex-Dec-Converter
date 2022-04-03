@@ -13,14 +13,12 @@ import {
 	Text,
 	Select,
 	Flex,
-	FormHelperText,
-	FormErrorMessage,
 } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 import { CgMathEqual } from "react-icons/cg";
 
-export const ToSignedHex2 = () => {
+export const ToSignedHex_V = () => {
 	const initialValue = "";
 	const [inputValue, setInputValue] = useState<number | string>(initialValue);
 
@@ -28,11 +26,12 @@ export const ToSignedHex2 = () => {
 		setInputValue(event.target.value.toUpperCase());
 
 	// two's complement
-	const toHex = (dec: any) => {
-		// const toHex = (dec: any) => {
+	const toHex = (dec: number | string) => {
+		// positive numbebr
 		if (dec >= 0) {
-			return Number(dec).toString(16).toUpperCase();
+			return dec ? Number(dec).toString(16).toUpperCase() : "";
 		}
+		// negative number
 		// 8bit
 		else if (dec >= -128) {
 			let dec_unsigned = 256 - Math.abs(dec);
@@ -89,109 +88,94 @@ export const ToSignedHex2 = () => {
 		} else if (dec >= -2147483648 && dec <= 2147483647) {
 			return "32bit";
 		} else {
-			return "over 32bit: ERROR!";
+			return "Invalid:>32bit";
 		}
 	};
 
-	// const toBin = (hex: any) => parseInt(hex, 16).toString(2);
-	const toBin = (hex: any) => parseInt(hex, 16).toString(2);
+	const toBin = (hex: any) => {
+		return hex ? parseInt(hex, 16).toString(2) : "";
+	};
 
-	const isError = inputValue === "";
+	const isError = inputValue < -2147483648 || inputValue > 2147483647;
 
 	return (
-		<>
-			<HStack>
-				<Text fontSize={"xl"}>precision</Text>
-				<Select
-					size={"lg"}
-					width="auto"
-					// placeholder="Select option"
-				>
-					<option value="auto">Auto</option>
-					<option value="8bit">8 bit</option>
-					<option value="16bit">16 bit</option>
-				</Select>
-			</HStack>
-
-			<Box w={"auto"} fontSize={"4xl"}>
-				<Text fontSize={"xl"}>signed two's complement</Text>
-				<Text fontSize={"xl"}>{showBitLength(inputValue)}</Text>
-				<VStack width={"448px"}>
-					<Flex width={"448px"}>
-						<Button
-							// flex-direction="row"
-							// justify-content="start"
-							// ml="0"
-							colorScheme="teal"
-							size="lg"
-							onClick={() => setInputValue(initialValue)}>
-							clear
-						</Button>
-						<Spacer />
-					</Flex>
-					<Flex width={"448px"}>
-						<InputGroup size={"lg"}>
-							<Input
-								htmlSize={30}
-								width="auto"
-								// type="number"
-								placeholder="255"
-								fontSize={"2xl"}
-								value={inputValue}
-								onChange={handleChange}
-								isInvalid={isError}
-							/>
-							<InputRightElement
-								pointerEvents="none"
-								fontSize={"sm"}
-								m={"1.5"}
-								children="(10)"
-							/>
-						</InputGroup>
-						<Spacer></Spacer>
-						{isError && (
-							<Text pt="2" pl="3" fontSize={"xl"} color={"tomato"}>
-								isInvalid
-							</Text>
-						)}
-					</Flex>
+		<Box>
+			<Text fontSize={"xl"}>signed two's complement</Text>
+			<VStack>
+				<Flex width={"460px"}>
+					<Button
+						// colorScheme="green"
+						colorScheme="teal"
+						size="lg"
+						onClick={() => setInputValue(initialValue)}>
+						clear
+					</Button>
+					<Spacer />
+				</Flex>
+				<Flex width={"460px"}>
 					<InputGroup size={"lg"}>
 						<Input
 							htmlSize={30}
-							width="auto"
-							type="alphanumeric"
-							placeholder="FF"
+							width={"460px"}
+							type="number"
 							fontSize={"2xl"}
-							value={toHex(inputValue)}
-							isReadOnly={true}
-							bg={"gray.200"}
+							placeholder="255"
+							value={inputValue}
+							onChange={handleChange}
+							isInvalid={isError}
 						/>
 						<InputRightElement
 							pointerEvents="none"
 							fontSize={"sm"}
 							m={"1.5"}
-							children="(16)"
+							children="(10)"
 						/>
 					</InputGroup>
-					<InputGroup size={"lg"}>
-						<Input
-							htmlSize={30}
-							width="auto"
-							placeholder="FF"
-							value={toBin(toHex(inputValue))}
-							fontSize={"2xl"}
-							isReadOnly={true}
-							bg={"gray.200"}
-						/>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(2)"
-						/>
-					</InputGroup>
-				</VStack>
-			</Box>
-		</>
+					<Text
+						pt="2"
+						px="3"
+						width={"auto"}
+						fontSize={"xl"}
+						color={isError ? "tomato" : ""}>
+						{showBitLength(inputValue)}
+					</Text>
+				</Flex>
+				<InputGroup size={"lg"}>
+					<Input
+						htmlSize={30}
+						width={"460px"}
+						type="alphanumeric"
+						placeholder="FF"
+						fontSize={"2xl"}
+						value={toHex(inputValue)}
+						isReadOnly={true}
+						bg={"gray.200"}
+					/>
+					<InputRightElement
+						pointerEvents="none"
+						fontSize={"sm"}
+						m={"1.5"}
+						children="(16)"
+					/>
+				</InputGroup>
+				<InputGroup size={"lg"}>
+					<Input
+						htmlSize={30}
+						width={"460px"}
+						placeholder="1111"
+						value={toBin(toHex(inputValue))}
+						fontSize={"2xl"}
+						isReadOnly={true}
+						bg={"gray.200"}
+					/>
+					<InputRightElement
+						pointerEvents="none"
+						fontSize={"sm"}
+						m={"1.5"}
+						children="(2)"
+					/>
+				</InputGroup>
+			</VStack>
+		</Box>
 	);
 };
