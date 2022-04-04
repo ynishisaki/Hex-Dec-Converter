@@ -16,41 +16,36 @@ import {
 	Text,
 	VStack,
 } from "@chakra-ui/react";
+import { stringify } from "querystring";
 import React, { FC } from "react";
 import { useState } from "react";
 import { CgMathEqual } from "react-icons/cg";
 
 export const HexConvert_V = () => {
 	const initialValue = "";
-	const [inputValue, setInputValue] = useState<number | string>(initialValue);
+	const [inputValue, setInputValue] = useState<string>(initialValue);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
 		setInputValue(event.target.value.toUpperCase());
 
 	// one's complement
-	const toUnsignedDec = (hex: any) => parseInt(hex, 16);
+	const toUnsignedDec = (hex: string) => parseInt(hex, 16);
 
 	// two's complement
-	const toSignedDec = (hex: any) => {
+	const toSignedDec = (hex: string) => {
 		const unSignedDec = parseInt(hex, 16);
-		const bitLength = hex.toString().length * 4; // bit
-
+		const bitLength = hex.toString().length * 4; // 0, 4, 8, 12, 16...
+		const bitLengthComp = bitLength + (bitLength % 8); // 0, 8, 16, 24...
 		// 8, 16, 24bit かつ 最上位bitが1の場合
-		if (
-			bitLength + (bitLength % 8) <= 24 &&
-			unSignedDec >>> (bitLength - 1) == 1
-		) {
-			return unSignedDec - 2 ** bitLength;
+		if (bitLengthComp <= 24 && unSignedDec >>> (bitLengthComp - 1) == 1) {
+			return unSignedDec - 2 ** bitLengthComp;
 		}
 		// 8, 16, 24bit かつ 最上位bitが0の場合
-		else if (
-			(bitLength == 8 || bitLength == 16 || bitLength == 24) &&
-			unSignedDec >>> (bitLength - 1) == 0
-		) {
+		else if (bitLengthComp <= 24 && unSignedDec >>> (bitLengthComp - 1) == 0) {
 			return unSignedDec;
 		}
 		// 32bit の場合
-		else if (bitLength == 32) {
+		else if (bitLengthComp == 32) {
 			return unSignedDec >> 0;
 		}
 		// その他: 8, 16, 24, 32bit以外の場合
@@ -59,7 +54,7 @@ export const HexConvert_V = () => {
 		}
 	};
 
-	const showBitLength = (hex: any) => {
+	const showBitLength = (hex: string) => {
 		const bitLength = hex.toString().length * 4;
 		if (bitLength <= 32) {
 			return Number(bitLength) + Number(bitLength % 8);
@@ -70,15 +65,17 @@ export const HexConvert_V = () => {
 		}
 	};
 
-	const isError = (hex: any) => {
+	const isError = (hex: string) => {
 		// 0, 0.5, 1, 1.5... byte
 		const byteLength = hex.toString().length / 2;
 		// over 4byte is Error
 		return byteLength > 4;
 	};
 
-	const toBin = (hex: any) => parseInt(hex, 16).toString(2);
-
+	const toBin = (hex: string) => {
+		const bitLength = hex.toString().length * 4;
+		return hex ? "0".repeat(bitLength % 8) + parseInt(hex, 16).toString(2) : "";
+	};
 	return (
 		<Box fontSize={"2xl"}>
 			<VStack>
