@@ -14,6 +14,7 @@ import {
 	Select,
 	Spacer,
 	Text,
+	Textarea,
 	VStack,
 } from "@chakra-ui/react";
 import { stringify } from "querystring";
@@ -25,24 +26,25 @@ export const HexConvert_V = () => {
 	const initialValue = "";
 	const [inputValue, setInputValue] = useState<string>(initialValue);
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-		setInputValue(event.target.value.toUpperCase());
-
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const regex = /[^0-9a-fA-F]/gm;
+		setInputValue(event.target.value.replaceAll(regex, "").toUpperCase());
+	};
 	// one's complement
-	const toUnsignedDec = (hex: string) => parseInt(hex, 16);
+	const toUnsignedDec = (hex: string) => (hex ? parseInt(hex, 16) : "");
 
 	// two's complement
 	const toSignedDec = (hex: string) => {
 		const unSignedDec = parseInt(hex, 16);
-		const bitLength = hex.toString().length * 4; // 0, 4, 8, 12, 16...
+		const bitLength = hex.length * 4; // 0, 4, 8, 12, 16...
 		const bitLengthComp = bitLength + (bitLength % 8); // 0, 8, 16, 24...
 		// 8, 16, 24bit かつ 最上位bitが1の場合
 		if (bitLengthComp <= 24 && unSignedDec >>> (bitLengthComp - 1) == 1) {
-			return unSignedDec - 2 ** bitLengthComp;
+			return hex ? unSignedDec - 2 ** bitLengthComp : "";
 		}
 		// 8, 16, 24bit かつ 最上位bitが0の場合
 		else if (bitLengthComp <= 24 && unSignedDec >>> (bitLengthComp - 1) == 0) {
-			return unSignedDec;
+			return hex ? unSignedDec : "";
 		}
 		// 32bit の場合
 		else if (bitLengthComp == 32) {
@@ -73,8 +75,11 @@ export const HexConvert_V = () => {
 	};
 
 	const toBin = (hex: string) => {
-		const bitLength = hex.toString().length * 4;
-		return hex ? "0".repeat(bitLength % 8) + parseInt(hex, 16).toString(2) : "";
+		const bitLength = hex.length * 4;
+		const bin = parseInt(hex, 16).toString(2);
+		return hex
+			? "0".repeat(bitLength + (bitLength % 8) - bin.length) + bin
+			: "";
 	};
 	return (
 		<Box fontSize={"2xl"}>
@@ -123,6 +128,10 @@ export const HexConvert_V = () => {
 							width={"490px"}
 							fontSize={"2xl"}
 							type="alphanumeric"
+							required
+							pattern="[0-9a-fA-F]"
+							// isRequired={k}
+							title="0-9,A-F"
 							placeholder="FF"
 							value={inputValue}
 							onChange={handleChange}
@@ -146,23 +155,28 @@ export const HexConvert_V = () => {
 					</Flex>
 					{/* <Box width={"100px"} /> */}
 					<Spacer />
-					<InputGroup size={"lg"} width={"490px"}>
-						<Input
-							htmlSize={30}
-							width={"490px"}
-							placeholder="1111"
-							value={toBin(inputValue)}
-							fontSize={"2xl"}
-							isReadOnly={true}
-							bg={"green.100"}
-						/>
-						<InputRightElement
+					{/* <InputGroup size={"lg"} width={"490px"} height={"96px"}> */}
+					<Textarea
+						htmlSize={30}
+						isFullWidth="false"
+						width="490px"
+						height="96px"
+						type="number"
+						white-space="normal"
+						placeholder="11111111"
+						overflow-wrap="anywhere"
+						value={toBin(inputValue)}
+						fontSize={"2xl"}
+						isReadOnly={true}
+						bg={"green.100"}
+					/>
+					{/* <InputRightElement
 							pointerEvents="none"
 							fontSize={"sm"}
 							m={"1.5"}
 							children="(2)"
 						/>
-					</InputGroup>
+					</InputGroup> */}
 				</Flex>
 				{/* unsignedDEC */}
 				<Flex width={"640px"}>
@@ -205,7 +219,7 @@ export const HexConvert_V = () => {
 							width={"490px"}
 							// type="number"
 							fontSize={"2xl"}
-							placeholder="255"
+							placeholder="-1"
 							value={toSignedDec(inputValue)}
 							isReadOnly={true}
 							bg={"green.100"}
