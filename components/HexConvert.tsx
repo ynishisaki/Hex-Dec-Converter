@@ -22,7 +22,7 @@ import React, { FC } from "react";
 import { useState } from "react";
 import { CgMathEqual } from "react-icons/cg";
 
-export const HexConvert_V = () => {
+export const HexConvert = () => {
 	const initialValue = "";
 	const [inputValue, setInputValue] = useState<string>(initialValue);
 
@@ -146,7 +146,6 @@ export const HexConvert_V = () => {
 						/>
 					</InputGroup>
 				</Flex>
-
 				{/* output */}
 				{/* BIN */}
 				<Flex width={"640px"}>
@@ -155,28 +154,27 @@ export const HexConvert_V = () => {
 					</Flex>
 					{/* <Box width={"100px"} /> */}
 					<Spacer />
-					{/* <InputGroup size={"lg"} width={"490px"} height={"96px"}> */}
-					<Textarea
-						htmlSize={30}
-						isFullWidth="false"
-						width="490px"
-						height="96px"
-						type="number"
-						white-space="normal"
-						placeholder="11111111"
-						overflow-wrap="anywhere"
-						value={toBin(inputValue)}
-						fontSize={"2xl"}
-						isReadOnly={true}
-						bg={"green.100"}
-					/>
-					{/* <InputRightElement
+					<InputGroup size={"lg"} width={"490px"}>
+						<Input
+							htmlSize={30}
+							isFullWidth="false"
+							width="490px"
+							// height="96px"
+							type="number"
+							white-space="normal"
+							placeholder="11111111"
+							overflow-wrap="break-word"
+							value={toBin(inputValue)}
+							fontSize={"2xl"}
+							isReadOnly={true}
+							bg={"green.100"}></Input>
+						<InputRightElement
 							pointerEvents="none"
 							fontSize={"sm"}
 							m={"1.5"}
 							children="(2)"
 						/>
-					</InputGroup> */}
+					</InputGroup>
 				</Flex>
 				{/* unsignedDEC */}
 				<Flex width={"640px"}>
@@ -190,7 +188,6 @@ export const HexConvert_V = () => {
 						<Input
 							htmlSize={30}
 							width={"490px"}
-							// type="number"
 							fontSize={"2xl"}
 							placeholder="255"
 							value={toUnsignedDec(inputValue)}
@@ -217,7 +214,6 @@ export const HexConvert_V = () => {
 						<Input
 							htmlSize={30}
 							width={"490px"}
-							// type="number"
 							fontSize={"2xl"}
 							placeholder="-1"
 							value={toSignedDec(inputValue)}
