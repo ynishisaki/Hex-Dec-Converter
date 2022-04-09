@@ -161,7 +161,32 @@ export const UnSignedConvert = () => {
 						/>
 					</InputGroup>
 				</Flex>
-
+				{/* signedDEC */}
+				<Flex width={"640px"}>
+					<Flex alignItems={"center"} width={"50px"}>
+						DEC
+					</Flex>
+					<Flex alignItems={"center"} width={"100px"} fontSize={"lg"} ml={3}>
+						signed
+					</Flex>
+					<InputGroup size={"lg"} width={"490px"}>
+						<Input
+							htmlSize={30}
+							width={"490px"}
+							fontSize={"2xl"}
+							placeholder="-1"
+							value={inputValue}
+							// isReadOnly={true}
+							// bg={"green.100"}
+						/>
+						<InputRightElement
+							pointerEvents="none"
+							fontSize={"sm"}
+							m={"1.5"}
+							children="(10)"
+						/>
+					</InputGroup>
+				</Flex>
 				{/* output */}
 				{/* BIN */}
 				<Flex width={"640px"}>
@@ -213,33 +238,6 @@ export const UnSignedConvert = () => {
 						/>
 					</InputGroup>
 				</Flex>
-
-				{/* signedDEC */}
-				{/* <Flex width={"640px"}>
-					<Flex alignItems={"center"} width={"50px"}>
-						DEC
-					</Flex>
-					<Flex alignItems={"center"} width={"100px"} fontSize={"lg"} ml={3}>
-						signed
-					</Flex>
-					<InputGroup size={"lg"} width={"490px"}>
-						<Input
-							htmlSize={30}
-							width={"490px"}
-							fontSize={"2xl"}
-							placeholder="-1"
-							value={toSignedDec(inputValue)}
-							isReadOnly={true}
-							bg={"green.100"}
-						/>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(10)"
-						/>
-					</InputGroup>
-				</Flex> */}
 			</VStack>
 		</Box>
 	);

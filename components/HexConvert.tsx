@@ -27,7 +27,7 @@ export const HexConvert = () => {
 	const [inputValue, setInputValue] = useState<string>(initialValue);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const regex = /[^0-9a-fA-F]/gm;
+		const regex = /[^0-9a-fA-F]{1,8}/;
 		setInputValue(event.target.value.replaceAll(regex, "").toUpperCase());
 	};
 	// one's complement
