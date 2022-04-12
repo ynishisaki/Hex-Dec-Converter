@@ -27,8 +27,10 @@ export const HexConvert = () => {
 	const [inputValue, setInputValue] = useState<string>(initialValue);
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const regex = /[^0-9a-fA-F]{1,8}/;
-		setInputValue(event.target.value.replaceAll(regex, "").toUpperCase());
+		const regex = /[^0-9a-fA-F]/g;
+		setInputValue(
+			event.target.value.replaceAll(regex, "").slice(0, 8).toUpperCase()
+		);
 	};
 	// one's complement
 	const toUnsignedDec = (hex: string) => (hex ? parseInt(hex, 16) : "");
@@ -129,8 +131,6 @@ export const HexConvert = () => {
 							fontSize={"2xl"}
 							type="alphanumeric"
 							required
-							pattern="[0-9a-fA-F]"
-							// isRequired={k}
 							title="0-9,A-F"
 							placeholder="FF"
 							value={inputValue}

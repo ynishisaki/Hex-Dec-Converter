@@ -2,12 +2,9 @@ import {
 	Box,
 	Button,
 	Center,
-	HStack,
 	VStack,
-	Icon,
 	Input,
 	InputGroup,
-	InputRightAddon,
 	InputRightElement,
 	Spacer,
 	Text,
@@ -16,14 +13,28 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
-import { CgMathEqual } from "react-icons/cg";
 
 export const UnSignedConvert = () => {
 	const initialValue = "";
-	const [inputValue, setInputValue] = useState<number | string>(initialValue);
+	const [inputUnsignedValue, setInputUnsignedValue] = useState<number | string>(
+		initialValue
+	);
+	const [inputSignedValue, setInputSignedValue] = useState<number | string>(
+		initialValue
+	);
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) =>
-		setInputValue(event.target.value.toUpperCase());
+	const handleUnsignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const regex = /[^0-9]/g;
+		setInputUnsignedValue(
+			event.target.value.replaceAll(regex, "").slice(0, 8).toUpperCase()
+		);
+	};
+	const handleSignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const regex = /^[-?[^0-9]]/g;
+		setInputSignedValue(
+			event.target.value.replaceAll(regex, "").slice(0, 8).toUpperCase()
+		);
+	};
 
 	// two's complement
 	const toHex = (dec: number | string) => {
@@ -96,7 +107,8 @@ export const UnSignedConvert = () => {
 		return hex ? parseInt(hex, 16).toString(2) : "";
 	};
 
-	const isError = inputValue < -2147483648 || inputValue > 2147483647;
+	const isError =
+		inputUnsignedValue < -2147483648 || inputUnsignedValue > 2147483647;
 
 	return (
 		<Box fontSize={"2xl"}>
@@ -127,10 +139,12 @@ export const UnSignedConvert = () => {
 							mx={4}
 							// color={isError(inputValue) ? "tomato" : ""}
 						>
-							{showBitLength(inputValue) + "bit"}
+							{showBitLength(inputUnsignedValue) + "bit"}
 						</Center>
 						<Spacer />
-						<Button size="lg" onClick={() => setInputValue(initialValue)}>
+						<Button
+							size="lg"
+							onClick={() => setInputUnsignedValue(initialValue)}>
 							clear
 						</Button>
 					</Flex>
@@ -149,8 +163,8 @@ export const UnSignedConvert = () => {
 							width={"490px"}
 							fontSize={"2xl"}
 							placeholder="255"
-							value={inputValue}
-							onChange={handleChange}
+							value={inputUnsignedValue}
+							onChange={handleUnsignedChange}
 							// isInvalid={isError(inputValue)}
 						/>
 						<InputRightElement
@@ -175,7 +189,8 @@ export const UnSignedConvert = () => {
 							width={"490px"}
 							fontSize={"2xl"}
 							placeholder="-1"
-							value={inputValue}
+							value={inputSignedValue}
+							onChange={handleSignedChange}
 							// isReadOnly={true}
 							// bg={"green.100"}
 						/>
@@ -202,7 +217,7 @@ export const UnSignedConvert = () => {
 							white-space="normal"
 							placeholder="11111111"
 							overflow-wrap="break-word"
-							value={toBin(inputValue)}
+							value={toBin(inputUnsignedValue)}
 							fontSize={"2xl"}
 							isReadOnly={true}
 							bg={"green.100"}></Input>
@@ -226,7 +241,7 @@ export const UnSignedConvert = () => {
 							width={"490px"}
 							fontSize={"2xl"}
 							placeholder="FF"
-							value={toHex(inputValue)}
+							value={toHex(inputUnsignedValue)}
 							isReadOnly={true}
 							bg={"green.100"}
 						/>
