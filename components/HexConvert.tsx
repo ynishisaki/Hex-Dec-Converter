@@ -1,26 +1,16 @@
 import {
 	Box,
 	Button,
-	ButtonProps,
 	Center,
 	Flex,
-	HStack,
-	Icon,
 	Input,
 	InputGroup,
-	InputGroupProps,
-	InputRightAddon,
 	InputRightElement,
 	Select,
 	Spacer,
-	Text,
-	Textarea,
 	VStack,
 } from "@chakra-ui/react";
-import { stringify } from "querystring";
-import React, { FC } from "react";
 import { useState } from "react";
-import { CgMathEqual } from "react-icons/cg";
 
 export const HexConvert = () => {
 	const initialValue = "";
@@ -130,8 +120,6 @@ export const HexConvert = () => {
 							width={"490px"}
 							fontSize={"2xl"}
 							type="alphanumeric"
-							required
-							title="0-9,A-F"
 							placeholder="FF"
 							value={inputValue}
 							onChange={handleChange}

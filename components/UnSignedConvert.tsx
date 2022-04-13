@@ -30,10 +30,16 @@ export const UnSignedConvert = () => {
 		);
 	};
 	const handleSignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const regex = /^[-?[^0-9]]/g;
-		setInputSignedValue(
-			event.target.value.replaceAll(regex, "").slice(0, 8).toUpperCase()
-		);
+		// const regex = /[^-+\d+]/g;
+		const str = event.target.value;
+		const regex = /\-?[0-9]*/g;
+		const matches_array = regex.exec(str);
+		if (matches_array) {
+			setInputSignedValue(matches_array[0]);
+		} else {
+			setInputSignedValue("nan");
+		}
+		// event.target.value.replaceAll(regex, "").slice(0, 8).toUpperCase()
 	};
 
 	// two's complement
@@ -144,12 +150,14 @@ export const UnSignedConvert = () => {
 						<Spacer />
 						<Button
 							size="lg"
-							onClick={() => setInputUnsignedValue(initialValue)}>
+							onClick={() => {
+								setInputUnsignedValue(initialValue);
+								setInputSignedValue(initialValue);
+							}}>
 							clear
 						</Button>
 					</Flex>
 				</Flex>
-
 				<Flex width={"640px"}>
 					<Flex alignItems={"center"} width={"50px"}>
 						DEC
@@ -165,6 +173,8 @@ export const UnSignedConvert = () => {
 							placeholder="255"
 							value={inputUnsignedValue}
 							onChange={handleUnsignedChange}
+							isReadOnly={inputSignedValue}
+							bg={inputSignedValue && "green.100"}
 							// isInvalid={isError(inputValue)}
 						/>
 						<InputRightElement
@@ -191,8 +201,8 @@ export const UnSignedConvert = () => {
 							placeholder="-1"
 							value={inputSignedValue}
 							onChange={handleSignedChange}
-							// isReadOnly={true}
-							// bg={"green.100"}
+							isReadOnly={inputUnsignedValue}
+							bg={inputUnsignedValue && "green.100"}
 						/>
 						<InputRightElement
 							pointerEvents="none"
