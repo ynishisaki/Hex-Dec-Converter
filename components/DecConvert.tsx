@@ -14,7 +14,7 @@ import {
 import React from "react";
 import { useState } from "react";
 
-export const UnSignedConvert = () => {
+export const DecConvert = () => {
 	const initialValue = "";
 	const [inputUnsignedValue, setInputUnsignedValue] = useState<number | string>(
 		initialValue
@@ -26,20 +26,12 @@ export const UnSignedConvert = () => {
 	const handleUnsignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const regex = /[^0-9]/g;
 		setInputUnsignedValue(
-			event.target.value.replaceAll(regex, "").slice(0, 8).toUpperCase()
+			event.target.value.replaceAll(regex, "").slice(0, 10).toUpperCase()
 		);
 	};
 	const handleSignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		// const regex = /[^-+\d+]/g;
-		const str = event.target.value;
 		const regex = /\-?[0-9]*/g;
-		const matches_array = regex.exec(str);
-		if (matches_array) {
-			setInputSignedValue(matches_array[0]);
-		} else {
-			setInputSignedValue("nan");
-		}
-		// event.target.value.replaceAll(regex, "").slice(0, 8).toUpperCase()
+		setInputSignedValue(regex.exec(event.target.value)[0]);
 	};
 
 	// two's complement
@@ -93,34 +85,55 @@ export const UnSignedConvert = () => {
 		}
 	};
 
-	const showBitLength = (dec: number | string) => {
+	const toBin = (hex: any) => {
+		const bitLength = hex.length * 4;
+		const bin = parseInt(hex, 16).toString(2);
+		return hex
+			? "0".repeat(bitLength + (bitLength % 8) - bin.length) + bin
+			: "";
+		// return hex ? parseInt(hex, 16).toString(2) : "";
+	};
+
+	const showBitLengthUnsigned = (dec: number | string) => {
 		if (dec == 0) {
-			return 0 + "bit";
-		} else if (dec >= -128 && dec <= 127) {
-			return "8bit";
-		} else if (dec >= -32768 && dec <= 32767) {
-			return "16bit";
-		} else if (dec >= -8388608 && dec <= 8388607) {
-			return "24bit";
-		} else if (dec >= -2147483648 && dec <= 2147483647) {
-			return "32bit";
+			return 0;
+		} else if (dec < 2 ** 8) {
+			return 8;
+		} else if (dec < 2 ** 16) {
+			return 16;
+		} else if (dec < 2 ** 24) {
+			return 24;
+		} else if (dec < 2 ** 32) {
+			return 32;
 		} else {
-			return "Invalid:>32bit";
+			return ">32";
+		}
+	};
+	const showBitLengthSigned = (dec: number | string) => {
+		if (dec == 0) {
+			return 0;
+		} else if (dec >= -128 && dec <= 127) {
+			return 8;
+		} else if (dec >= -32768 && dec <= 32767) {
+			return 16;
+		} else if (dec >= -8388608 && dec <= 8388607) {
+			return 24;
+		} else if (dec >= -2147483648 && dec <= 2147483647) {
+			return 32;
+		} else {
+			return ">32";
 		}
 	};
 
-	const toBin = (hex: any) => {
-		return hex ? parseInt(hex, 16).toString(2) : "";
-	};
-
-	const isError =
+	const isErrorUnsigned =
 		inputUnsignedValue < -2147483648 || inputUnsignedValue > 2147483647;
+	const isErrorSigned = inputSignedValue >= 2 ** 32;
 
 	return (
 		<Box fontSize={"2xl"}>
 			<VStack>
 				{/* selecter and button */}
-				<Flex width={"640px"}>
+				{/* <Flex width={"640px"}>
 					<Spacer />
 					<Flex width={"490px"}>
 						<Center fontSize={"xl"} width={"auto"} mx={4}>
@@ -133,7 +146,7 @@ export const UnSignedConvert = () => {
 						</Select>
 						<Spacer />
 					</Flex>
-				</Flex>
+				</Flex> */}
 				{/* input */}
 				{/* unsignedDEC */}
 				<Flex width={"640px"}>
@@ -143,9 +156,10 @@ export const UnSignedConvert = () => {
 							fontSize={"xl"}
 							width={"auto"}
 							mx={4}
-							// color={isError(inputValue) ? "tomato" : ""}
-						>
-							{showBitLength(inputUnsignedValue) + "bit"}
+							color={isErrorUnsigned && isErrorSigned ? "tomato" : ""}>
+							{inputUnsignedValue
+								? showBitLengthUnsigned(inputUnsignedValue) + "bit"
+								: showBitLengthSigned(inputSignedValue) + "bit"}
 						</Center>
 						<Spacer />
 						<Button
@@ -175,7 +189,7 @@ export const UnSignedConvert = () => {
 							onChange={handleUnsignedChange}
 							isReadOnly={inputSignedValue}
 							bg={inputSignedValue && "green.100"}
-							// isInvalid={isError(inputValue)}
+							isInvalid={isErrorUnsigned}
 						/>
 						<InputRightElement
 							pointerEvents="none"
@@ -203,6 +217,7 @@ export const UnSignedConvert = () => {
 							onChange={handleSignedChange}
 							isReadOnly={inputUnsignedValue}
 							bg={inputUnsignedValue && "green.100"}
+							isInvalid={isErrorSigned}
 						/>
 						<InputRightElement
 							pointerEvents="none"
@@ -227,7 +242,7 @@ export const UnSignedConvert = () => {
 							white-space="normal"
 							placeholder="11111111"
 							overflow-wrap="break-word"
-							value={toBin(inputUnsignedValue)}
+							value={toBin(toHex(inputUnsignedValue || inputSignedValue))}
 							fontSize={"2xl"}
 							isReadOnly={true}
 							bg={"green.100"}></Input>
@@ -251,7 +266,7 @@ export const UnSignedConvert = () => {
 							width={"490px"}
 							fontSize={"2xl"}
 							placeholder="FF"
-							value={toHex(inputUnsignedValue)}
+							value={toHex(inputUnsignedValue || inputSignedValue)}
 							isReadOnly={true}
 							bg={"green.100"}
 						/>

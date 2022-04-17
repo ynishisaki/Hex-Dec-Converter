@@ -6,7 +6,7 @@ import { ToSignedDec } from "../components/ToSignedDec";
 import { ToSignedHex } from "../components/ToSignedHex";
 import { ToUnsignedDec } from "../components/ToUnsignedDec";
 import { ToUnsignedHex } from "../components/ToUnsignedHex";
-import { UnSignedConvert } from "../components/UnSignedConvert";
+import { DecConvert } from "../components/DecConvert";
 import { HexConvert } from "../components/HexConvert";
 
 const Home: NextPage = () => {
@@ -19,25 +19,8 @@ const Home: NextPage = () => {
 			</Head>
 			<main>
 				<VStack spacing={10}>
-					{/* <ToUnsignedDec></ToUnsignedDec>
-					<ToSignedDec></ToSignedDec>
-					<ToUnsignedHex></ToUnsignedHex>
-					<ToSignedHex></ToSignedHex> */}
-					{/* <HStack>
-						<Text fontSize={"xl"}>precision</Text>
-						<Select
-							size={"lg"}
-							width="auto"
-							// placeholder="Select option"
-						>
-							<option value="auto">Auto</option>
-							<option value="8bit">8 bit</option>
-							<option value="16bit">16 bit</option>
-						</Select>
-					</HStack> */}
-
 					<HexConvert />
-					<UnSignedConvert />
+					<DecConvert />
 				</VStack>
 			</main>
 

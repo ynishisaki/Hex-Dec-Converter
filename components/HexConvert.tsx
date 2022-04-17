@@ -77,7 +77,7 @@ export const HexConvert = () => {
 		<Box fontSize={"2xl"}>
 			<VStack>
 				{/* selecter and button */}
-				<Flex width={"640px"}>
+				{/* <Flex width={"640px"}>
 					<Spacer />
 					<Flex width={"490px"}>
 						<Center fontSize={"xl"} width={"auto"} mx={4}>
@@ -90,7 +90,7 @@ export const HexConvert = () => {
 						</Select>
 						<Spacer />
 					</Flex>
-				</Flex>
+				</Flex> */}
 				{/* input */}
 				{/* HEX */}
 				<Flex width={"640px"}>
