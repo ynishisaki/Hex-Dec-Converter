@@ -38,7 +38,9 @@ export const DecConvert = () => {
 	const toHex = (dec: number | string) => {
 		// positive numbebr
 		if (dec >= 0) {
-			return dec ? Number(dec).toString(16).toUpperCase() : "";
+			const hex = Number(dec).toString(16).toUpperCase();
+			const byteLength = hex.length + (hex.length % 2); // 1, 2, 3, 4, 5
+			return dec ? "0".repeat(byteLength - hex.length) + hex : "";
 		}
 		// negative number
 		// 8bit
@@ -91,7 +93,6 @@ export const DecConvert = () => {
 		return hex
 			? "0".repeat(bitLength + (bitLength % 8) - bin.length) + bin
 			: "";
-		// return hex ? parseInt(hex, 16).toString(2) : "";
 	};
 
 	const showBitLengthUnsigned = (dec: number | string) => {
