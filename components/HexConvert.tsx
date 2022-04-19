@@ -124,14 +124,10 @@ export const HexConvert = () => {
 							value={inputValue}
 							onChange={handleChange}
 							isInvalid={isError(inputValue)}
-							// borderColor={"green.100"}
 						/>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(16)"
-						/>
+						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+							<>(16)</>
+						</InputRightElement>
 					</InputGroup>
 				</Flex>
 				{/* output */}
@@ -145,9 +141,7 @@ export const HexConvert = () => {
 					<InputGroup size={"lg"} width={"490px"}>
 						<Input
 							htmlSize={30}
-							isFullWidth="false"
 							width="490px"
-							// height="96px"
 							type="number"
 							white-space="normal"
 							placeholder="11111111"
@@ -155,13 +149,11 @@ export const HexConvert = () => {
 							value={toBin(inputValue)}
 							fontSize={"2xl"}
 							isReadOnly={true}
-							bg={"green.100"}></Input>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(2)"
+							bg={"green.100"}
 						/>
+						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+							<>(2)</>
+						</InputRightElement>
 					</InputGroup>
 				</Flex>
 				{/* unsignedDEC */}
@@ -182,12 +174,9 @@ export const HexConvert = () => {
 							isReadOnly={true}
 							bg={"green.100"}
 						/>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(10)"
-						/>
+						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+							<>(10)</>
+						</InputRightElement>
 					</InputGroup>
 				</Flex>
 				{/* signedDEC */}
@@ -208,12 +197,9 @@ export const HexConvert = () => {
 							isReadOnly={true}
 							bg={"green.100"}
 						/>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(10)"
-						/>
+						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+							<>(10)</>
+						</InputRightElement>
 					</InputGroup>
 				</Flex>
 			</VStack>

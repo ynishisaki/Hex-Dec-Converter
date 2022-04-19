@@ -31,11 +31,12 @@ export const DecConvert = () => {
 	};
 	const handleSignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const regex = /\-?[0-9]*/g;
-		setInputSignedValue(regex.exec(event.target.value)[0]);
+		setInputSignedValue(event.target.value.match(regex)![0]);
 	};
 
 	// two's complement
-	const toHex = (dec: number | string) => {
+	const toHex = (decimal: number | string) => {
+		let dec = Number(decimal);
 		// positive numbebr
 		if (dec >= 0) {
 			const hex = Number(dec).toString(16).toUpperCase();
@@ -188,16 +189,13 @@ export const DecConvert = () => {
 							placeholder="255"
 							value={inputUnsignedValue}
 							onChange={handleUnsignedChange}
-							isReadOnly={inputSignedValue}
-							bg={inputSignedValue && "green.100"}
+							isReadOnly={inputSignedValue ? true : false}
+							bg={inputSignedValue ? "green.100" : undefined}
 							isInvalid={isErrorUnsigned}
 						/>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(10)"
-						/>
+						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+							<>(10)</>
+						</InputRightElement>
 					</InputGroup>
 				</Flex>
 				{/* signedDEC */}
@@ -216,16 +214,13 @@ export const DecConvert = () => {
 							placeholder="-1"
 							value={inputSignedValue}
 							onChange={handleSignedChange}
-							isReadOnly={inputUnsignedValue}
-							bg={inputUnsignedValue && "green.100"}
+							isReadOnly={inputUnsignedValue ? true : false}
+							bg={inputUnsignedValue ? "green.100" : undefined}
 							isInvalid={isErrorSigned}
 						/>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(10)"
-						/>
+						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+							<>(10)</>
+						</InputRightElement>
 					</InputGroup>
 				</Flex>
 				{/* output */}
@@ -246,13 +241,11 @@ export const DecConvert = () => {
 							value={toBin(toHex(inputUnsignedValue || inputSignedValue))}
 							fontSize={"2xl"}
 							isReadOnly={true}
-							bg={"green.100"}></Input>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(2)"
+							bg={"green.100"}
 						/>
+						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+							<>(2)</>
+						</InputRightElement>
 					</InputGroup>
 				</Flex>
 				{/* HEX */}
@@ -271,12 +264,9 @@ export const DecConvert = () => {
 							isReadOnly={true}
 							bg={"green.100"}
 						/>
-						<InputRightElement
-							pointerEvents="none"
-							fontSize={"sm"}
-							m={"1.5"}
-							children="(16)"
-						/>
+						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+							<>(16)</>
+						</InputRightElement>
 					</InputGroup>
 				</Flex>
 			</VStack>
