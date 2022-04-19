@@ -19,16 +19,20 @@ const Home: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<main>
-				<Box layerStyle="base">
+				<Box layerStyle="body">
 					<VStack spacing={10}>
 						<HexConvert />
 						<DecConvert />
 					</VStack>
 				</Box>
 			</main>
-
-			<footer className={styles.footer}>
-				<Text>© 2022 monyo</Text>
+			<footer>
+				<Box
+					layerStyle="footer"
+					//className={styles.footer}
+				>
+					<Text>© 2022 monyo</Text>
+				</Box>
 			</footer>
 		</div>
 	);
