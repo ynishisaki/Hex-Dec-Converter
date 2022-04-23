@@ -6,7 +6,6 @@ import {
 	Input,
 	InputGroup,
 	InputRightElement,
-	Select,
 	Spacer,
 	VStack,
 } from "@chakra-ui/react";

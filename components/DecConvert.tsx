@@ -7,8 +7,6 @@ import {
 	InputGroup,
 	InputRightElement,
 	Spacer,
-	Text,
-	Select,
 	Flex,
 } from "@chakra-ui/react";
 import React from "react";
@@ -24,13 +22,15 @@ export const DecConvert = () => {
 	);
 
 	const handleUnsignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const regex = /[^0-9]/g;
-		setInputUnsignedValue(
-			event.target.value.replaceAll(regex, "").slice(0, 10).toUpperCase()
-		);
+		const regex = /[1-9][0-9]*/g;
+		if (event.target.value?.match(regex) !== null) {
+			setInputUnsignedValue(event.target.value?.match(regex)![0]);
+		} else {
+			setInputUnsignedValue("");
+		}
 	};
 	const handleSignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const regex = /\-?[0-9]*/g;
+		const regex = /\-?[0-9]*/;
 		setInputSignedValue(event.target.value.match(regex)![0]);
 	};
 
