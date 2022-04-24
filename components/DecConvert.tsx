@@ -30,8 +30,17 @@ export const DecConvert = () => {
 		}
 	};
 	const handleSignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const regex = /\-?[0-9]*/;
-		setInputSignedValue(event.target.value.match(regex)![0]);
+		let val = event.target.value;
+
+		const regex = new RegExp(".+-");
+		if (regex.test(val) == true) {
+			val = "-" + val.replace(/\-/g, ""); // ...-...
+		}
+		val = val.replace(/^\-0+/g, "-"); // -00...
+		val = val.replace(/^0+/g, ""); // 00...
+		val = val.replace(/[^-0-9]/g, "");
+
+		setInputSignedValue(val);
 	};
 
 	// two's complement
