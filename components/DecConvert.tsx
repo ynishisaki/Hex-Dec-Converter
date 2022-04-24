@@ -24,23 +24,27 @@ export const DecConvert = () => {
 	const handleUnsignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		let val = event.target.value;
 
-		val = val.replace(/^0+/g, ""); // 00...
-		val = val.replace(/[^0-9]/g, "");
+		val = val.replace(/[^0-9]/g, ""); // 0から9以外の文字を取り除く
+		val = val.replace(/^0+/g, ""); // 文字列の先頭の0を取り除く
 
 		setInputUnsignedValue(val);
 	};
 	const handleSignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		let val = event.target.value;
 
-		const regex = new RegExp(".+-");
-		if (regex.test(val) == true) {
-			val = "-" + val.replace(/\-/g, ""); // ...-...
-		}
-		val = val.replace(/^\-0+/g, "-"); // -00...
-		val = val.replace(/^0+/g, ""); // 00...
-		val = val.replace(/[^-0-9]/g, "");
+		val = val.replace(/[^-0-9]/g, ""); // -と0から9以外の文字を取り除く
+		val = val.replace(/^0+/g, ""); // 文字列の先頭の00...から0を取り除く
+		val = val.replace(/^\-0+/g, "-"); // 文字列の先頭部の-00...から0を取り除く
 
-		setInputSignedValue(val);
+		if (/^[^-].+-/.test(val) == true) {
+			val = val.replace(/\-/g, ""); // 文字列の途中の-を取り除く
+			setInputSignedValue(val);
+		} else if (/^\-*.+-/.test(val) == true) {
+			val = "-" + val.replace(/\-/g, ""); // 文字列の途中の-を取り除き、先頭の-を残す
+			setInputSignedValue(val);
+		} else {
+			setInputSignedValue(val);
+		}
 	};
 
 	// two's complement
