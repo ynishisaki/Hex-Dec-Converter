@@ -22,12 +22,12 @@ export const DecConvert = () => {
 	);
 
 	const handleUnsignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const regex = /[1-9][0-9]*/g;
-		if (event.target.value?.match(regex) !== null) {
-			setInputUnsignedValue(event.target.value?.match(regex)![0]);
-		} else {
-			setInputUnsignedValue("");
-		}
+		let val = event.target.value;
+
+		val = val.replace(/^0+/g, ""); // 00...
+		val = val.replace(/[^0-9]/g, "");
+
+		setInputUnsignedValue(val);
 	};
 	const handleSignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		let val = event.target.value;
@@ -46,54 +46,58 @@ export const DecConvert = () => {
 	// two's complement
 	const toHex = (decimal: number | string) => {
 		let dec = Number(decimal);
-		// positive numbebr
-		if (dec >= 0) {
-			const hex = Number(dec).toString(16).toUpperCase();
-			const byteLength = hex.length + (hex.length % 2); // 1, 2, 3, 4, 5
-			return dec ? "0".repeat(byteLength - hex.length) + hex : "";
-		}
-		// negative number
-		// 8bit
-		else if (dec >= -128) {
-			let dec_unsigned = 256 - Math.abs(dec);
-			return Number(dec_unsigned).toString(16).toUpperCase();
-		}
-		// 16bit
-		else if (dec >= -32768) {
-			let dec_unsigned = 65536 - Math.abs(dec);
-			return Number(dec_unsigned).toString(16).toUpperCase();
-		}
-		// 24bit
-		else if (dec >= -8388608) {
-			let dec_unsigned = 16777216 - Math.abs(dec);
-			return Number(dec_unsigned).toString(16).toUpperCase();
-		}
-		// 32bit
-		else if (dec >= -2147483648) {
-			let dec_unsigned = 4294967296 - Math.abs(dec);
-			return Number(dec_unsigned).toString(16).toUpperCase();
-		}
-		// 40bit
-		else if (dec >= -2147483648) {
-			let dec_unsigned = 1099511627774 - Math.abs(dec);
-			return Number(dec_unsigned).toString(16).toUpperCase();
-		}
-		// 48bit
-		else if (dec >= -2147483648) {
-			let dec_unsigned = 281474976710654 - Math.abs(dec);
-			return Number(dec_unsigned).toString(16).toUpperCase();
-		}
-		// 56bit
-		else if (dec >= -2147483648) {
-			let dec_unsigned = 72057594037927939 - Math.abs(dec);
-			return Number(dec_unsigned).toString(16).toUpperCase();
-		}
-		// 64bit
-		else if (dec >= -2147483648) {
-			let dec_unsigned = 18446744073709551999 - Math.abs(dec);
-			return Number(dec_unsigned).toString(16).toUpperCase();
+		if (isNaN(dec)) {
+			return "";
 		} else {
-			return "ERROR";
+			// positive numbebr
+			if (dec >= 0) {
+				const hex = Number(dec).toString(16).toUpperCase();
+				const byteLength = hex.length + (hex.length % 2); // 1, 2, 3, 4, 5
+				return dec ? "0".repeat(byteLength - hex.length) + hex : "";
+			}
+			// negative number
+			// 8bit
+			else if (dec >= -128) {
+				let dec_unsigned = 256 - Math.abs(dec);
+				return Number(dec_unsigned).toString(16).toUpperCase();
+			}
+			// 16bit
+			else if (dec >= -32768) {
+				let dec_unsigned = 65536 - Math.abs(dec);
+				return Number(dec_unsigned).toString(16).toUpperCase();
+			}
+			// 24bit
+			else if (dec >= -8388608) {
+				let dec_unsigned = 16777216 - Math.abs(dec);
+				return Number(dec_unsigned).toString(16).toUpperCase();
+			}
+			// 32bit
+			else if (dec >= -2147483648) {
+				let dec_unsigned = 4294967296 - Math.abs(dec);
+				return Number(dec_unsigned).toString(16).toUpperCase();
+			}
+			// 40bit
+			else if (dec >= -2147483648) {
+				let dec_unsigned = 1099511627774 - Math.abs(dec);
+				return Number(dec_unsigned).toString(16).toUpperCase();
+			}
+			// 48bit
+			else if (dec >= -2147483648) {
+				let dec_unsigned = 281474976710654 - Math.abs(dec);
+				return Number(dec_unsigned).toString(16).toUpperCase();
+			}
+			// 56bit
+			else if (dec >= -2147483648) {
+				let dec_unsigned = 72057594037927939 - Math.abs(dec);
+				return Number(dec_unsigned).toString(16).toUpperCase();
+			}
+			// 64bit
+			else if (dec >= -2147483648) {
+				let dec_unsigned = 18446744073709551999 - Math.abs(dec);
+				return Number(dec_unsigned).toString(16).toUpperCase();
+			} else {
+				return "";
+			}
 		}
 	};
 
@@ -120,19 +124,24 @@ export const DecConvert = () => {
 			return ">32";
 		}
 	};
-	const showBitLengthSigned = (dec: number | string) => {
-		if (dec == 0) {
-			return 0;
-		} else if (dec >= -128 && dec <= 127) {
-			return 8;
-		} else if (dec >= -32768 && dec <= 32767) {
-			return 16;
-		} else if (dec >= -8388608 && dec <= 8388607) {
-			return 24;
-		} else if (dec >= -2147483648 && dec <= 2147483647) {
-			return 32;
+	const showBitLengthSigned = (decimal: number | string) => {
+		let dec = Number(decimal);
+		if (isNaN(dec)) {
+			return "0";
 		} else {
-			return ">32";
+			if (dec == 0) {
+				return 0;
+			} else if (dec >= -128 && dec <= 127) {
+				return 8;
+			} else if (dec >= -32768 && dec <= 32767) {
+				return 16;
+			} else if (dec >= -8388608 && dec <= 8388607) {
+				return 24;
+			} else if (dec >= -2147483648 && dec <= 2147483647) {
+				return 32;
+			} else {
+				return ">32";
+			}
 		}
 	};
 

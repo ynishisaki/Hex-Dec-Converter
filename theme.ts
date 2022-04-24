@@ -3,32 +3,19 @@ import { extendTheme } from "@chakra-ui/react";
 export const theme = extendTheme({
 	components: {
 		Button: {
-			baseStyle: {
-				// fontWeight: "bold",
-			},
+			baseStyle: {},
 			defaultProps: {
 				colorScheme: "green",
-			},
-			_focus: {
-				// boxShadow: "None",
-				boxShadow: "0 0 2px 2px #eeeeee",
-			},
-			_active: {
-				boxShadow: "0 0 2px 2px #ff0000",
-				borderColor: "red",
 			},
 		},
 		Input: {
 			defaultProps: {
 				focusBorderColor: "green.400",
-				color: "red",
 			},
-			_hover: {},
 		},
 		Select: {
 			defaultProps: {
 				focusBorderColor: "green.400",
-				_hover: {},
 			},
 		},
 	},
