@@ -36,11 +36,10 @@ export const DecConvert = () => {
 		val = val.replace(/^[0]+/g, ""); // 文字列の先頭の00...から0を取り除く
 		val = val.replace(/^[-][0]+/g, "-"); // 文字列の先頭部の-00...から0を取り除く
 
-		if (/^[^-][.]*[-]/.test(val) == true) {
+		if (/^[^-][0-9]*[-]/.test(val) == true) {
 			val = val.replace(/[-]/g, ""); // 文字列の途中の-を取り除く
 			setInputSignedValue(val);
-		} else if (/^[-]+[.]*[-]/.test(val) == true) {
-			// } else if (/^[-]*[.]+[-]/.test(val) == true) {
+		} else if (/^[-]+[0-9]*[-]/.test(val) == true) {
 			val = "-" + val.replace(/[-]/g, ""); // 文字列の途中の-を取り除き、先頭の-を残す
 			setInputSignedValue(val);
 		} else {
@@ -131,18 +130,19 @@ export const DecConvert = () => {
 	};
 	const showBitLengthSigned = (decimal: number | string) => {
 		let dec = Number(decimal);
+		// if dec == "-"
 		if (isNaN(dec)) {
 			return "0";
 		} else {
 			if (dec == 0) {
 				return 0;
-			} else if (dec >= -128 && dec <= 127) {
+			} else if (dec >= -1 * 2 ** (8 - 1) && dec <= 2 ** (8 - 1) - 1) {
 				return 8;
-			} else if (dec >= -32768 && dec <= 32767) {
+			} else if (dec >= -1 * 2 ** (16 - 1) && dec <= 2 ** (16 - 1) - 1) {
 				return 16;
-			} else if (dec >= -8388608 && dec <= 8388607) {
+			} else if (dec >= -1 * 2 ** (24 - 1) && dec <= 2 ** (24 - 1) - 1) {
 				return 24;
-			} else if (dec >= -2147483648 && dec <= 2147483647) {
+			} else if (dec >= -1 * 2 ** (32 - 1) && dec <= 2 ** (32 - 1) - 1) {
 				return 32;
 			} else {
 				return ">32";
@@ -150,9 +150,9 @@ export const DecConvert = () => {
 		}
 	};
 
-	const isErrorUnsigned =
-		inputUnsignedValue < -2147483648 || inputUnsignedValue > 2147483647;
-	const isErrorSigned = inputSignedValue >= 2 ** 32;
+	const isErrorUnsigned = inputUnsignedValue >= 2 ** 32;
+	const isErrorSigned =
+		inputSignedValue < -2147483648 || inputSignedValue > 2147483647;
 
 	return (
 		<Box fontSize={"2xl"}>
@@ -181,7 +181,7 @@ export const DecConvert = () => {
 							fontSize={"xl"}
 							width={"auto"}
 							mx={4}
-							color={isErrorUnsigned && isErrorSigned ? "tomato" : ""}>
+							color={isErrorUnsigned || isErrorSigned ? "tomato" : ""}>
 							{inputUnsignedValue
 								? showBitLengthUnsigned(inputUnsignedValue) + "bit"
 								: showBitLengthSigned(inputSignedValue) + "bit"}
