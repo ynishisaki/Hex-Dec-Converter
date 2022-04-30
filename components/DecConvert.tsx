@@ -8,11 +8,28 @@ import {
 	InputRightElement,
 	Spacer,
 	Flex,
+	Select,
 } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 
 export const DecConvert = () => {
+	// select
+	const [selectedOption, setSelectedOption] = useState<String>("");
+
+	const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+		const value = event.target.value;
+		setSelectedOption(value);
+
+		const selectedMaxOfBitLength = value ? Number(value) : 32;
+		const selectedMaxOfByteLength = selectedMaxOfBitLength / 4;
+		//setInputValue(inputValue.slice(0, selectedMaxOfByteLength));
+	};
+
+	const selectedMaxOfBitLength = selectedOption ? Number(selectedOption) : 32;
+	const selectedMaxOfByteLength = selectedMaxOfBitLength / 4;
+
+	// input
 	const initialValue = "";
 	const [inputUnsignedValue, setInputUnsignedValue] = useState<number | string>(
 		initialValue
@@ -29,6 +46,7 @@ export const DecConvert = () => {
 
 		setInputUnsignedValue(val);
 	};
+
 	const handleSignedChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		let val = event.target.value;
 
@@ -47,7 +65,57 @@ export const DecConvert = () => {
 		}
 	};
 
+	const showBitLengthUnsigned = (dec: number | string) => {
+		if (dec == 0) {
+			return 0;
+		} else if (dec < 2 ** 8) {
+			return 8;
+		} else if (dec < 2 ** 16) {
+			return 16;
+		} else if (dec < 2 ** 24) {
+			return 24;
+		} else if (dec < 2 ** 32) {
+			return 32;
+		} else {
+			return ">32";
+		}
+	};
+
+	const showBitLengthSigned = (decimal: number | string) => {
+		let dec = Number(decimal);
+		// if dec == "-"
+		if (isNaN(dec)) {
+			return "0";
+		} else {
+			if (dec == 0) {
+				return 0;
+			} else if (dec >= -1 * 2 ** (8 - 1) && dec <= 2 ** (8 - 1) - 1) {
+				return 8;
+			} else if (dec >= -1 * 2 ** (16 - 1) && dec <= 2 ** (16 - 1) - 1) {
+				return 16;
+			} else if (dec >= -1 * 2 ** (24 - 1) && dec <= 2 ** (24 - 1) - 1) {
+				return 24;
+			} else if (dec >= -1 * 2 ** (32 - 1) && dec <= 2 ** (32 - 1) - 1) {
+				return 32;
+			} else {
+				return ">32";
+			}
+		}
+	};
+
+	const isErrorUnsigned = inputUnsignedValue >= 2 ** 32;
+	const isErrorSigned =
+		inputSignedValue < -2147483648 || inputSignedValue > 2147483647;
+
 	// two's complement
+	const toBin = (hex: any) => {
+		const bitLength = hex.length * 4;
+		const bin = parseInt(hex, 16).toString(2);
+		return hex
+			? "0".repeat(bitLength + (bitLength % 8) - bin.length) + bin
+			: "";
+	};
+
 	const toHex = (decimal: number | string) => {
 		let dec = Number(decimal);
 		if (isNaN(dec)) {
@@ -105,55 +173,6 @@ export const DecConvert = () => {
 		}
 	};
 
-	const toBin = (hex: any) => {
-		const bitLength = hex.length * 4;
-		const bin = parseInt(hex, 16).toString(2);
-		return hex
-			? "0".repeat(bitLength + (bitLength % 8) - bin.length) + bin
-			: "";
-	};
-
-	const showBitLengthUnsigned = (dec: number | string) => {
-		if (dec == 0) {
-			return 0;
-		} else if (dec < 2 ** 8) {
-			return 8;
-		} else if (dec < 2 ** 16) {
-			return 16;
-		} else if (dec < 2 ** 24) {
-			return 24;
-		} else if (dec < 2 ** 32) {
-			return 32;
-		} else {
-			return ">32";
-		}
-	};
-	const showBitLengthSigned = (decimal: number | string) => {
-		let dec = Number(decimal);
-		// if dec == "-"
-		if (isNaN(dec)) {
-			return "0";
-		} else {
-			if (dec == 0) {
-				return 0;
-			} else if (dec >= -1 * 2 ** (8 - 1) && dec <= 2 ** (8 - 1) - 1) {
-				return 8;
-			} else if (dec >= -1 * 2 ** (16 - 1) && dec <= 2 ** (16 - 1) - 1) {
-				return 16;
-			} else if (dec >= -1 * 2 ** (24 - 1) && dec <= 2 ** (24 - 1) - 1) {
-				return 24;
-			} else if (dec >= -1 * 2 ** (32 - 1) && dec <= 2 ** (32 - 1) - 1) {
-				return 32;
-			} else {
-				return ">32";
-			}
-		}
-	};
-
-	const isErrorUnsigned = inputUnsignedValue >= 2 ** 32;
-	const isErrorSigned =
-		inputSignedValue < -2147483648 || inputSignedValue > 2147483647;
-
 	return (
 		<Box fontSize={"2xl"}>
 			<VStack>
@@ -177,17 +196,30 @@ export const DecConvert = () => {
 				<Flex width={"640px"}>
 					<Spacer />
 					<Flex width={"490px"}>
-						<Center
-							fontSize={"xl"}
-							width={"auto"}
-							mx={4}
-							color={isErrorUnsigned || isErrorSigned ? "tomato" : ""}>
-							{inputUnsignedValue
-								? showBitLengthUnsigned(inputUnsignedValue) + "bit"
-								: showBitLengthSigned(inputSignedValue) + "bit"}
-						</Center>
+						{!selectedOption && (
+							<Center
+								fontSize={"xl"}
+								width={"auto"}
+								mx={4}
+								color={isErrorUnsigned || isErrorSigned ? "tomato" : ""}>
+								{inputUnsignedValue
+									? showBitLengthUnsigned(inputUnsignedValue) + "bit"
+									: showBitLengthSigned(inputSignedValue) + "bit"}
+							</Center>
+						)}
 						<Spacer />
+						<Center fontSize={"xl"} width={"auto"} mx={2}>
+							bit length :
+						</Center>
+						<Select size="lg" width="auto" onChange={selectChange}>
+							<option value="">Auto</option>
+							<option value="8">8bit</option>
+							<option value="16">16bit</option>
+							<option value="24">24bit</option>
+							<option value="32">32bit</option>
+						</Select>
 						<Button
+							ml="6"
 							size="lg"
 							onClick={() => {
 								setInputUnsignedValue(initialValue);
