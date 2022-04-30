@@ -115,12 +115,7 @@ export const HexConvert = () => {
 					<Spacer />
 					<Flex width={"490px"}>
 						{!selectedOption && (
-							<Center
-								fontSize={"xl"}
-								width={"auto"}
-								mx={4}
-								// color={isError(inputValue) ? "tomato" : ""}
-							>
+							<Center fontSize={"xl"} width={"auto"} mx={4}>
 								{showBitLength(inputValue) + "bit"}
 							</Center>
 						)}
@@ -128,7 +123,7 @@ export const HexConvert = () => {
 						<Center fontSize={"xl"} width={"auto"} mx={2}>
 							bit length :
 						</Center>
-						<Select size={"lg"} width="auto" onChange={selectChange}>
+						<Select size="lg" width="auto" onChange={selectChange}>
 							<option value="">Auto</option>
 							<option value="8">8bit</option>
 							<option value="16">16bit</option>
@@ -144,9 +139,7 @@ export const HexConvert = () => {
 					</Flex>
 				</Flex>
 				<Flex width={"640px"}>
-					<Flex alignItems={"center"} width={"50px"}>
-						HEX
-					</Flex>
+					<Flex layerStyle="showBaseNumber">HEX</Flex>
 					<Spacer />
 					<InputGroup size={"lg"} width={"490px"}>
 						<Input
@@ -167,10 +160,7 @@ export const HexConvert = () => {
 				{/* output */}
 				{/* BIN */}
 				<Flex width={"640px"}>
-					<Flex alignItems={"center"} width={"50px"}>
-						BIN
-					</Flex>
-					{/* <Box width={"100px"} /> */}
+					<Flex layerStyle="showBaseNumber">BIN</Flex>
 					<Spacer />
 					<InputGroup size={"lg"} width={"490px"}>
 						<Input
@@ -183,7 +173,7 @@ export const HexConvert = () => {
 							value={toBin(inputValue)}
 							fontSize={"2xl"}
 							isReadOnly={true}
-							bg={"green.100"}
+							bg={"green.50"}
 						/>
 						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
 							<>(2)</>
@@ -192,12 +182,8 @@ export const HexConvert = () => {
 				</Flex>
 				{/* unsignedDEC */}
 				<Flex width={"640px"}>
-					<Flex alignItems={"center"} width={"50px"}>
-						DEC
-					</Flex>
-					<Flex alignItems={"center"} width={"100px"} fontSize={"lg"} ml={3}>
-						unsigned
-					</Flex>
+					<Flex layerStyle="showBaseNumber">DEC</Flex>
+					<Flex layerStyle="showUnsignedOrSigned">unsigned</Flex>
 					<InputGroup size={"lg"} width={"490px"}>
 						<Input
 							htmlSize={30}
@@ -206,7 +192,7 @@ export const HexConvert = () => {
 							placeholder="255"
 							value={toUnsignedDec(inputValue)}
 							isReadOnly={true}
-							bg={"green.100"}
+							bg={"green.50"}
 						/>
 						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
 							<>(10)</>
@@ -215,12 +201,8 @@ export const HexConvert = () => {
 				</Flex>
 				{/* signedDEC */}
 				<Flex width={"640px"}>
-					<Flex alignItems={"center"} width={"50px"}>
-						DEC
-					</Flex>
-					<Flex alignItems={"center"} width={"100px"} fontSize={"lg"} ml={3}>
-						signed
-					</Flex>
+					<Flex layerStyle="showBaseNumber">DEC</Flex>
+					<Flex layerStyle="showUnsignedOrSigned">signed</Flex>
 					<InputGroup size={"lg"} width={"490px"}>
 						<Input
 							htmlSize={30}
@@ -229,7 +211,7 @@ export const HexConvert = () => {
 							placeholder="-1"
 							value={toSignedDec(inputValue)}
 							isReadOnly={true}
-							bg={"green.100"}
+							bg={"green.50"}
 						/>
 						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
 							<>(10)</>

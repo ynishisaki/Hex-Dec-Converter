@@ -20,17 +20,14 @@ const Home: NextPage = () => {
 			</Head>
 			<main>
 				<Box layerStyle="body">
-					<VStack spacing={10}>
+					<VStack spacing={20}>
 						<HexConvert />
 						<DecConvert />
 					</VStack>
 				</Box>
 			</main>
 			<footer>
-				<Box
-					layerStyle="footer"
-					//className={styles.footer}
-				>
+				<Box layerStyle="footer">
 					<Text>© 2022 monyo</Text>
 				</Box>
 			</footer>

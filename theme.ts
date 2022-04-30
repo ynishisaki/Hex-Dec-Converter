@@ -64,17 +64,6 @@ export const theme = extendTheme({
 			bgColor: "#f6f1eb",
 			zIndex: "banner", //1200
 		},
-		blogLogo: {
-			left: "calc(50vw - 80px)",
-			top: "5px",
-			position: "absolute",
-			width: "160px",
-			borderRadius: "10px",
-		},
-		blogTitle: {
-			left: "calc(50vw - 80px)",
-			position: "absolute",
-		},
 		footer: {
 			borderTop: "1px solid #eaeaea",
 			flexDirection: "column",
@@ -91,6 +80,16 @@ export const theme = extendTheme({
 			mb: "30px",
 			borderTop: "1px solid",
 			borderColor: "gray.300",
+		},
+		showBaseNumber: {
+			alignItems: "center",
+			width: "50px",
+		},
+		showUnsignedOrSigned: {
+			alignItems: "center",
+			width: "100px",
+			fontSize: "lg",
+			ml: 3,
 		},
 	},
 });
