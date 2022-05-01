@@ -15,6 +15,10 @@ const Home: NextPage = () => {
 					name="description"
 					content="Conversion tool between hexadecimal and decimal. It supports unsigned integers and signed integers."
 				/>
+				<meta
+					name="google-site-verification"
+					content="QCMAUI4zWwgmC1eVBN1F1WtdAIgZlYkqhl2Mj9X4mKA"
+				/>
 				<meta name="author" content="monyo"></meta>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
