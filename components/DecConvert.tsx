@@ -66,135 +66,143 @@ export const DecConvert = () => {
 	};
 
 	const showBitLengthUnsigned = (dec: number | string) => {
-		if (dec == 0) {
-			return 0;
-		} else if (dec < 2 ** 8) {
-			return 8;
-		} else if (dec < 2 ** 16) {
-			return 16;
-		} else if (dec < 2 ** 24) {
-			return 24;
-		} else if (dec < 2 ** 32) {
-			return 32;
-		} else {
-			return ">32";
+		// option is auto (selectedMaxOfBitLength == 32)
+		if (selectedOption == "") {
+			if (dec == 0) {
+				return 0;
+			} else if (dec < 2 ** 8) {
+				return 8;
+			} else if (dec < 2 ** 16) {
+				return 16;
+			} else if (dec < 2 ** 24) {
+				return 24;
+			} else if (dec < 2 ** 32) {
+				return 32;
+			} else {
+				return 32;
+			}
+		}
+		// option is selected
+		else {
+			return selectedMaxOfBitLength;
 		}
 	};
 
 	const showBitLengthSigned = (decimal: number | string) => {
 		let dec = Number(decimal);
-		// if dec == "-"
-		if (isNaN(dec)) {
-			return "0";
-		} else {
-			if (dec == 0) {
+		// option is auto (selectedMaxOfBitLength == 32)
+		if (selectedOption == "") {
+			// if dec == "-"
+			if (isNaN(dec)) {
 				return 0;
-			} else if (dec >= -1 * 2 ** (8 - 1) && dec <= 2 ** (8 - 1) - 1) {
-				return 8;
-			} else if (dec >= -1 * 2 ** (16 - 1) && dec <= 2 ** (16 - 1) - 1) {
-				return 16;
-			} else if (dec >= -1 * 2 ** (24 - 1) && dec <= 2 ** (24 - 1) - 1) {
-				return 24;
-			} else if (dec >= -1 * 2 ** (32 - 1) && dec <= 2 ** (32 - 1) - 1) {
-				return 32;
 			} else {
-				return ">32";
+				if (dec == 0) {
+					return 0;
+				} else if (dec >= -1 * 2 ** (8 - 1) && dec <= 2 ** (8 - 1) - 1) {
+					return 8;
+				} else if (dec >= -1 * 2 ** (16 - 1) && dec <= 2 ** (16 - 1) - 1) {
+					return 16;
+				} else if (dec >= -1 * 2 ** (24 - 1) && dec <= 2 ** (24 - 1) - 1) {
+					return 24;
+				} else if (dec >= -1 * 2 ** (32 - 1) && dec <= 2 ** (32 - 1) - 1) {
+					return 32;
+				} else {
+					return 32;
+				}
 			}
+		}
+		// option is selected
+		else {
+			return selectedMaxOfBitLength;
 		}
 	};
 
-	const isErrorUnsigned = inputUnsignedValue >= 2 ** 32;
+	const isErrorUnsigned =
+		// if bitLength == 0, then isErrorUnsigned == false
+		showBitLengthUnsigned(inputUnsignedValue)
+			? inputUnsignedValue >= 2 ** showBitLengthUnsigned(inputUnsignedValue)
+			: false;
 	const isErrorSigned =
-		inputSignedValue < -2147483648 || inputSignedValue > 2147483647;
-
-	// two's complement
-	const toBin = (hex: any) => {
-		const bitLength = hex.length * 4;
-		const bin = parseInt(hex, 16).toString(2);
-		return hex
-			? "0".repeat(bitLength + (bitLength % 8) - bin.length) + bin
-			: "";
-	};
-
+		// if bitLength == 0, then isErrorSigned == false
+		showBitLengthSigned(inputSignedValue)
+			? inputSignedValue <
+					-1 * 2 ** (showBitLengthSigned(inputSignedValue) - 1) ||
+			  inputSignedValue > 2 ** (showBitLengthSigned(inputSignedValue) - 1) - 1
+			: false;
+	console.log(isErrorSigned, showBitLengthSigned(inputSignedValue));
 	const toHex = (decimal: number | string) => {
 		let dec = Number(decimal);
 		if (isNaN(dec)) {
 			return "";
 		} else {
-			// positive numbebr
+			// positive number
 			if (dec >= 0) {
 				const hex = Number(dec).toString(16).toUpperCase();
-				const byteLength = hex.length + (hex.length % 2); // 1, 2, 3, 4, 5
-				return dec ? "0".repeat(byteLength - hex.length) + hex : "";
+				return dec
+					? "0".repeat(
+							(showBitLengthSigned(dec) && showBitLengthSigned(dec)) / 4 -
+								hex.length
+					  ) + hex
+					: "";
 			}
 			// negative number
 			// 8bit
 			else if (dec >= -128) {
 				let dec_unsigned = 256 - Math.abs(dec);
-				return Number(dec_unsigned).toString(16).toUpperCase();
+				const hex = Number(dec_unsigned).toString(16).toUpperCase();
+				return (
+					"0".repeat(
+						(showBitLengthSigned(dec) && showBitLengthSigned(dec)) / 4 -
+							hex.length
+					) + hex
+				);
 			}
 			// 16bit
 			else if (dec >= -32768) {
 				let dec_unsigned = 65536 - Math.abs(dec);
-				return Number(dec_unsigned).toString(16).toUpperCase();
+				const hex = Number(dec_unsigned).toString(16).toUpperCase();
+				return (
+					"0".repeat(
+						(showBitLengthSigned(dec) && showBitLengthSigned(dec)) / 4 -
+							hex.length
+					) + hex
+				);
 			}
 			// 24bit
 			else if (dec >= -8388608) {
 				let dec_unsigned = 16777216 - Math.abs(dec);
-				return Number(dec_unsigned).toString(16).toUpperCase();
+				const hex = Number(dec_unsigned).toString(16).toUpperCase();
+				return (
+					"0".repeat(
+						(showBitLengthSigned(dec) && showBitLengthSigned(dec)) / 4 -
+							hex.length
+					) + hex
+				);
 			}
 			// 32bit
 			else if (dec >= -2147483648) {
 				let dec_unsigned = 4294967296 - Math.abs(dec);
-				return Number(dec_unsigned).toString(16).toUpperCase();
-			}
-			// 40bit
-			else if (dec >= -2147483648) {
-				let dec_unsigned = 1099511627774 - Math.abs(dec);
-				return Number(dec_unsigned).toString(16).toUpperCase();
-			}
-			// 48bit
-			else if (dec >= -2147483648) {
-				let dec_unsigned = 281474976710654 - Math.abs(dec);
-				return Number(dec_unsigned).toString(16).toUpperCase();
-			}
-			// 56bit
-			else if (dec >= -2147483648) {
-				let dec_unsigned = 72057594037927939 - Math.abs(dec);
-				return Number(dec_unsigned).toString(16).toUpperCase();
-			}
-			// 64bit
-			else if (dec >= -2147483648) {
-				let dec_unsigned = 18446744073709551999 - Math.abs(dec);
-				return Number(dec_unsigned).toString(16).toUpperCase();
-			} else {
-				return "";
+				const hex = Number(dec_unsigned).toString(16).toUpperCase();
+				return (
+					"0".repeat(
+						(showBitLengthSigned(dec) && showBitLengthSigned(dec)) / 4 -
+							hex.length
+					) + hex
+				);
 			}
 		}
+	};
+	const toBin = (hex: any) => {
+		const bin = parseInt(hex, 16).toString(2);
+		return hex ? bin : "";
 	};
 
 	return (
 		<Box fontSize={"2xl"}>
 			<VStack>
-				{/* selecter and button */}
-				{/* <Flex width={"640px"}>
-					<Spacer />
-					<Flex width={"490px"}>
-						<Center fontSize={"xl"} width={"auto"} mx={4}>
-							precision :
-						</Center>
-						<Select size={"lg"} width="auto">
-							<option value="auto">Auto</option>
-							<option value="8bit">8 bit</option>
-							<option value="16bit">16 bit</option>
-						</Select>
-						<Spacer />
-					</Flex>
-				</Flex> */}
-				{/* input */}
-				{/* unsignedDEC */}
 				<Flex width={"640px"}>
 					<Spacer />
+					{/* selecter and button */}
 					<Flex width={"490px"}>
 						{!selectedOption && (
 							<Center
@@ -229,6 +237,8 @@ export const DecConvert = () => {
 						</Button>
 					</Flex>
 				</Flex>
+				{/* input */}
+				{/* unsignedDEC */}
 				<Flex width={"640px"}>
 					<Flex layerStyle="showBaseNumber">DEC</Flex>
 					<Flex layerStyle="showUnsignedOrSigned">unsigned</Flex>
@@ -282,7 +292,11 @@ export const DecConvert = () => {
 							white-space="normal"
 							placeholder="11111111"
 							overflow-wrap="break-word"
-							value={toBin(toHex(inputUnsignedValue || inputSignedValue))}
+							value={
+								!(isErrorUnsigned || isErrorSigned)
+									? toBin(toHex(inputUnsignedValue || inputSignedValue))
+									: ""
+							}
 							fontSize={"2xl"}
 							isReadOnly={true}
 							bg={"green.50"}
@@ -302,7 +316,11 @@ export const DecConvert = () => {
 							width={"490px"}
 							fontSize={"2xl"}
 							placeholder="FF"
-							value={toHex(inputUnsignedValue || inputSignedValue)}
+							value={
+								!(isErrorUnsigned || isErrorSigned)
+									? toHex(inputUnsignedValue || inputSignedValue)
+									: ""
+							}
 							isReadOnly={true}
 							bg={"green.50"}
 						/>

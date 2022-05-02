@@ -94,25 +94,9 @@ export const HexConvert = () => {
 	return (
 		<Box fontSize={"2xl"}>
 			<VStack>
-				{/* selecter and button */}
-				{/* <Flex width={"640px"}>
-					<Spacer />
-					<Flex width={"490px"}>
-						<Center fontSize={"xl"} width={"auto"} mx={4}>
-							precision :
-						</Center>
-						<Select size={"lg"} width="auto" onChange={selectChange}>
-							<option value="">Auto</option>
-							<option value="8">8bit</option>
-							<option value="16">16bit</option>
-						</Select>
-						<Spacer />
-					</Flex>
-				</Flex> */}
-				{/* input */}
-				{/* HEX */}
 				<Flex width={"640px"}>
 					<Spacer />
+					{/* selecter and button */}
 					<Flex width={"490px"}>
 						{!selectedOption && (
 							<Center fontSize={"xl"} width={"auto"} mx={4}>
@@ -138,6 +122,8 @@ export const HexConvert = () => {
 						</Button>
 					</Flex>
 				</Flex>
+				{/* input */}
+				{/* HEX */}
 				<Flex width={"640px"}>
 					<Flex layerStyle="showBaseNumber">HEX</Flex>
 					<Spacer />
