@@ -240,7 +240,7 @@ export const DecConvert = () => {
 				{/* input */}
 				{/* unsignedDEC */}
 				<Box width={{ base: "420px", md: "640px" }} display={{ md: "flex" }}>
-					<Flex alignItems="center">
+					<Flex alignItems={"center"} width={"150px"}>
 						<Box layerStyle="showBaseNumber">DEC</Box>
 						<Box layerStyle="showUnsignedOrSigned">unsigned</Box>
 					</Flex>
@@ -263,7 +263,7 @@ export const DecConvert = () => {
 				</Box>
 				{/* signedDEC */}
 				<Box width={{ base: "420px", md: "640px" }} display={{ md: "flex" }}>
-					<Flex alignItems="center">
+					<Flex alignItems={"center"} width={"150px"}>
 						<Box layerStyle="showBaseNumber">Box</Box>
 						<Box layerStyle="showUnsignedOrSigned">signed</Box>
 					</Flex>

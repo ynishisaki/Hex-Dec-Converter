@@ -92,22 +92,25 @@ export const HexConvert = () => {
 	};
 
 	return (
-		<Box fontSize={"2xl"}>
+		<Box>
 			<VStack>
 				<Flex width={{ base: "420px", md: "640px" }}>
 					<Spacer />
 					{/* selecter and button */}
-					<Flex width={{ base: "400px", md: "490px" }}>
+					<Flex width={{ base: "370px", md: "490px" }}>
 						{!selectedOption && (
-							<Center fontSize={"xl"} width={"auto"} mx={4}>
+							<Center fontSize={{ base: "lg", md: "xl" }} width={"auto"} mx={4}>
 								{showBitLength(inputValue) + "bit"}
 							</Center>
 						)}
 						<Spacer />
-						<Center fontSize={"xl"} width={"auto"} mx={2}>
+						<Center fontSize={{ base: "lg", md: "xl" }} width={"auto"} mx={2}>
 							bit length :
 						</Center>
-						<Select size="lg" width="auto" onChange={selectChange}>
+						<Select
+							fontSize={{ base: "lg", md: "xl" }}
+							width="auto"
+							onChange={selectChange}>
 							<option value="">Auto</option>
 							<option value="8">8bit</option>
 							<option value="16">16bit</option>
@@ -116,7 +119,8 @@ export const HexConvert = () => {
 						</Select>
 						<Button
 							ml="6"
-							size="lg"
+							fontSize={{ base: "lg", md: "xl" }}
+							// size="lg"
 							onClick={() => setInputValue(initialValue)}>
 							clear
 						</Button>
@@ -168,7 +172,7 @@ export const HexConvert = () => {
 				</Box>
 				{/* unsignedDEC */}
 				<Box width={{ base: "420px", md: "640px" }} display={{ md: "flex" }}>
-					<Flex alignItems={"center"}>
+					<Flex alignItems={"center"} width={"150px"}>
 						<Box layerStyle="showBaseNumber">DEC</Box>
 						<Box layerStyle="showUnsignedOrSigned">unsigned</Box>
 					</Flex>
@@ -189,7 +193,7 @@ export const HexConvert = () => {
 				</Box>
 				{/* signedDEC */}
 				<Box width={{ base: "420px", md: "640px" }} display={{ md: "flex" }}>
-					<Flex alignItems={"center"}>
+					<Flex alignItems={"center"} width={"150px"}>
 						<Box layerStyle="showBaseNumber">DEC</Box>
 						<Box layerStyle="showUnsignedOrSigned">signed</Box>
 					</Flex>
