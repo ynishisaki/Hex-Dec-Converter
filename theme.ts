@@ -82,11 +82,12 @@ export const theme = extendTheme({
 			borderColor: "gray.300",
 		},
 		showBaseNumber: {
-			alignItems: "center",
+			// alignItems: "center",
 			width: "50px",
+			fontSize: "2xl",
 		},
 		showUnsignedOrSigned: {
-			alignItems: "center",
+			// alignItems: "center",
 			width: "100px",
 			fontSize: "lg",
 			ml: 3,
