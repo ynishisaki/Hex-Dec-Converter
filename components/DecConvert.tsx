@@ -207,7 +207,7 @@ export const DecConvert = () => {
 						<Spacer />
 						{!selectedOption && (
 							<Center
-								fontSize={"xl"}
+								fontSize={{ base: "lg", md: "xl" }}
 								mx={4}
 								color={isErrorUnsigned || isErrorSigned ? "tomato" : ""}>
 								{inputUnsignedValue
@@ -215,13 +215,14 @@ export const DecConvert = () => {
 									: showBitLengthSigned(inputSignedValue) + "bit"}
 							</Center>
 						)}
-						<Center fontSize={"xl"} minW={"100px"} mx={2}>
+						<Center fontSize={{ base: "lg", md: "xl" }} minW={"100px"} mx={2}>
 							bit length :
 						</Center>
 						<Select
 							size="lg"
 							minW={"90px"}
 							width="auto"
+							fontSize={{ base: "lg", md: "xl" }}
 							onChange={selectChange}>
 							<option value="">Auto</option>
 							<option value="8">8bit</option>
@@ -231,8 +232,9 @@ export const DecConvert = () => {
 						</Select>
 						<Button
 							ml="7"
-							size="lg"
 							minW={"90px"}
+							size="lg"
+							fontSize={{ base: "lg", md: "xl" }}
 							onClick={() => {
 								setInputUnsignedValue(initialValue);
 								setInputSignedValue(initialValue);

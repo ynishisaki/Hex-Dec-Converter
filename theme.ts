@@ -49,7 +49,7 @@ export const theme = extendTheme({
 		body: {
 			// m: { base: "3vw 5vw", md: "3vw 5vw" },
 			maxW: "640px",
-			px: "20",
+			px: { base: "20", md: "0" },
 			mx: "auto",
 			// alignItems: "center",
 			// display: "flex",
@@ -93,7 +93,7 @@ export const theme = extendTheme({
 			fontSize: "2xl",
 		},
 		showUnsignedOrSigned: {
-			minW: "100px",
+			minW: "150px",
 			width: "65%", // 2/3
 			fontSize: "lg",
 			ml: 2,
