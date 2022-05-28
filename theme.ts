@@ -47,11 +47,17 @@ export const theme = extendTheme({
 
 	layerStyles: {
 		body: {
-			// bg: "#f6f1eb",
-			// mt: "70px",
-			p: { base: "3% 5%", md: "3% 20%" },
-			//	 width: { md: "100%" },
-			// color: "#4d5156",
+			// m: { base: "3vw 5vw", md: "3vw 5vw" },
+			maxW: "640px",
+			px: "20",
+			mx: "auto",
+			// alignItems: "center",
+			// display: "flex",
+			display: "block",
+		},
+		title: {
+			fontSize: "4xl",
+			py: "10",
 		},
 		header: {
 			px: "10px",
@@ -82,15 +88,15 @@ export const theme = extendTheme({
 			borderColor: "gray.300",
 		},
 		showBaseNumber: {
-			// alignItems: "center",
-			width: "50px",
+			minW: "50px",
+			width: "35%", // 1/3
 			fontSize: "2xl",
 		},
 		showUnsignedOrSigned: {
-			// alignItems: "center",
-			width: "100px",
+			minW: "100px",
+			width: "65%", // 2/3
 			fontSize: "lg",
-			ml: 3,
+			ml: 2,
 		},
 	},
 });

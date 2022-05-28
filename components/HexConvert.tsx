@@ -92,12 +92,13 @@ export const HexConvert = () => {
 	};
 
 	return (
-		<Box>
+		<Box width={"100%"}>
 			<VStack>
-				<Flex width={{ base: "420px", md: "640px" }}>
+				<Flex width={"100%"}>
 					<Spacer />
 					{/* selecter and button */}
-					<Flex width={{ base: "370px", md: "490px" }}>
+					<Flex width={{ base: "100%", md: "75%" }}>
+						<Spacer />
 						{!selectedOption && (
 							<Center fontSize={{ base: "lg", md: "xl" }} width={"auto"} mx={4}>
 								{showBitLength(inputValue) + "bit"}
@@ -128,13 +129,13 @@ export const HexConvert = () => {
 				</Flex>
 				{/* input */}
 				{/* HEX */}
-				<Box width={{ base: "420px", md: "640px" }} display={{ md: "flex" }}>
+				<Box width={{ base: "400px", md: "640px" }} display={{ md: "flex" }}>
 					<Flex layerStyle="showBaseNumber">HEX</Flex>
 					<Spacer />
-					<InputGroup size={"lg"} width={{ base: "420px", md: "490px" }}>
+					<InputGroup size={"lg"} width={{ base: "400px", md: "490px" }}>
 						<Input
 							htmlSize={30}
-							width={{ base: "420px", md: "490px" }}
+							width={{ base: "400px", md: "490px" }}
 							fontSize={"2xl"}
 							type="alphanumeric"
 							placeholder="FF"
@@ -149,13 +150,13 @@ export const HexConvert = () => {
 				</Box>
 				{/* output */}
 				{/* BIN */}
-				<Box width={{ base: "420px", md: "640px" }} display={{ md: "flex" }}>
+				<Box width={{ base: "400px", md: "640px" }} display={{ md: "flex" }}>
 					<Flex layerStyle="showBaseNumber">BIN</Flex>
 					<Spacer />
-					<InputGroup size={"lg"} width={{ base: "420px", md: "490px" }}>
+					<InputGroup size={"lg"} width={{ base: "400px", md: "490px" }}>
 						<Input
 							htmlSize={30}
-							width={{ base: "420px", md: "490px" }}
+							width={{ base: "400px", md: "490px" }}
 							type="number"
 							white-space="normal"
 							placeholder="11111111"
@@ -171,15 +172,15 @@ export const HexConvert = () => {
 					</InputGroup>
 				</Box>
 				{/* unsignedDEC */}
-				<Box width={{ base: "420px", md: "640px" }} display={{ md: "flex" }}>
+				<Box width={{ base: "400px", md: "640px" }} display={{ md: "flex" }}>
 					<Flex alignItems={"center"} width={"150px"}>
 						<Box layerStyle="showBaseNumber">DEC</Box>
 						<Box layerStyle="showUnsignedOrSigned">unsigned</Box>
 					</Flex>
-					<InputGroup size={"lg"} width={{ base: "420px", md: "490px" }}>
+					<InputGroup size={"lg"} width={{ base: "400px", md: "490px" }}>
 						<Input
 							htmlSize={30}
-							width={{ base: "420px", md: "490px" }}
+							width={{ base: "400px", md: "490px" }}
 							fontSize={"2xl"}
 							placeholder="255"
 							value={toUnsignedDec(inputValue)}
@@ -192,15 +193,15 @@ export const HexConvert = () => {
 					</InputGroup>
 				</Box>
 				{/* signedDEC */}
-				<Box width={{ base: "420px", md: "640px" }} display={{ md: "flex" }}>
+				<Box width={{ base: "400px", md: "640px" }} display={{ md: "flex" }}>
 					<Flex alignItems={"center"} width={"150px"}>
 						<Box layerStyle="showBaseNumber">DEC</Box>
 						<Box layerStyle="showUnsignedOrSigned">signed</Box>
 					</Flex>
-					<InputGroup size={"lg"} width={{ base: "420px", md: "490px" }}>
+					<InputGroup size={"lg"} width={{ base: "400px", md: "490px" }}>
 						<Input
 							htmlSize={30}
-							width={{ base: "420px", md: "490px" }}
+							width={{ base: "400px", md: "490px" }}
 							fontSize={"2xl"}
 							placeholder="-1"
 							value={toSignedDec(inputValue)}
