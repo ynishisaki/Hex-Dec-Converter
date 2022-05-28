@@ -94,44 +94,49 @@ export const HexConvert = () => {
 	return (
 		<Box width={"100%"}>
 			<VStack>
-				<Flex width={"100%"}>
+				<Box width={"100%"}>
 					<Spacer />
 					{/* selecter and button */}
-					<Flex width={{ base: "100%", md: "75%" }}>
-						<Spacer />
-						{/* selecter */}
-						{!selectedOption && (
-							<Center fontSize={{ base: "lg", md: "xl" }} mx={4}>
-								{showBitLength(inputValue) + "bit"}
+					<Box width={{ base: "100%", md: "75%" }} display={{ md: "flex" }}>
+						<Flex width="100%">
+							<Spacer />
+							{/* selecter */}
+							{!selectedOption && (
+								<Center fontSize={{ base: "lg", md: "xl" }} mx={4}>
+									{showBitLength(inputValue) + "bit"}
+								</Center>
+							)}
+							<Spacer />
+							<Center fontSize={{ base: "lg", md: "xl" }} minW={"100px"} mx={2}>
+								bit length :
 							</Center>
-						)}
-						<Spacer />
-						<Center fontSize={{ base: "lg", md: "xl" }} minW={"100px"} mx={2}>
-							bit length :
-						</Center>
-						<Select
-							size="lg"
-							minW={"90px"}
-							width="auto"
-							fontSize={{ base: "lg", md: "xl" }}
-							onChange={selectChange}>
-							<option value="">Auto</option>
-							<option value="8">8bit</option>
-							<option value="16">16bit</option>
-							<option value="24">24bit</option>
-							<option value="32">32bit</option>
-						</Select>
+							<Select
+								size="lg"
+								minW={"90px"}
+								width="auto"
+								fontSize={{ base: "lg", md: "xl" }}
+								onChange={selectChange}>
+								<option value="">Auto</option>
+								<option value="8">8bit</option>
+								<option value="16">16bit</option>
+								<option value="24">24bit</option>
+								<option value="32">32bit</option>
+							</Select>
+						</Flex>
 						{/* button */}
-						<Button
-							ml="7"
-							minW={"90px"}
-							size="lg"
-							fontSize={{ base: "lg", md: "xl" }}
-							onClick={() => setInputValue(initialValue)}>
-							clear
-						</Button>
-					</Flex>
-				</Flex>
+						<Flex width="100%">
+							<Spacer />
+							<Button
+								ml="7"
+								minW={"90px"}
+								size="lg"
+								fontSize={{ base: "lg", md: "xl" }}
+								onClick={() => setInputValue(initialValue)}>
+								clear
+							</Button>
+						</Flex>
+					</Box>
+				</Box>
 				{/* input */}
 				{/* HEX */}
 				<Box
