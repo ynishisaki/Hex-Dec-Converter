@@ -201,8 +201,8 @@ export const DecConvert = () => {
 		<VStack width={"100%"}>
 			{/* selecter and button */}
 			<Box width={"100%"}>
+				{/* selecter */}
 				<Flex justifyContent={"flex-end"} my={"1"}>
-					{/* selecter */}
 					{!selectedOption && (
 						<Center
 							fontSize={{ base: "lg", md: "xl" }}

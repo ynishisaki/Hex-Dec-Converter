@@ -47,13 +47,9 @@ export const theme = extendTheme({
 
 	layerStyles: {
 		body: {
-			// m: { base: "3vw 5vw", md: "3vw 5vw" },
-			// minW: "400px",
 			maxW: "740px",
 			px: { base: "0", md: "10" },
 			mx: { base: "10vw", md: "auto" },
-			// alignItems: "center",
-			// display: "flex",
 			display: "block",
 		},
 		title: {
@@ -76,17 +72,12 @@ export const theme = extendTheme({
 			flexDirection: "column",
 			display: "flex",
 			flex: "1",
+			w: "80vw",
+			mx: "auto",
 			p: "1rem 0",
-			bgColor: "white",
 			justifyContent: "center",
 			alignItems: "center",
 			zIndex: "stickey", //1100
-		},
-		borderLine: {
-			w: "80%",
-			mb: "30px",
-			borderTop: "1px solid",
-			borderColor: "gray.300",
 		},
 		showBaseNumber: {
 			minW: "50px",
