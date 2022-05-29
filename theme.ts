@@ -49,8 +49,8 @@ export const theme = extendTheme({
 		body: {
 			// m: { base: "3vw 5vw", md: "3vw 5vw" },
 			// minW: "400px",
-			maxW: "640px",
-			px: { base: "0", md: "20" },
+			maxW: "740px",
+			px: { base: "0", md: "10" },
 			mx: { base: "10vw", md: "auto" },
 			// alignItems: "center",
 			// display: "flex",

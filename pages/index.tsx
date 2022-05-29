@@ -25,7 +25,7 @@ const Home: NextPage = () => {
 			<main>
 				<Box layerStyle="body">
 					<Center layerStyle="title">Hex-Dec Converter</Center>
-					<VStack spacing={20} py={10}>
+					<VStack spacing={20} pb={10}>
 						<HexConvert />
 						<DecConvert />
 					</VStack>

@@ -198,168 +198,160 @@ export const DecConvert = () => {
 	};
 
 	return (
-		<Box width={"100%"}>
-			<VStack>
-				<Box width={"100%"}>
+		<VStack width={"100%"}>
+			{/* selecter and button */}
+			<Box width={"100%"}>
+				<Flex justifyContent={"flex-end"} my={"1"}>
+					{/* selecter */}
+					{!selectedOption && (
+						<Center
+							fontSize={{ base: "lg", md: "xl" }}
+							mx={4}
+							color={isErrorUnsigned || isErrorSigned ? "tomato" : ""}>
+							{inputUnsignedValue
+								? showBitLengthUnsigned(inputUnsignedValue) + "bit"
+								: showBitLengthSigned(inputSignedValue) + "bit"}
+						</Center>
+					)}
+					<Center fontSize={{ base: "lg", md: "xl" }} minW={"100px"} mx={2}>
+						bit length :
+					</Center>
+					<Select
+						size="lg"
+						minW={"90px"}
+						width="auto"
+						fontSize={{ base: "lg", md: "xl" }}
+						onChange={selectChange}>
+						<option value="">Auto</option>
+						<option value="8">8bit</option>
+						<option value="16">16bit</option>
+						<option value="24">24bit</option>
+						<option value="32">32bit</option>
+					</Select>
+				</Flex>
+				{/* button */}
+				<Flex justifyContent={"flex-end"} my={"1"}>
+					<Button
+						ml="7"
+						minW={"90px"}
+						size="lg"
+						fontSize={{ base: "lg", md: "xl" }}
+						onClick={() => {
+							setInputUnsignedValue(initialValue);
+							setInputSignedValue(initialValue);
+						}}>
+						clear
+					</Button>
+				</Flex>
+			</Box>
+			{/* input */}
+			{/* unsignedDEC */}
+			<Box
+				paddingY={{ base: "3", md: "0" }}
+				width={"100%"}
+				display={{ md: "flex" }}>
+				<Flex alignItems={"center"} width={"25%"}>
+					<Box layerStyle="showBaseNumber">DEC</Box>
+					<Box layerStyle="showUnsignedOrSigned">unsigned</Box>
+				</Flex>
+				<InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
+					<Input
+						htmlSize={30}
+						fontSize={"2xl"}
+						placeholder="255"
+						value={inputUnsignedValue}
+						onChange={handleUnsignedChange}
+						isReadOnly={inputSignedValue ? true : false}
+						bg={inputSignedValue ? "green.50" : undefined}
+						isInvalid={isErrorUnsigned}
+					/>
+					<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+						<>(10)</>
+					</InputRightElement>
+				</InputGroup>
+			</Box>
+			{/* signedDEC */}
+			<Box
+				paddingY={{ base: "3", md: "0" }}
+				width={"100%"}
+				display={{ md: "flex" }}>
+				<Flex alignItems={"center"} width={"25%"}>
+					<Box layerStyle="showBaseNumber">DEC</Box>
+					<Box layerStyle="showUnsignedOrSigned">signed</Box>
+				</Flex>
+				<InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
+					<Input
+						htmlSize={30}
+						fontSize={"2xl"}
+						placeholder="-1"
+						value={inputSignedValue}
+						onChange={handleSignedChange}
+						isReadOnly={inputUnsignedValue ? true : false}
+						bg={inputUnsignedValue ? "green.50" : undefined}
+						isInvalid={isErrorSigned}
+					/>
+					<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+						<>(10)</>
+					</InputRightElement>
+				</InputGroup>
+			</Box>
+			{/* output */}
+			{/* BIN */}
+			<Box
+				paddingY={{ base: "3", md: "0" }}
+				width={"100%"}
+				display={{ md: "flex" }}>
+				<Flex alignItems={"center"} width={"25%"}>
+					<Box layerStyle="showBaseNumber">BIN</Box>
 					<Spacer />
-					{/* selecter and button */}
-					<Box width={{ base: "100%", md: "75%" }} display={{ md: "flex" }}>
-						<Flex width="100%">
-							<Spacer />
-
-							{!selectedOption && (
-								<Center
-									fontSize={{ base: "lg", md: "xl" }}
-									mx={4}
-									color={isErrorUnsigned || isErrorSigned ? "tomato" : ""}>
-									{inputUnsignedValue
-										? showBitLengthUnsigned(inputUnsignedValue) + "bit"
-										: showBitLengthSigned(inputSignedValue) + "bit"}
-								</Center>
-							)}
-							<Center fontSize={{ base: "lg", md: "xl" }} minW={"100px"} mx={2}>
-								bit length :
-							</Center>
-							<Select
-								size="lg"
-								minW={"90px"}
-								width="auto"
-								fontSize={{ base: "lg", md: "xl" }}
-								onChange={selectChange}>
-								<option value="">Auto</option>
-								<option value="8">8bit</option>
-								<option value="16">16bit</option>
-								<option value="24">24bit</option>
-								<option value="32">32bit</option>
-							</Select>
-						</Flex>
-						<Flex width="100%">
-							<Spacer />
-							<Button
-								display={{ md: "flex" }}
-								ml="7"
-								minW={"90px"}
-								size="lg"
-								fontSize={{ base: "lg", md: "xl" }}
-								onClick={() => {
-									setInputUnsignedValue(initialValue);
-									setInputSignedValue(initialValue);
-								}}>
-								clear
-							</Button>
-						</Flex>
-					</Box>
-				</Box>
-
-				{/* input */}
-				{/* unsignedDEC */}
-				<Box
-					paddingY={{ base: "3", md: "0" }}
-					width={"100%"}
-					display={{ md: "flex" }}>
-					<Flex alignItems={"center"} width={"25%"}>
-						<Box layerStyle="showBaseNumber">DEC</Box>
-						<Box layerStyle="showUnsignedOrSigned">unsigned</Box>
-					</Flex>
-					<InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-						<Input
-							htmlSize={30}
-							fontSize={"2xl"}
-							placeholder="255"
-							value={inputUnsignedValue}
-							onChange={handleUnsignedChange}
-							isReadOnly={inputSignedValue ? true : false}
-							bg={inputSignedValue ? "green.50" : undefined}
-							isInvalid={isErrorUnsigned}
-						/>
-						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
-							<>(10)</>
-						</InputRightElement>
-					</InputGroup>
-				</Box>
-				{/* signedDEC */}
-				<Box
-					paddingY={{ base: "3", md: "0" }}
-					width={"100%"}
-					display={{ md: "flex" }}>
-					<Flex alignItems={"center"} width={"25%"}>
-						<Box layerStyle="showBaseNumber">DEC</Box>
-						<Box layerStyle="showUnsignedOrSigned">signed</Box>
-					</Flex>
-					<InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-						<Input
-							htmlSize={30}
-							fontSize={"2xl"}
-							placeholder="-1"
-							value={inputSignedValue}
-							onChange={handleSignedChange}
-							isReadOnly={inputUnsignedValue ? true : false}
-							bg={inputUnsignedValue ? "green.50" : undefined}
-							isInvalid={isErrorSigned}
-						/>
-						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
-							<>(10)</>
-						</InputRightElement>
-					</InputGroup>
-				</Box>
-				{/* output */}
-				{/* BIN */}
-				<Box
-					paddingY={{ base: "3", md: "0" }}
-					width={"100%"}
-					display={{ md: "flex" }}>
-					<Flex alignItems={"center"} width={"25%"}>
-						<Box layerStyle="showBaseNumber">BIN</Box>
-						<Spacer />
-					</Flex>
-					<InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-						<Input
-							htmlSize={30}
-							white-space="normal"
-							placeholder="11111111"
-							overflow-wrap="break-word"
-							value={
-								!(isErrorUnsigned || isErrorSigned)
-									? toBin(toHex(inputUnsignedValue || inputSignedValue))
-									: ""
-							}
-							fontSize={"2xl"}
-							isReadOnly={true}
-							bg={"green.50"}
-						/>
-						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
-							<>(2)</>
-						</InputRightElement>
-					</InputGroup>
-				</Box>
-				{/* HEX */}
-				<Box
-					paddingY={{ base: "3", md: "0" }}
-					width={"100%"}
-					display={{ md: "flex" }}>
-					<Flex alignItems={"center"} width={"25%"}>
-						<Box layerStyle="showBaseNumber">HEX</Box>
-						<Spacer />
-					</Flex>
-					<InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-						<Input
-							htmlSize={30}
-							fontSize={"2xl"}
-							placeholder="FF"
-							value={
-								!(isErrorUnsigned || isErrorSigned)
-									? toHex(inputUnsignedValue || inputSignedValue)
-									: ""
-							}
-							isReadOnly={true}
-							bg={"green.50"}
-						/>
-						<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
-							<>(16)</>
-						</InputRightElement>
-					</InputGroup>
-				</Box>
-			</VStack>
-		</Box>
+				</Flex>
+				<InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
+					<Input
+						htmlSize={30}
+						white-space="normal"
+						placeholder="11111111"
+						overflow-wrap="break-word"
+						value={
+							!(isErrorUnsigned || isErrorSigned)
+								? toBin(toHex(inputUnsignedValue || inputSignedValue))
+								: ""
+						}
+						fontSize={"2xl"}
+						isReadOnly={true}
+						bg={"green.50"}
+					/>
+					<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+						<>(2)</>
+					</InputRightElement>
+				</InputGroup>
+			</Box>
+			{/* HEX */}
+			<Box
+				paddingY={{ base: "3", md: "0" }}
+				width={"100%"}
+				display={{ md: "flex" }}>
+				<Flex alignItems={"center"} width={"25%"}>
+					<Box layerStyle="showBaseNumber">HEX</Box>
+					<Spacer />
+				</Flex>
+				<InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
+					<Input
+						htmlSize={30}
+						fontSize={"2xl"}
+						placeholder="FF"
+						value={
+							!(isErrorUnsigned || isErrorSigned)
+								? toHex(inputUnsignedValue || inputSignedValue)
+								: ""
+						}
+						isReadOnly={true}
+						bg={"green.50"}
+					/>
+					<InputRightElement pointerEvents="none" fontSize={"sm"} m={"1.5"}>
+						<>(16)</>
+					</InputRightElement>
+				</InputGroup>
+			</Box>
+		</VStack>
 	);
 };
