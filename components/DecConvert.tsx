@@ -159,12 +159,8 @@ export const DecConvert = () => {
                 console.log(dec);
 
                 return dec
-                    ? "0".repeat(
-                          (showBitLengthSigned(dec) &&
-                              showBitLengthUnsigned(dec)) /
-                              4 -
-                              hex.length
-                      ) + hex
+                    ? "0".repeat(showBitLengthSigned(dec) / 4 - hex.length) +
+                          hex
                     : "";
             }
             // negative number
@@ -173,12 +169,7 @@ export const DecConvert = () => {
                 let dec_unsigned = 256 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
                 return (
-                    "0".repeat(
-                        (showBitLengthSigned(dec) &&
-                            showBitLengthUnsigned(dec)) /
-                            4 -
-                            hex.length
-                    ) + hex
+                    "0".repeat(showBitLengthSigned(dec) / 4 - hex.length) + hex
                 );
             }
             // 16bit
@@ -186,11 +177,7 @@ export const DecConvert = () => {
                 let dec_unsigned = 65536 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
                 return (
-                    "0".repeat(
-                        (showBitLengthSigned(dec) && showBitLengthSigned(dec)) /
-                            4 -
-                            hex.length
-                    ) + hex
+                    "0".repeat(showBitLengthSigned(dec) / 4 - hex.length) + hex
                 );
             }
             // 24bit
@@ -198,11 +185,7 @@ export const DecConvert = () => {
                 let dec_unsigned = 16777216 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
                 return (
-                    "0".repeat(
-                        (showBitLengthSigned(dec) && showBitLengthSigned(dec)) /
-                            4 -
-                            hex.length
-                    ) + hex
+                    "0".repeat(showBitLengthSigned(dec) / 4 - hex.length) + hex
                 );
             }
             // 32bit
@@ -210,11 +193,7 @@ export const DecConvert = () => {
                 let dec_unsigned = 4294967296 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
                 return (
-                    "0".repeat(
-                        (showBitLengthSigned(dec) && showBitLengthSigned(dec)) /
-                            4 -
-                            hex.length
-                    ) + hex
+                    "0".repeat(showBitLengthSigned(dec) / 4 - hex.length) + hex
                 );
             }
         }
