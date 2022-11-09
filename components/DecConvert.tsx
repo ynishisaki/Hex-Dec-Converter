@@ -1,6 +1,5 @@
 import {
     Box,
-    Button,
     Center,
     VStack,
     Input,
@@ -12,7 +11,7 @@ import {
 import React from "react";
 import { useState } from "react";
 import { ClearButton } from "./ClearButton";
-import { SelecterBox } from "./SelectBox";
+import { BitSelectBox } from "./BitSelectBox";
 
 export const DecConvert = () => {
     // select
@@ -229,8 +228,8 @@ export const DecConvert = () => {
                         mx={2}>
                         bit length :
                     </Center>
-                    <SelecterBox
-                        onChange={(e) => selectChange(e)}></SelecterBox>
+                    <BitSelectBox
+                        onChange={(e) => selectChange(e)}></BitSelectBox>
                 </Flex>
                 {/* button */}
                 <Flex justifyContent={"flex-end"} my={"1"}>

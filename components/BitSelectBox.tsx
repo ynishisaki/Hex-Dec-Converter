@@ -4,7 +4,7 @@ type ChildCompProps = {
     onChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
-export const SelecterBox = (props: ChildCompProps) => {
+export const BitSelectBox = (props: ChildCompProps) => {
     return (
         <Select
             size='lg'
