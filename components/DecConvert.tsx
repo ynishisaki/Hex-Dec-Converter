@@ -8,10 +8,10 @@ import {
     InputRightElement,
     Spacer,
     Flex,
-    Select,
 } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
+import { SelecterBox } from "./SelectBox";
 
 export const DecConvert = () => {
     // select
@@ -228,18 +228,8 @@ export const DecConvert = () => {
                         mx={2}>
                         bit length :
                     </Center>
-                    <Select
-                        size='lg'
-                        minW={"90px"}
-                        width='auto'
-                        fontSize={{ base: "lg", md: "xl" }}
-                        onChange={selectChange}>
-                        <option value=''>Auto</option>
-                        <option value='8'>8bit</option>
-                        <option value='16'>16bit</option>
-                        <option value='24'>24bit</option>
-                        <option value='32'>32bit</option>
-                    </Select>
+                    <SelecterBox
+                        onChange={(e) => selectChange(e)}></SelecterBox>
                 </Flex>
                 {/* button */}
                 <Flex justifyContent={"flex-end"} my={"1"}>
