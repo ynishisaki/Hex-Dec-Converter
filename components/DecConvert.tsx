@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
+import { ClearButton } from "./ClearButton";
 import { SelecterBox } from "./SelectBox";
 
 export const DecConvert = () => {
@@ -233,17 +234,11 @@ export const DecConvert = () => {
                 </Flex>
                 {/* button */}
                 <Flex justifyContent={"flex-end"} my={"1"}>
-                    <Button
-                        ml='7'
-                        minW={"90px"}
-                        size='lg'
-                        fontSize={{ base: "lg", md: "xl" }}
+                    <ClearButton
                         onClick={() => {
                             setInputUnsignedValue(initialValue);
                             setInputSignedValue(initialValue);
-                        }}>
-                        clear
-                    </Button>
+                        }}></ClearButton>
                 </Flex>
             </Box>
             {/* input */}

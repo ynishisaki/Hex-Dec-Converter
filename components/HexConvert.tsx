@@ -10,6 +10,7 @@ import {
     VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { ClearButton } from "./ClearButton";
 import { SelecterBox } from "./SelectBox";
 
 export const HexConvert = () => {
@@ -113,14 +114,10 @@ export const HexConvert = () => {
                 </Flex>
                 {/* button */}
                 <Flex justifyContent={"flex-end"} my={"1"}>
-                    <Button
-                        ml='7'
-                        minW={"90px"}
-                        size='lg'
-                        fontSize={{ base: "lg", md: "xl" }}
-                        onClick={() => setInputValue(initialValue)}>
-                        clear
-                    </Button>
+                    <ClearButton
+                        onClick={() =>
+                            setInputValue(initialValue)
+                        }></ClearButton>
                 </Flex>
             </Box>
             {/* input */}
