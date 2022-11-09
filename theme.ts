@@ -60,7 +60,7 @@ export const theme = extendTheme({
             zIndex: "stickey", //1100
         },
         showBaseNumber: {
-            minW: "50px",
+            minW: "60px",
             width: "35%", // 1/3
             fontSize: "2xl",
         },
