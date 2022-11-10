@@ -1,10 +1,9 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
+
 import styles from "../styles/Home.module.css";
 import { Box, Center, Text, VStack } from "@chakra-ui/react";
-import { DecConvert } from "../components/DecConvert";
-import { HexConvert } from "../components/HexConvert";
+import { DecConvert } from "../components/large/DecConvert";
+import { HexConvert } from "../components/large/HexConvert";
 
 const Home: NextPage = () => {
     return (

@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
-import { ClearButton } from "./ClearButton";
-import { BitSelectBox } from "./BitSelectBox";
+import { ClearButton } from "../small/ClearButton";
+import { BitSelect } from "../small/BitSelect";
 
 export const DecConvert = () => {
     // select
@@ -228,8 +228,7 @@ export const DecConvert = () => {
                         mx={2}>
                         bit length :
                     </Center>
-                    <BitSelectBox
-                        onChange={(e) => selectChange(e)}></BitSelectBox>
+                    <BitSelect onChange={(e) => selectChange(e)}></BitSelect>
                 </Flex>
                 {/* button */}
                 <Flex justifyContent={"flex-end"} my={"1"}>
