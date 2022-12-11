@@ -296,7 +296,6 @@ export const DecConvert = () => {
                     <Box layerStyle='showBaseNumber'>HEX</Box>
                     <Spacer />
                 </Flex>
-
                 <ShowValueWindow
                     placeholder='FF'
                     value={

@@ -11,6 +11,7 @@ import {
 import { useState } from "react";
 import { ClearButton } from "../small/ClearButton";
 import { BitSelect } from "../small/BitSelect";
+import { ShowValueWindow } from "../medium/ShowValueWindow";
 
 export const HexConvert = () => {
     // select
@@ -128,23 +129,14 @@ export const HexConvert = () => {
                     <Box layerStyle='showBaseNumber'>HEX</Box>
                     <Spacer />
                 </Flex>
-                <InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-                    <Input
-                        htmlSize={30}
-                        fontSize={"2xl"}
-                        type='alphanumeric'
-                        placeholder='FF'
-                        value={inputValue}
-                        onChange={handleChange}
-                        // isInvalid={isError(inputValue)}
-                    />
-                    <InputRightElement
-                        pointerEvents='none'
-                        fontSize={"sm"}
-                        m={"1.5"}>
-                        <>(16)</>
-                    </InputRightElement>
-                </InputGroup>
+                <ShowValueWindow
+                    placeholder='FF'
+                    value={inputValue}
+                    isInput={true}
+                    onChange={handleChange}
+                    // 入力文字数に制限があるので、isErrorで判定する必要がない
+                    // isError={false}
+                    radix={16}></ShowValueWindow>
             </Box>
             {/* output */}
             {/* BIN */}
@@ -156,25 +148,11 @@ export const HexConvert = () => {
                     <Box layerStyle='showBaseNumber'>BIN</Box>
                     <Spacer />
                 </Flex>
-                <InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-                    <Input
-                        htmlSize={30}
-                        type='number'
-                        white-space='normal'
-                        placeholder='11111111'
-                        overflow-wrap='break-word'
-                        value={toBin(inputValue)}
-                        fontSize={"2xl"}
-                        isReadOnly={true}
-                        bg={"green.50"}
-                    />
-                    <InputRightElement
-                        pointerEvents='none'
-                        fontSize={"sm"}
-                        m={"1.5"}>
-                        <>(2)</>
-                    </InputRightElement>
-                </InputGroup>
+                <ShowValueWindow
+                    placeholder='11111111'
+                    value={toBin(inputValue)}
+                    isInput={false}
+                    radix={2}></ShowValueWindow>
             </Box>
             {/* unsignedDEC */}
             <Box
@@ -185,22 +163,11 @@ export const HexConvert = () => {
                     <Box layerStyle='showBaseNumber'>DEC</Box>
                     <Box layerStyle='showUnsignedOrSigned'>unsigned</Box>
                 </Flex>
-                <InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-                    <Input
-                        htmlSize={30}
-                        fontSize={"2xl"}
-                        placeholder='255'
-                        value={toUnsignedDec(inputValue)}
-                        isReadOnly={true}
-                        bg={"green.50"}
-                    />
-                    <InputRightElement
-                        pointerEvents='none'
-                        fontSize={"sm"}
-                        m={"1.5"}>
-                        <>(10)</>
-                    </InputRightElement>
-                </InputGroup>
+                <ShowValueWindow
+                    placeholder='255'
+                    value={toUnsignedDec(inputValue)}
+                    isInput={false}
+                    radix={10}></ShowValueWindow>
             </Box>
             {/* signedDEC */}
             <Box
@@ -211,22 +178,11 @@ export const HexConvert = () => {
                     <Box layerStyle='showBaseNumber'>DEC</Box>
                     <Box layerStyle='showUnsignedOrSigned'>signed</Box>
                 </Flex>
-                <InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-                    <Input
-                        htmlSize={30}
-                        fontSize={"2xl"}
-                        placeholder='-1'
-                        value={toSignedDec(inputValue)}
-                        isReadOnly={true}
-                        bg={"green.50"}
-                    />
-                    <InputRightElement
-                        pointerEvents='none'
-                        fontSize={"sm"}
-                        m={"1.5"}>
-                        <>(10)</>
-                    </InputRightElement>
-                </InputGroup>
+                <ShowValueWindow
+                    placeholder='-1'
+                    value={toSignedDec(inputValue)}
+                    isInput={false}
+                    radix={10}></ShowValueWindow>
             </Box>
         </VStack>
     );
