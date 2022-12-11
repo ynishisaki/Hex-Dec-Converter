@@ -6,7 +6,6 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <meta charSet='utf-8' />
-                    <title>Hex-Dec Converter</title>
                     <meta
                         name='description'
                         content='Conversion tool between hexadecimal and decimal. It supports unsigned integers and signed integers.'

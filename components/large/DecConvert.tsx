@@ -12,6 +12,7 @@ import React from "react";
 import { useState } from "react";
 import { ClearButton } from "../small/ClearButton";
 import { BitSelect } from "../small/BitSelect";
+import { ShowValueWindow } from "../small/ShowValueWindow";
 
 export const DecConvert = () => {
     // select
@@ -156,7 +157,6 @@ export const DecConvert = () => {
             // positive number
             if (dec >= 0) {
                 const hex = Number(dec).toString(16).toUpperCase();
-                console.log(dec);
 
                 return dec
                     ? "0".repeat(showBitLengthSigned(dec) / 4 - hex.length) +
@@ -249,24 +249,13 @@ export const DecConvert = () => {
                     <Box layerStyle='showBaseNumber'>DEC</Box>
                     <Box layerStyle='showUnsignedOrSigned'>unsigned</Box>
                 </Flex>
-                <InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-                    <Input
-                        htmlSize={30}
-                        fontSize={"2xl"}
-                        placeholder='255'
-                        value={inputUnsignedValue}
-                        onChange={handleUnsignedChange}
-                        isReadOnly={inputSignedValue ? true : false}
-                        bg={inputSignedValue ? "green.50" : undefined}
-                        isInvalid={isErrorUnsigned}
-                    />
-                    <InputRightElement
-                        pointerEvents='none'
-                        fontSize={"sm"}
-                        m={"1.5"}>
-                        <>(10)</>
-                    </InputRightElement>
-                </InputGroup>
+                <ShowValueWindow
+                    placeholder='255'
+                    value={inputUnsignedValue}
+                    isInput={inputSignedValue ? false : true}
+                    onChange={handleUnsignedChange}
+                    isError={isErrorUnsigned}
+                    radix={10}></ShowValueWindow>
             </Box>
             {/* signedDEC */}
             <Box
@@ -277,24 +266,13 @@ export const DecConvert = () => {
                     <Box layerStyle='showBaseNumber'>DEC</Box>
                     <Box layerStyle='showUnsignedOrSigned'>signed</Box>
                 </Flex>
-                <InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-                    <Input
-                        htmlSize={30}
-                        fontSize={"2xl"}
-                        placeholder='-1'
-                        value={inputSignedValue}
-                        onChange={handleSignedChange}
-                        isReadOnly={inputUnsignedValue ? true : false}
-                        bg={inputUnsignedValue ? "green.50" : undefined}
-                        isInvalid={isErrorSigned}
-                    />
-                    <InputRightElement
-                        pointerEvents='none'
-                        fontSize={"sm"}
-                        m={"1.5"}>
-                        <>(10)</>
-                    </InputRightElement>
-                </InputGroup>
+                <ShowValueWindow
+                    placeholder='-1'
+                    value={inputSignedValue}
+                    isInput={inputUnsignedValue ? false : true}
+                    onChange={handleSignedChange}
+                    isError={isErrorSigned}
+                    radix={10}></ShowValueWindow>
             </Box>
             {/* output */}
             {/* BIN */}
@@ -306,32 +284,17 @@ export const DecConvert = () => {
                     <Box layerStyle='showBaseNumber'>BIN</Box>
                     <Spacer />
                 </Flex>
-                <InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-                    <Input
-                        htmlSize={30}
-                        white-space='normal'
-                        placeholder='11111111'
-                        overflow-wrap='break-word'
-                        value={
-                            !(isErrorUnsigned || isErrorSigned)
-                                ? toBin(
-                                      toHex(
-                                          inputUnsignedValue || inputSignedValue
-                                      )
-                                  )
-                                : ""
-                        }
-                        fontSize={"2xl"}
-                        isReadOnly={true}
-                        bg={"green.50"}
-                    />
-                    <InputRightElement
-                        pointerEvents='none'
-                        fontSize={"sm"}
-                        m={"1.5"}>
-                        <>(2)</>
-                    </InputRightElement>
-                </InputGroup>
+                <ShowValueWindow
+                    placeholder='11111111'
+                    value={
+                        !(isErrorUnsigned || isErrorSigned)
+                            ? toBin(
+                                  toHex(inputUnsignedValue || inputSignedValue)
+                              )
+                            : ""
+                    }
+                    isInput={false}
+                    radix={2}></ShowValueWindow>
             </Box>
             {/* HEX */}
             <Box
@@ -342,26 +305,16 @@ export const DecConvert = () => {
                     <Box layerStyle='showBaseNumber'>HEX</Box>
                     <Spacer />
                 </Flex>
-                <InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
-                    <Input
-                        htmlSize={30}
-                        fontSize={"2xl"}
-                        placeholder='FF'
-                        value={
-                            !(isErrorUnsigned || isErrorSigned)
-                                ? toHex(inputUnsignedValue || inputSignedValue)
-                                : ""
-                        }
-                        isReadOnly={true}
-                        bg={"green.50"}
-                    />
-                    <InputRightElement
-                        pointerEvents='none'
-                        fontSize={"sm"}
-                        m={"1.5"}>
-                        <>(16)</>
-                    </InputRightElement>
-                </InputGroup>
+
+                <ShowValueWindow
+                    placeholder='FF'
+                    value={
+                        !(isErrorUnsigned || isErrorSigned)
+                            ? toHex(inputUnsignedValue || inputSignedValue)
+                            : ""
+                    }
+                    isInput={false}
+                    radix={16}></ShowValueWindow>
             </Box>
         </VStack>
     );

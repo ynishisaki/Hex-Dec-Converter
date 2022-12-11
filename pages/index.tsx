@@ -1,3 +1,4 @@
+import Head from "next/head";
 import type { NextPage } from "next";
 
 import styles from "../styles/Home.module.css";
@@ -8,7 +9,9 @@ import { HexConvert } from "../components/large/HexConvert";
 const Home: NextPage = () => {
     return (
         <div className={styles.container}>
-            {/* <Head></Head> */}
+            <Head>
+                <title>Hex-Dec Converter</title>
+            </Head>
             <main>
                 <Box layerStyle='base'>
                     <Center layerStyle='title'>Hex-Dec Converter</Center>
