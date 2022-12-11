@@ -1,18 +1,9 @@
-import {
-    Box,
-    Center,
-    VStack,
-    Input,
-    InputGroup,
-    InputRightElement,
-    Spacer,
-    Flex,
-} from "@chakra-ui/react";
+import { Box, Center, VStack, Spacer, Flex } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 import { ClearButton } from "../small/ClearButton";
 import { BitSelect } from "../small/BitSelect";
-import { ShowValueWindow } from "../small/ShowValueWindow";
+import { ShowValueWindow } from "../medium/ShowValueWindow";
 
 export const DecConvert = () => {
     // select
