@@ -1,14 +1,5 @@
-import {
-    Box,
-    Center,
-    Flex,
-    Input,
-    InputGroup,
-    InputRightElement,
-    Spacer,
-    VStack,
-} from "@chakra-ui/react";
-import { useState } from "react";
+import { Box, Center, Flex, Spacer, VStack } from "@chakra-ui/react";
+import { useState, useMemo } from "react";
 import { ClearButton } from "../small/ClearButton";
 import { BitSelect } from "../small/BitSelect";
 import { ShowValueWindow } from "../medium/ShowValueWindow";
@@ -21,15 +12,27 @@ export const HexConvert = () => {
         const value = event.target.value;
         setSelectedOption(value);
 
+        // 外部スコープの変数とは別にこのタイミングで必要
+        // セレクター未指定の時は32bitとして扱う
         const selectedMaxOfBitLength = value ? Number(value) : 32;
         const selectedMaxOfByteLength = selectedMaxOfBitLength / 4;
+
+        // 指定bit数より長い入力は切り捨てる
         setInputValue(inputValue.slice(0, selectedMaxOfByteLength));
     };
 
-    const selectedMaxOfBitLength = selectedOption ? Number(selectedOption) : 32;
-    const selectedMaxOfByteLength = selectedMaxOfBitLength / 4;
+    // なぜここにも書いているのか？ => 内部スコープの外でも必要だから
+    // selectChangeでセレクターを変更した時にだけ実行したい
+    const selectedMaxOfBitLength = useMemo(
+        () => (selectedOption ? Number(selectedOption) : 32),
+        [selectedOption]
+    );
+    const selectedMaxOfByteLength = useMemo(
+        () => selectedMaxOfBitLength / 4,
+        [selectedMaxOfBitLength]
+    );
 
-    //input
+    // input
     const initialValue = "";
     const [inputValue, setInputValue] = useState<string>(initialValue);
 
@@ -44,7 +47,7 @@ export const HexConvert = () => {
         );
     };
 
-    const showBitLength = (hex: string) => {
+    const showInputBitLength = (hex: string) => {
         const bitLength = hex.toString().length * 4;
         const bitLengthZeroPadding = Number(bitLength) + Number(bitLength % 8);
         return selectedOption ? selectedMaxOfBitLength : bitLengthZeroPadding;
@@ -59,7 +62,9 @@ export const HexConvert = () => {
 
     const toBin = (hex: string) => {
         const bin = parseInt(hex, 16).toString(2);
-        return hex ? "0".repeat(showBitLength(hex) - bin.length) + bin : "";
+        return hex
+            ? "0".repeat(showInputBitLength(hex) - bin.length) + bin
+            : "";
     };
 
     // one's complement
@@ -70,20 +75,20 @@ export const HexConvert = () => {
         const unSignedDec = parseInt(hex, 16);
         // 8, 16, 24bit かつ 最上位bitが1の場合
         if (
-            showBitLength(hex) <= 24 &&
-            unSignedDec >>> (showBitLength(hex) - 1) == 1
+            showInputBitLength(hex) <= 24 &&
+            unSignedDec >>> (showInputBitLength(hex) - 1) == 1
         ) {
-            return hex ? unSignedDec - 2 ** showBitLength(hex) : "";
+            return hex ? unSignedDec - 2 ** showInputBitLength(hex) : "";
         }
         // 8, 16, 24bit かつ 最上位bitが0の場合
         else if (
-            showBitLength(hex) <= 24 &&
-            unSignedDec >>> (showBitLength(hex) - 1) == 0
+            showInputBitLength(hex) <= 24 &&
+            unSignedDec >>> (showInputBitLength(hex) - 1) == 0
         ) {
             return hex ? unSignedDec : "";
         }
         // 32bit の場合
-        else if (showBitLength(hex) == 32) {
+        else if (showInputBitLength(hex) == 32) {
             return unSignedDec >> 0;
         }
         // その他: 8, 16, 24, 32bit以外の場合
@@ -100,7 +105,7 @@ export const HexConvert = () => {
                     {/* selecter */}
                     {!selectedOption && (
                         <Center fontSize={{ base: "lg", md: "xl" }} mx={4}>
-                            {showBitLength(inputValue) + "bit"}
+                            {showInputBitLength(inputValue) + "bit"}
                         </Center>
                     )}
                     <Center
