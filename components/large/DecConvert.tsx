@@ -13,13 +13,13 @@ export const DecConvert = () => {
         const value = event.target.value;
         setSelectedOption(value);
 
-        const selectedMaxOfBitLength = value ? Number(value) : 32;
-        const selectedMaxOfByteLength = selectedMaxOfBitLength / 4;
-        //setInputValue(inputValue.slice(0, selectedMaxOfByteLength));
+        const selectedBitLength = value ? Number(value) : 32;
+        const selectedByteLength = selectedBitLength / 4;
+        //setInputValue(inputValue.slice(0, selectedByteLength));
     };
 
-    const selectedMaxOfBitLength = selectedOption ? Number(selectedOption) : 32;
-    const selectedMaxOfByteLength = selectedMaxOfBitLength / 4;
+    const selectedBitLength = selectedOption ? Number(selectedOption) : 32;
+    const selectedByteLength = selectedBitLength / 4;
 
     // input
     const initialValue = "";
@@ -59,8 +59,8 @@ export const DecConvert = () => {
         }
     };
 
-    const showBitLengthUnsigned = (dec: number | string) => {
-        // option is auto (selectedMaxOfBitLength == 32)
+    const inputBitLengthUnsigned = (dec: number | string) => {
+        // option is auto (selectedBitLength == 32)
         if (selectedOption == "") {
             if (dec == 0) {
                 return 0;
@@ -78,13 +78,13 @@ export const DecConvert = () => {
         }
         // option is selected
         else {
-            return selectedMaxOfBitLength;
+            return selectedBitLength;
         }
     };
 
-    const showBitLengthSigned = (decimal: number | string) => {
+    const inputBitLengthSigned = (decimal: number | string) => {
         let dec = Number(decimal);
-        // option is auto (selectedMaxOfBitLength == 32)
+        // option is auto (selectedBitLength == 32)
         if (selectedOption == "") {
             // if dec == "-"
             if (isNaN(dec)) {
@@ -119,24 +119,24 @@ export const DecConvert = () => {
         }
         // option is selected
         else {
-            return selectedMaxOfBitLength;
+            return selectedBitLength;
         }
     };
 
     const isErrorUnsigned =
         // if bitLength == 0, then isErrorUnsigned == false
-        showBitLengthUnsigned(inputUnsignedValue)
+        inputBitLengthUnsigned(inputUnsignedValue)
             ? inputUnsignedValue >=
-              2 ** showBitLengthUnsigned(inputUnsignedValue)
+              2 ** inputBitLengthUnsigned(inputUnsignedValue)
             : false;
 
     const isErrorSigned =
         // if bitLength == 0, then isErrorSigned == false
-        showBitLengthSigned(inputSignedValue)
+        inputBitLengthSigned(inputSignedValue)
             ? inputSignedValue <
-                  -1 * 2 ** (showBitLengthSigned(inputSignedValue) - 1) ||
+                  -1 * 2 ** (inputBitLengthSigned(inputSignedValue) - 1) ||
               inputSignedValue >
-                  2 ** (showBitLengthSigned(inputSignedValue) - 1) - 1
+                  2 ** (inputBitLengthSigned(inputSignedValue) - 1) - 1
             : false;
 
     const toHex = (decimal: number | string) => {
@@ -150,8 +150,9 @@ export const DecConvert = () => {
                 const hex = Number(dec).toString(16).toUpperCase();
 
                 return dec
-                    ? "0".repeat(showBitLengthSigned(dec) / 4 - hex.length) +
-                          hex
+                    ? // ? "0".repeat(inputBitLengthSigned(dec) / 4 - hex.length) +
+                      //   hex
+                      hex.padStart(inputBitLengthSigned(dec) / 4, "0")
                     : "";
             }
             // negative number
@@ -160,7 +161,8 @@ export const DecConvert = () => {
                 let dec_unsigned = 256 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
                 return (
-                    "0".repeat(showBitLengthSigned(dec) / 4 - hex.length) + hex
+                    // "0".repeat(inputBitLengthSigned(dec) / 4 - hex.length) + hex
+                    hex.padStart(inputBitLengthUnsigned(dec) / 4, "0")
                 );
             }
             // 16bit
@@ -168,7 +170,8 @@ export const DecConvert = () => {
                 let dec_unsigned = 65536 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
                 return (
-                    "0".repeat(showBitLengthSigned(dec) / 4 - hex.length) + hex
+                    // "0".repeat(inputBitLengthSigned(dec) / 4 - hex.length) + hex
+                    hex.padStart(inputBitLengthUnsigned(dec) / 4, "0")
                 );
             }
             // 24bit
@@ -176,7 +179,8 @@ export const DecConvert = () => {
                 let dec_unsigned = 16777216 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
                 return (
-                    "0".repeat(showBitLengthSigned(dec) / 4 - hex.length) + hex
+                    // "0".repeat(inputBitLengthSigned(dec) / 4 - hex.length) + hex
+                    hex.padStart(inputBitLengthUnsigned(dec) / 4, "0")
                 );
             }
             // 32bit
@@ -184,14 +188,15 @@ export const DecConvert = () => {
                 let dec_unsigned = 4294967296 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
                 return (
-                    "0".repeat(showBitLengthSigned(dec) / 4 - hex.length) + hex
+                    // "0".repeat(inputBitLengthSigned(dec) / 4 - hex.length) + hex
+                    hex.padStart(inputBitLengthUnsigned(dec) / 4, "0")
                 );
             }
         }
     };
     const toBin = (hex: any) => {
         const bin = parseInt(hex, 16).toString(2);
-        return hex ? bin : "";
+        return hex ? bin.padStart(hex.length * 4, "0") : "";
     };
 
     return (
@@ -208,9 +213,10 @@ export const DecConvert = () => {
                                 isErrorUnsigned || isErrorSigned ? "tomato" : ""
                             }>
                             {inputUnsignedValue
-                                ? showBitLengthUnsigned(inputUnsignedValue) +
+                                ? inputBitLengthUnsigned(inputUnsignedValue) +
                                   "bit"
-                                : showBitLengthSigned(inputSignedValue) + "bit"}
+                                : inputBitLengthSigned(inputSignedValue) +
+                                  "bit"}
                         </Center>
                     )}
                     <Center

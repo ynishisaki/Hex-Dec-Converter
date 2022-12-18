@@ -12,24 +12,24 @@ export const HexConvert = () => {
         const value = event.target.value;
         setSelectedOption(value);
 
-        // 外部スコープの変数とは別にこのタイミングで必要
+        // 外部スコープの変数とは別にこのタイミングで必要らしい
         // セレクター未指定の時は32bitとして扱う
-        const selectedMaxOfBitLength = value ? Number(value) : 32;
-        const selectedMaxOfByteLength = selectedMaxOfBitLength / 4;
+        const selectedBitLength = value ? Number(value) : 32;
+        const selectedByteLength = selectedBitLength / 4;
 
         // 指定bit数より長い入力は切り捨てる
-        setInputValue(inputValue.slice(0, selectedMaxOfByteLength));
+        setInputValue(inputValue.slice(0, selectedByteLength));
     };
 
     // なぜここにも書いているのか？ => 内部スコープの外でも必要だから
     // selectChangeでセレクターを変更した時にだけ実行したい
-    const selectedMaxOfBitLength = useMemo(
+    const selectedBitLength = useMemo(
         () => (selectedOption ? Number(selectedOption) : 32),
         [selectedOption]
     );
-    const selectedMaxOfByteLength = useMemo(
-        () => selectedMaxOfBitLength / 4,
-        [selectedMaxOfBitLength]
+    const selectedByteLength = useMemo(
+        () => selectedBitLength / 4,
+        [selectedBitLength]
     );
 
     // input
@@ -42,29 +42,22 @@ export const HexConvert = () => {
         setInputValue(
             value
                 .replaceAll(regex, "")
-                .slice(0, selectedMaxOfByteLength)
+                .slice(0, selectedByteLength)
                 .toUpperCase()
         );
     };
 
-    const showInputBitLength = (hex: string) => {
+    const inputBitLength = (hex: string) => {
         const bitLength = hex.toString().length * 4;
-        const bitLengthZeroPadding = Number(bitLength) + Number(bitLength % 8);
-        return selectedOption ? selectedMaxOfBitLength : bitLengthZeroPadding;
+        const bitLengthAddZeroPadding =
+            Number(bitLength) + Number(bitLength % 8);
+        return selectedOption ? selectedBitLength : bitLengthAddZeroPadding;
     };
-
-    // const isError = (hex: string) => {
-    // 	// 0, 0.5, 1, 1.5... byte
-    // 	const byteLength = hex.toString().length / 2;
-    // 	// over 4byte is Error
-    // 	return byteLength > selectedMaxOfByteLength;
-    // };
 
     const toBin = (hex: string) => {
         const bin = parseInt(hex, 16).toString(2);
-        return hex
-            ? "0".repeat(showInputBitLength(hex) - bin.length) + bin
-            : "";
+
+        return hex ? bin.padStart(inputBitLength(hex), "0") : "";
     };
 
     // one's complement
@@ -75,20 +68,20 @@ export const HexConvert = () => {
         const unSignedDec = parseInt(hex, 16);
         // 8, 16, 24bit かつ 最上位bitが1の場合
         if (
-            showInputBitLength(hex) <= 24 &&
-            unSignedDec >>> (showInputBitLength(hex) - 1) == 1
+            inputBitLength(hex) <= 24 &&
+            unSignedDec >>> (inputBitLength(hex) - 1) == 1
         ) {
-            return hex ? unSignedDec - 2 ** showInputBitLength(hex) : "";
+            return hex ? unSignedDec - 2 ** inputBitLength(hex) : "";
         }
         // 8, 16, 24bit かつ 最上位bitが0の場合
         else if (
-            showInputBitLength(hex) <= 24 &&
-            unSignedDec >>> (showInputBitLength(hex) - 1) == 0
+            inputBitLength(hex) <= 24 &&
+            unSignedDec >>> (inputBitLength(hex) - 1) == 0
         ) {
             return hex ? unSignedDec : "";
         }
         // 32bit の場合
-        else if (showInputBitLength(hex) == 32) {
+        else if (inputBitLength(hex) == 32) {
             return unSignedDec >> 0;
         }
         // その他: 8, 16, 24, 32bit以外の場合
@@ -105,7 +98,7 @@ export const HexConvert = () => {
                     {/* selecter */}
                     {!selectedOption && (
                         <Center fontSize={{ base: "lg", md: "xl" }} mx={4}>
-                            {showInputBitLength(inputValue) + "bit"}
+                            {inputBitLength(inputValue) + "bit"}
                         </Center>
                     )}
                     <Center
