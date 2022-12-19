@@ -150,9 +150,7 @@ export const DecConvert = () => {
                 const hex = Number(dec).toString(16).toUpperCase();
 
                 return dec
-                    ? // ? "0".repeat(inputBitLengthSigned(dec) / 4 - hex.length) +
-                      //   hex
-                      hex.padStart(inputBitLengthSigned(dec) / 4, "0")
+                    ? hex.padStart(inputBitLengthSigned(dec) / 4, "0")
                     : "";
             }
             // negative number
@@ -160,37 +158,25 @@ export const DecConvert = () => {
             else if (dec >= -128) {
                 let dec_unsigned = 256 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
-                return (
-                    // "0".repeat(inputBitLengthSigned(dec) / 4 - hex.length) + hex
-                    hex.padStart(inputBitLengthUnsigned(dec) / 4, "0")
-                );
+                return hex.padStart(inputBitLengthUnsigned(dec) / 4, "0");
             }
             // 16bit
             else if (dec >= -32768) {
                 let dec_unsigned = 65536 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
-                return (
-                    // "0".repeat(inputBitLengthSigned(dec) / 4 - hex.length) + hex
-                    hex.padStart(inputBitLengthUnsigned(dec) / 4, "0")
-                );
+                return hex.padStart(inputBitLengthUnsigned(dec) / 4, "0");
             }
             // 24bit
             else if (dec >= -8388608) {
                 let dec_unsigned = 16777216 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
-                return (
-                    // "0".repeat(inputBitLengthSigned(dec) / 4 - hex.length) + hex
-                    hex.padStart(inputBitLengthUnsigned(dec) / 4, "0")
-                );
+                return hex.padStart(inputBitLengthUnsigned(dec) / 4, "0");
             }
             // 32bit
             else if (dec >= -2147483648) {
                 let dec_unsigned = 4294967296 - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
-                return (
-                    // "0".repeat(inputBitLengthSigned(dec) / 4 - hex.length) + hex
-                    hex.padStart(inputBitLengthUnsigned(dec) / 4, "0")
-                );
+                return hex.padStart(inputBitLengthUnsigned(dec) / 4, "0");
             }
         }
     };

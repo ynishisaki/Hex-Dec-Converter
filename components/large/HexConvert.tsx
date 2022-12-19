@@ -132,8 +132,6 @@ export const HexConvert = () => {
                     value={inputValue}
                     isInput={true}
                     onChange={handleChange}
-                    // 入力文字数に制限があるので、isErrorで判定する必要がない
-                    // isError={false}
                     radix={16}></ShowValueWindow>
             </Box>
             {/* output */}
