@@ -13,16 +13,19 @@ export const DecConvertIEEE754 = () => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         let val = event.target.value; // string
 
-        // 浮動小数点の正規表現
+        // 入力から、整数or浮動小数点のみを受け付ける正規表現
 
-        val = val.replace(/[^-\.0-9]/g, ""); // -と.と0から9以外の文字を取り除く
+        // 入力可能な文字は、-と.と0-9。それ以外の文字は無効なので、取り除く
+        val = val.replace(/[^-\.0-9]/g, "");
 
-        val = val.replace(/^[^-0-9]/g, ""); // 先頭の0の後に来て良いのは、-と0-9のみ
+        // 先頭に入力可能な文字は、-と0-9のみ
+        val = val.replace(/^[^-0-9]/g, "");
 
+        // 0は、基本先頭には入力できないが、例外として、0.1のような場合はOK
         val = val.replace(/^[0]+[0-9]/g, "0"); // 先頭の0の後に来て良いのは、.のみ
         val = val.replace(/^[-][0]+[0-9]+/g, "-0"); // 先頭の-0の後に来て良いのは、.のみ
 
-        // // 文字列の途中の.を取り除く
+        // .は、1つまでしか入力できないので、2つある場合は、2つ目を取り除く
         if (/^[-]?[0-9]+[\.][0-9]*[\.]/.test(val) == true) {
             let regexp = /\./g;
 
@@ -36,29 +39,26 @@ export const DecConvertIEEE754 = () => {
             let matchTwo = regexp.exec(val); // regexp.lastIndex から検索を続ける
             if (matchTwo !== null) {
                 let index = matchTwo.index; // マッチした位置
-                //　2つ目のマッチした.を切り取る
+
+                // 2つ目のマッチした.を切り取る
                 // ただし、ひとつ目の.を入力した場合は、2つ目が切り取られるため、若干不自然な挙動ではある
                 val = val.slice(0, index) + val.slice(index + 1);
             }
         }
 
-        // -が先頭以外に入力される場合は、取り除く
-        // 先頭が-以外(=正の数)
-        if (/^[\.0-9]*[-]/.test(val) == true) {
+        // 0は、先頭には入力できないため、先頭以外に入力される場合は、取り除く
+        // 先頭が0-9のとき(=正の数)
+        if (/^[\.0-9]+[-]/.test(val) == true) {
             val = val.replace(/[-]/g, ""); // 文字列の途中の-を取り除く
-            console.log("true   ");
             setInputValue(val);
         }
-        // 先頭が-（=負の数）
+        // 先頭が-のとき（=負の数）
         else if (/^[-][\.0-9]*[-]/.test(val) == true) {
             val = "-" + val.replace(/[-]/g, ""); // 文字列の途中の-を取り除き、先頭の-を残す
             setInputValue(val);
-            console.log("true -");
         } else {
             setInputValue(val);
-            console.log("false");
         }
-        setInputValue(val);
     };
 
     // 入力値は、ieee754の単精度浮動小数点数で16進数に変換
