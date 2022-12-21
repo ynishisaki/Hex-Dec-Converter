@@ -1,8 +1,7 @@
-import { Box, Center, VStack, Spacer, Flex } from "@chakra-ui/react";
+import { Box, VStack, Spacer, Flex } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 import { ClearButton } from "../small/ClearButton";
-import { BitSelect } from "../small/BitSelect";
 import { ShowValueWindow } from "../medium/ShowValueWindow";
 
 export const DecConvertIEEE754 = () => {
@@ -25,7 +24,7 @@ export const DecConvertIEEE754 = () => {
         val = val.replace(/^[0]+[0-9]/g, "0"); // 先頭の0の後に来て良いのは、.のみ
         val = val.replace(/^[-][0]+[0-9]+/g, "-0"); // 先頭の-0の後に来て良いのは、.のみ
 
-        // .は、1つまでしか入力できないので、2つある場合は、2つ目を取り除く
+        // .は、1つまでしか入力できないので、2つ目の.が入力された場合は、2つ目を取り除く
         if (/^[-]?[0-9]+[\.][0-9]*[\.]/.test(val) == true) {
             let regexp = /\./g;
 
@@ -43,10 +42,12 @@ export const DecConvertIEEE754 = () => {
                 // 2つ目のマッチした.を切り取る
                 // ただし、ひとつ目の.を入力した場合は、2つ目が切り取られるため、若干不自然な挙動ではある
                 val = val.slice(0, index) + val.slice(index + 1);
+
+                setInputValue(val);
             }
         }
 
-        // 0は、先頭には入力できないため、先頭以外に入力される場合は、取り除く
+        // 0は、先頭には入力できないため、先頭以外に0が入力された場合は、取り除く
         // 先頭が0-9のとき(=正の数)
         if (/^[\.0-9]+[-]/.test(val) == true) {
             val = val.replace(/[-]/g, ""); // 文字列の途中の-を取り除く
@@ -56,17 +57,20 @@ export const DecConvertIEEE754 = () => {
         else if (/^[-][\.0-9]*[-]/.test(val) == true) {
             val = "-" + val.replace(/[-]/g, ""); // 文字列の途中の-を取り除き、先頭の-を残す
             setInputValue(val);
-        } else {
+        }
+        // それ以外、入力に問題がない場合
+        else {
             setInputValue(val);
         }
     };
 
-    // 入力値は、ieee754の単精度浮動小数点数で16進数に変換
+    // 入力値は、ieee754単精度で16進数に変換
     const toHex = (dec: number | string) => {
         const buffer = new ArrayBuffer(4);
         const dataView = new DataView(buffer);
         dataView.setFloat32(0, Number(dec));
         const hex = dataView.getUint32(0).toString(16);
+
         return dec ? hex.padStart(8, "0") : "";
     };
 
@@ -75,6 +79,7 @@ export const DecConvertIEEE754 = () => {
     const toBin = (hex: string) => {
         let hexLiteral = Number(`0x${hex}`);
         let bin = hexLiteral.toString(2);
+
         return hex ? bin.padStart(32, "0") : "";
     };
 
@@ -117,7 +122,7 @@ export const DecConvertIEEE754 = () => {
                     <Spacer />
                 </Flex>
                 <ShowValueWindow
-                    placeholder='11111111'
+                    placeholder='00111111000000000000000000000000'
                     value={toBin(toHex(inputValue))}
                     isInput={false}
                     radix={2}></ShowValueWindow>
@@ -132,7 +137,7 @@ export const DecConvertIEEE754 = () => {
                     <Spacer />
                 </Flex>
                 <ShowValueWindow
-                    placeholder='FF'
+                    placeholder='3f000000'
                     value={toHex(inputValue)}
                     isInput={false}
                     radix={16}></ShowValueWindow>
