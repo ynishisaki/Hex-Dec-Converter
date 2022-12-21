@@ -1,6 +1,9 @@
 import { extendTheme } from "@chakra-ui/react";
 
 export const theme = extendTheme({
+    shadows: {
+        outline: "0 0 0 0px #000000", // デフォルトのfocusの影を消す（buttonに適応）
+    },
     components: {
         Button: {
             baseStyle: {},
