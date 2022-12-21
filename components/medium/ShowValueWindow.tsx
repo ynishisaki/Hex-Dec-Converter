@@ -1,6 +1,8 @@
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/react";
 
 type ChildCompProps = {
+    type?: "number";
+    step?: "any";
     placeholder: string;
     value: string | number | undefined;
     isInput: boolean; // 名前ややこしいけど、入力値か出力値かを判定するフラグ
@@ -15,7 +17,7 @@ export const ShowValueWindow = (props: ChildCompProps) => {
             <Input
                 htmlSize={30}
                 fontSize={"2xl"}
-                type='alphanumeric'
+                type='text'
                 placeholder={props.placeholder}
                 value={props.value}
                 // 入力値の場合の設定
