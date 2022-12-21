@@ -25,48 +25,46 @@ const Home: NextPage = () => {
             <Head>
                 <title>Hex-Dec Converter</title>
             </Head>
-            <body className={styles.container}>
-                <header>
-                    <Center layerStyle='title'>Hex-Dec Converter</Center>
-                </header>
 
-                <main>
-                    <Box layerStyle='base'>
-                        <Tabs
-                            variant='line'
-                            borderRadius={"2xl"}
-                            // variant='soft-rounded'
-                            colorScheme='green'>
-                            <nav>
-                                <TabList>
-                                    <Tab>integer</Tab>
-                                    <Tab>float (IEEE754)</Tab>
-                                </TabList>
-                            </nav>
+            <header>
+                <Center layerStyle='title'>Hex-Dec Converter</Center>
+            </header>
+            <main>
+                <Box layerStyle='base'>
+                    <Tabs
+                        variant='line'
+                        borderRadius={"2xl"}
+                        // variant='soft-rounded'
+                        colorScheme='green'>
+                        <nav>
+                            <TabList>
+                                <Tab>integer</Tab>
+                                <Tab>float (IEEE754)</Tab>
+                            </TabList>
+                        </nav>
 
-                            <TabPanels>
-                                <TabPanel>
-                                    <VStack spacing={20} pb={10}>
-                                        <HexConvertAsInteger />
-                                        <DecConvertAsInteger />
-                                    </VStack>
-                                </TabPanel>
-                                <TabPanel>
-                                    <VStack spacing={20} pb={10}>
-                                        <HexConvertAsFloat />
-                                        <DecConvertAsFloat />
-                                    </VStack>
-                                </TabPanel>
-                            </TabPanels>
-                        </Tabs>
-                    </Box>
-                </main>
-                <footer>
-                    <Box layerStyle='footer'>
-                        <Text>© 2022 monyo</Text>
-                    </Box>
-                </footer>
-            </body>
+                        <TabPanels>
+                            <TabPanel>
+                                <VStack spacing={20} pb={10}>
+                                    <HexConvertAsInteger />
+                                    <DecConvertAsInteger />
+                                </VStack>
+                            </TabPanel>
+                            <TabPanel>
+                                <VStack spacing={20} pb={10}>
+                                    <HexConvertAsFloat />
+                                    <DecConvertAsFloat />
+                                </VStack>
+                            </TabPanel>
+                        </TabPanels>
+                    </Tabs>
+                </Box>
+            </main>
+            <footer>
+                <Box layerStyle='footer'>
+                    <Text>© 2022 monyo</Text>
+                </Box>
+            </footer>
         </>
     );
 };
