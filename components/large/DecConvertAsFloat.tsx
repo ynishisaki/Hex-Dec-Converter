@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ClearButton } from "../small/ClearButton";
 import { ShowValueWindow } from "../medium/ShowValueWindow";
 
-export const DecConvertIEEE754 = () => {
+export const DecConvertAsFloat = () => {
     // input
     const initialValue = "";
     const [inputValue, setInputValue] = useState<number | string>(initialValue);

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { ClearButton } from "../small/ClearButton";
 import { ShowValueWindow } from "../medium/ShowValueWindow";
 
-export const HexConvertIEEE754 = () => {
+export const HexConvertAsFloat = () => {
     //input
     const initialValue = "";
     const [inputValue, setInputValue] = useState<string>(initialValue);

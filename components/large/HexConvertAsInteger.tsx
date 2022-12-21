@@ -4,7 +4,7 @@ import { ClearButton } from "../small/ClearButton";
 import { BitSelect } from "../small/BitSelect";
 import { ShowValueWindow } from "../medium/ShowValueWindow";
 
-export const HexConvert = () => {
+export const HexConvertAsInteger = () => {
     // select
     const [selectedOption, setSelectedOption] = useState<String>("");
 

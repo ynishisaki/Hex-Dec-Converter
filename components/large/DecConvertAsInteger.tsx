@@ -5,7 +5,7 @@ import { ClearButton } from "../small/ClearButton";
 import { BitSelect } from "../small/BitSelect";
 import { ShowValueWindow } from "../medium/ShowValueWindow";
 
-export const DecConvert = () => {
+export const DecConvertAsInteger = () => {
     // select
     const [selectedOption, setSelectedOption] = useState<String>("");
 
