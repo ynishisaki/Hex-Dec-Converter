@@ -64,18 +64,19 @@ export const DecConvertIEEE754 = () => {
         }
     };
 
-    // 入力値は、ieee754単精度で16進数に変換
+    // 入力の10進数から16進数に変換(ieee754単精度)
     const toHex = (dec: number | string) => {
         const buffer = new ArrayBuffer(4);
+
         const dataView = new DataView(buffer);
-        dataView.setFloat32(0, Number(dec));
-        const hex = dataView.getUint32(0).toString(16);
+        dataView.setFloat32(0, Number(dec), false); // falseならBig endian
+
+        const hex = dataView.getUint32(0).toString(16); // byteOffset=0, littleEndian=false
 
         return dec ? hex.padStart(8, "0") : "";
     };
 
     // 16進数から2進数に変換
-    // まだ未完成
     const toBin = (hex: string) => {
         let hexLiteral = Number(`0x${hex}`);
         let bin = hexLiteral.toString(2);
