@@ -142,7 +142,9 @@ export const DecConvertAsInteger = () => {
     const toHex = (decimal: number | string) => {
         let dec = Number(decimal);
 
+        // "-"だけ入力された時はNaN
         if (isNaN(dec)) {
+            console.log("NaN");
             return "";
         } else {
             // positive number
@@ -158,34 +160,12 @@ export const DecConvertAsInteger = () => {
                 let dec_unsigned =
                     2 ** inputBitLengthSigned(dec) - Math.abs(dec);
                 const hex = Number(dec_unsigned).toString(16).toUpperCase();
-                return hex.padStart(inputBitLengthUnsigned(dec) / 4, "0");
+
+                return hex.padStart(inputBitLengthSigned(dec) / 4, "0");
             }
-            // 8bit
-            // else if (dec >= -128) {
-            //     let dec_unsigned = 256 - Math.abs(dec);
-            //     const hex = Number(dec_unsigned).toString(16).toUpperCase();
-            //     return hex.padStart(inputBitLengthUnsigned(dec) / 4, "0");
-            // }
-            // // 16bit
-            // else if (dec >= -32768) {
-            //     let dec_unsigned = 65536 - Math.abs(dec);
-            //     const hex = Number(dec_unsigned).toString(16).toUpperCase();
-            //     return hex.padStart(inputBitLengthUnsigned(dec) / 4, "0");
-            // }
-            // // 24bit
-            // else if (dec >= -8388608) {
-            //     let dec_unsigned = 16777216 - Math.abs(dec);
-            //     const hex = Number(dec_unsigned).toString(16).toUpperCase();
-            //     return hex.padStart(inputBitLengthUnsigned(dec) / 4, "0");
-            // }
-            // // 32bit
-            // else if (dec >= -2147483648) {
-            //     let dec_unsigned = 4294967296 - Math.abs(dec);
-            //     const hex = Number(dec_unsigned).toString(16).toUpperCase();
-            //     return hex.padStart(inputBitLengthUnsigned(dec) / 4, "0");
-            // }
         }
     };
+
     const toBin = (hex: any) => {
         const bin = parseInt(hex, 16).toString(2);
         return hex ? bin.padStart(hex.length * 4, "0") : "";
