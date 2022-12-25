@@ -34,7 +34,6 @@ const Home: NextPage = () => {
                     <Tabs
                         variant='line'
                         borderRadius={"2xl"}
-                        // variant='soft-rounded'
                         colorScheme='green'>
                         <nav>
                             <TabList>
@@ -44,12 +43,14 @@ const Home: NextPage = () => {
                         </nav>
 
                         <TabPanels>
+                            {/* integer */}
                             <TabPanel>
                                 <VStack spacing={20} pb={10}>
                                     <HexConvertAsInteger />
                                     <DecConvertAsInteger />
                                 </VStack>
                             </TabPanel>
+                            {/* float (IEEE754) */}
                             <TabPanel>
                                 <VStack spacing={20} pb={10}>
                                     <HexConvertAsFloat />
