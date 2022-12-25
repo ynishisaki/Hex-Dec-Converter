@@ -10,10 +10,6 @@ class MyDocument extends Document {
                         name='description'
                         content='Converts between hexadecimal and decimal numbers. It supports unsigned integers, signed integers, and floating point (IEEE754).'
                     />
-                    <meta
-                        name='google-site-verification'
-                        content='QCMAUI4zWwgmC1eVBN1F1WtdAIgZlYkqhl2Mj9X4mKA'
-                    />
                     <meta name='author' content='monyo'></meta>
                     {/* set favicon */}
                     <link
