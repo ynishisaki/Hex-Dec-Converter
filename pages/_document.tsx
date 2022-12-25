@@ -8,7 +8,7 @@ class MyDocument extends Document {
                     <meta charSet='utf-8' />
                     <meta
                         name='description'
-                        content='Conversion tool between hexadecimal and decimal. It supports unsigned integers and signed integers.'
+                        content='Converts between hexadecimal and decimal numbers. It supports unsigned integers, signed integers, and floating point (IEEE754).'
                     />
                     <meta
                         name='google-site-verification'
