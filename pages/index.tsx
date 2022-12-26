@@ -1,7 +1,6 @@
 import Head from "next/head";
 import type { NextPage } from "next";
 
-import styles from "../styles/Home.module.css";
 import {
     Box,
     Center,
