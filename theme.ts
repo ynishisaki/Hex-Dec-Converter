@@ -9,6 +9,7 @@ export const theme = extendTheme({
             },
         },
         Input: {
+            baseStyle: {},
             defaultProps: {
                 focusBorderColor: "green.400",
             },
