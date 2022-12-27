@@ -11,7 +11,6 @@ import {
     Tabs,
     Text,
     VStack,
-    Input,
 } from "@chakra-ui/react";
 
 import { DecConvertAsInteger } from "../components/large/DecConvertAsInteger";
@@ -31,7 +30,6 @@ const Home: NextPage = () => {
             </header>
             <main>
                 <Box layerStyle='base'>
-                    <Input placeholder='Input value'></Input>
                     <Tabs
                         variant='line'
                         borderRadius={"2xl"}
