@@ -71,7 +71,7 @@ export const DecConvertAsFloat = () => {
         const dataView = new DataView(buffer);
         dataView.setFloat32(0, Number(dec), false); // falseならBig endian
 
-        const hex = dataView.getUint32(0).toString(16); // byteOffset=0, littleEndian=false
+        const hex = dataView.getUint32(0).toString(16).toUpperCase(); // byteOffset=0, littleEndian=false
 
         return dec ? hex.padStart(8, "0") : "";
     };
@@ -138,7 +138,7 @@ export const DecConvertAsFloat = () => {
                     <Spacer />
                 </Flex>
                 <ShowValueWindow
-                    placeholder='3f000000'
+                    placeholder='3F000000'
                     value={toHex(inputValue)}
                     isInput={false}
                     radix={16}></ShowValueWindow>
