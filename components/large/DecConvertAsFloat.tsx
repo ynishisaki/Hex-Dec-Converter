@@ -2,7 +2,7 @@ import { Box, VStack, Spacer, Flex } from "@chakra-ui/react";
 import React from "react";
 import { useState } from "react";
 import { ClearButton } from "../small/ClearButton";
-import { ShowValueWindow } from "../medium/ShowValueWindow";
+import { InputWithRadix } from "../medium/InputWithRadix";
 
 export const DecConvertAsFloat = () => {
     // input
@@ -105,12 +105,12 @@ export const DecConvertAsFloat = () => {
                     <Box layerStyle='showBaseNumber'>DEC</Box>
                     <Box layerStyle='showUnsignedOrSigned'></Box>
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='0.5'
                     value={inputValue}
                     isInput={true}
                     onChange={handleChange}
-                    radix={10}></ShowValueWindow>
+                    radix={10}></InputWithRadix>
             </Box>
             {/* output */}
             {/* BIN */}
@@ -122,11 +122,11 @@ export const DecConvertAsFloat = () => {
                     <Box layerStyle='showBaseNumber'>BIN</Box>
                     <Spacer />
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='00111111000000000000000000000000'
                     value={toBin(toHex(inputValue))}
                     isInput={false}
-                    radix={2}></ShowValueWindow>
+                    radix={2}></InputWithRadix>
             </Box>
             {/* HEX */}
             <Box
@@ -137,11 +137,11 @@ export const DecConvertAsFloat = () => {
                     <Box layerStyle='showBaseNumber'>HEX</Box>
                     <Spacer />
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='3F000000'
                     value={toHex(inputValue)}
                     isInput={false}
-                    radix={16}></ShowValueWindow>
+                    radix={16}></InputWithRadix>
             </Box>
         </VStack>
     );

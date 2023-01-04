@@ -1,7 +1,7 @@
 import { Box, Flex, Spacer, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { ClearButton } from "../small/ClearButton";
-import { ShowValueWindow } from "../medium/ShowValueWindow";
+import { InputWithRadix } from "../medium/InputWithRadix";
 
 export const HexConvertAsFloat = () => {
     //input
@@ -58,12 +58,12 @@ export const HexConvertAsFloat = () => {
                     <Box layerStyle='showBaseNumber'>HEX</Box>
                     <Spacer />
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='3F000000'
                     value={inputValue}
                     isInput={true}
                     onChange={handleChange}
-                    radix={16}></ShowValueWindow>
+                    radix={16}></InputWithRadix>
             </Box>
             {/* output */}
             {/* BIN */}
@@ -75,11 +75,11 @@ export const HexConvertAsFloat = () => {
                     <Box layerStyle='showBaseNumber'>BIN</Box>
                     <Spacer />
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='00111111000000000000000000000000'
                     value={toBin(inputValue)}
                     isInput={false}
-                    radix={2}></ShowValueWindow>
+                    radix={2}></InputWithRadix>
             </Box>
             {/* DEC */}
             <Box
@@ -89,11 +89,11 @@ export const HexConvertAsFloat = () => {
                 <Flex alignItems={"center"} width={"25%"}>
                     <Box layerStyle='showBaseNumber'>DEC</Box>
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='0.5'
                     value={toDec(toBin(inputValue))}
                     isInput={false}
-                    radix={10}></ShowValueWindow>
+                    radix={10}></InputWithRadix>
             </Box>
         </VStack>
     );

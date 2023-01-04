@@ -2,7 +2,8 @@ import { Box, Center, Flex, Spacer, VStack } from "@chakra-ui/react";
 import { useState, useMemo } from "react";
 import { ClearButton } from "../small/ClearButton";
 import { BitSelect } from "../small/BitSelect";
-import { ShowValueWindow } from "../medium/ShowValueWindow";
+import { InputWithRadix } from "../medium/InputWithRadix";
+import { useCount } from "../../hooks/useCount";
 
 export const HexConvertAsInteger = () => {
     // select
@@ -12,16 +13,13 @@ export const HexConvertAsInteger = () => {
         const value = event.target.value;
         setSelectedOption(value);
 
-        // 外部スコープの変数とは別にこのタイミングで必要らしい
-        // セレクター未指定の時は32bitとして扱う
-        const selectedBitLength = value ? Number(value) : 32;
-        const selectedByteLength = selectedBitLength / 4;
+        // 外部でも宣言しているが、ここで宣言しないと、更新前の値が参照されてしまう
+        let selectedByteLength = Number(value) / 4;
 
-        // 指定bit数より長い入力は切り捨てる
+        // // 指定bit数より長い入力は切り捨てる
         setInputValue(inputValue.slice(0, selectedByteLength));
     };
 
-    // なぜここにも書いているのか？ => 内部スコープの外でも必要だから
     // selectChangeでセレクターを変更した時にだけ実行したい
     const selectedBitLength = useMemo(
         () => (selectedOption ? Number(selectedOption) : 32),
@@ -90,10 +88,14 @@ export const HexConvertAsInteger = () => {
         }
     };
 
+    const { count, increment } = useCount();
+
     return (
         <VStack width={"100%"}>
             {/* selecter and button */}
             <Box width={"100%"}>
+                <p>{count}</p>
+                <button onClick={increment}>increment</button>
                 <Flex justifyContent={"flex-end"} my={"1"}>
                     {/* selecter */}
                     {!selectedOption && (
@@ -127,12 +129,12 @@ export const HexConvertAsInteger = () => {
                     <Box layerStyle='showBaseNumber'>HEX</Box>
                     <Spacer />
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='FF'
                     value={inputValue}
                     isInput={true}
                     onChange={handleChange}
-                    radix={16}></ShowValueWindow>
+                    radix={16}></InputWithRadix>
             </Box>
             {/* output */}
             {/* BIN */}
@@ -144,11 +146,11 @@ export const HexConvertAsInteger = () => {
                     <Box layerStyle='showBaseNumber'>BIN</Box>
                     <Spacer />
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='11111111'
                     value={toBin(inputValue)}
                     isInput={false}
-                    radix={2}></ShowValueWindow>
+                    radix={2}></InputWithRadix>
             </Box>
             {/* unsignedDEC */}
             <Box
@@ -159,11 +161,11 @@ export const HexConvertAsInteger = () => {
                     <Box layerStyle='showBaseNumber'>DEC</Box>
                     <Box layerStyle='showUnsignedOrSigned'>unsigned</Box>
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='255'
                     value={toUnsignedDec(inputValue)}
                     isInput={false}
-                    radix={10}></ShowValueWindow>
+                    radix={10}></InputWithRadix>
             </Box>
             {/* signedDEC */}
             <Box
@@ -174,11 +176,11 @@ export const HexConvertAsInteger = () => {
                     <Box layerStyle='showBaseNumber'>DEC</Box>
                     <Box layerStyle='showUnsignedOrSigned'>signed</Box>
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='-1'
                     value={toSignedDec(inputValue)}
                     isInput={false}
-                    radix={10}></ShowValueWindow>
+                    radix={10}></InputWithRadix>
             </Box>
         </VStack>
     );

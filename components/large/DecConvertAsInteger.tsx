@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { ClearButton } from "../small/ClearButton";
 import { BitSelect } from "../small/BitSelect";
-import { ShowValueWindow } from "../medium/ShowValueWindow";
+import { InputWithRadix } from "../medium/InputWithRadix";
 
 export const DecConvertAsInteger = () => {
     // select
@@ -218,13 +218,13 @@ export const DecConvertAsInteger = () => {
                     <Box layerStyle='showBaseNumber'>DEC</Box>
                     <Box layerStyle='showUnsignedOrSigned'>unsigned</Box>
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='255'
                     value={inputUnsignedValue}
                     isInput={inputSignedValue ? false : true}
                     onChange={handleUnsignedChange}
                     isError={isErrorUnsigned}
-                    radix={10}></ShowValueWindow>
+                    radix={10}></InputWithRadix>
             </Box>
             {/* signedDEC */}
             <Box
@@ -235,13 +235,13 @@ export const DecConvertAsInteger = () => {
                     <Box layerStyle='showBaseNumber'>DEC</Box>
                     <Box layerStyle='showUnsignedOrSigned'>signed</Box>
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='-1'
                     value={inputSignedValue}
                     isInput={inputUnsignedValue ? false : true}
                     onChange={handleSignedChange}
                     isError={isErrorSigned}
-                    radix={10}></ShowValueWindow>
+                    radix={10}></InputWithRadix>
             </Box>
             {/* output */}
             {/* BIN */}
@@ -253,7 +253,7 @@ export const DecConvertAsInteger = () => {
                     <Box layerStyle='showBaseNumber'>BIN</Box>
                     <Spacer />
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='11111111'
                     value={
                         !(isErrorUnsigned || isErrorSigned)
@@ -263,7 +263,7 @@ export const DecConvertAsInteger = () => {
                             : ""
                     }
                     isInput={false}
-                    radix={2}></ShowValueWindow>
+                    radix={2}></InputWithRadix>
             </Box>
             {/* HEX */}
             <Box
@@ -274,7 +274,7 @@ export const DecConvertAsInteger = () => {
                     <Box layerStyle='showBaseNumber'>HEX</Box>
                     <Spacer />
                 </Flex>
-                <ShowValueWindow
+                <InputWithRadix
                     placeholder='FF'
                     value={
                         !(isErrorUnsigned || isErrorSigned)
@@ -282,7 +282,7 @@ export const DecConvertAsInteger = () => {
                             : ""
                     }
                     isInput={false}
-                    radix={16}></ShowValueWindow>
+                    radix={16}></InputWithRadix>
             </Box>
         </VStack>
     );
