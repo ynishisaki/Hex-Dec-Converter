@@ -48,10 +48,10 @@ export const DecConvertAsInteger = () => {
         val = val.replace(/^[0]+/g, ""); // 文字列の先頭の00...から0を取り除く
         val = val.replace(/^[-][0]+/g, "-"); // 文字列の先頭部の-00...から0を取り除く
 
-        if (/^[^-][0-9]*[-]/.test(val) == true) {
+        if (/^[^-][0-9]*[-]/.test(val) === true) {
             val = val.replace(/[-]/g, ""); // 文字列の途中の-を取り除く
             setInputSignedValue(val);
-        } else if (/^[-]+[0-9]*[-]/.test(val) == true) {
+        } else if (/^[-]+[0-9]*[-]/.test(val) === true) {
             val = "-" + val.replace(/[-]/g, ""); // 文字列の途中の-を取り除き、先頭の-を残す
             setInputSignedValue(val);
         } else {
@@ -61,8 +61,8 @@ export const DecConvertAsInteger = () => {
 
     const inputBitLengthUnsigned = (dec: number | string) => {
         // option is auto (selectedBitLength == 32)
-        if (selectedOption == "") {
-            if (dec == 0) {
+        if (selectedOption === "") {
+            if (dec === 0) {
                 return 0;
             } else if (dec < 2 ** 8) {
                 return 8;
@@ -85,12 +85,12 @@ export const DecConvertAsInteger = () => {
     const inputBitLengthSigned = (decimal: number | string) => {
         let dec = Number(decimal);
         // option is auto (selectedBitLength == 32)
-        if (selectedOption == "") {
+        if (selectedOption === "") {
             // if dec == "-"
             if (isNaN(dec)) {
                 return 0;
             } else {
-                if (dec == 0) {
+                if (dec === 0) {
                     return 0;
                 } else if (
                     dec >= -1 * 2 ** (8 - 1) &&
@@ -124,14 +124,14 @@ export const DecConvertAsInteger = () => {
     };
 
     const isErrorUnsigned =
-        // if bitLength == 0, then isErrorUnsigned == false
+        // if bitLength === 0, then isErrorUnsigned === false
         inputBitLengthUnsigned(inputUnsignedValue)
             ? inputUnsignedValue >=
               2 ** inputBitLengthUnsigned(inputUnsignedValue)
             : false;
 
     const isErrorSigned =
-        // if bitLength == 0, then isErrorSigned == false
+        // if bitLength === 0, then isErrorSigned === false
         inputBitLengthSigned(inputSignedValue)
             ? inputSignedValue <
                   -1 * 2 ** (inputBitLengthSigned(inputSignedValue) - 1) ||

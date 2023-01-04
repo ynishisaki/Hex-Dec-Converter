@@ -81,7 +81,7 @@ export const HexConvertAsInteger = () => {
             return hex ? unSignedDec : "";
         }
         // 32bit の場合
-        else if (inputBitLength(hex) == 32) {
+        else if (inputBitLength(hex) === 32) {
             return unSignedDec >> 0;
         }
         // その他: 8, 16, 24, 32bit以外の場合

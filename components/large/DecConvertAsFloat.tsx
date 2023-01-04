@@ -25,7 +25,7 @@ export const DecConvertAsFloat = () => {
         val = val.replace(/^[-][0]+[0-9]+/g, "-0"); // 先頭の-0の後に来て良いのは、.のみ
 
         // .は、1つまでしか入力できないので、2つ目の.が入力された場合は、2つ目を取り除く
-        if (/^[-]?[0-9]+[\.][0-9]*[\.]/.test(val) == true) {
+        if (/^[-]?[0-9]+[\.][0-9]*[\.]/.test(val) === true) {
             let regexp = /\./g;
 
             // 最初のマッチを探す
@@ -49,12 +49,12 @@ export const DecConvertAsFloat = () => {
 
         // 0は、先頭には入力できないため、先頭以外に0が入力された場合は、取り除く
         // 先頭が0-9のとき(=正の数)
-        if (/^[\.0-9]+[-]/.test(val) == true) {
+        if (/^[\.0-9]+[-]/.test(val) === true) {
             val = val.replace(/[-]/g, ""); // 文字列の途中の-を取り除く
             setInputValue(val);
         }
         // 先頭が-のとき（=負の数）
-        else if (/^[-][\.0-9]*[-]/.test(val) == true) {
+        else if (/^[-][\.0-9]*[-]/.test(val) === true) {
             val = "-" + val.replace(/[-]/g, ""); // 文字列の途中の-を取り除き、先頭の-を残す
             setInputValue(val);
         }
