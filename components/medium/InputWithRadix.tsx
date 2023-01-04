@@ -11,7 +11,7 @@ type ChildCompProps = {
     radix: number;
 };
 
-export const ShowValueWindow = (props: ChildCompProps) => {
+export const InputWithRadix = (props: ChildCompProps) => {
     return (
         <InputGroup size={"lg"} width={{ base: "100%", md: "75%" }}>
             <Input

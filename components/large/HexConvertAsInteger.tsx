@@ -3,7 +3,6 @@ import { useState, useMemo } from "react";
 import { ClearButton } from "../small/ClearButton";
 import { BitSelect } from "../small/BitSelect";
 import { InputWithRadix } from "../medium/InputWithRadix";
-import { useCount } from "../../hooks/useCount";
 
 export const HexConvertAsInteger = () => {
     // select
@@ -88,14 +87,10 @@ export const HexConvertAsInteger = () => {
         }
     };
 
-    const { count, increment } = useCount();
-
     return (
         <VStack width={"100%"}>
             {/* selecter and button */}
             <Box width={"100%"}>
-                <p>{count}</p>
-                <button onClick={increment}>increment</button>
                 <Flex justifyContent={"flex-end"} my={"1"}>
                     {/* selecter */}
                     {!selectedOption && (
