@@ -1,5 +1,5 @@
 import { Box, Center, VStack, Spacer, Flex } from "@chakra-ui/react";
-import React from "react";
+import React, { useMemo } from "react";
 import { useState } from "react";
 import { ClearButton } from "../small/ClearButton";
 import { BitSelect } from "../small/BitSelect";
@@ -12,14 +12,13 @@ export const DecConvertAsInteger = () => {
     const selectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const value = event.target.value;
         setSelectedOption(value);
-
-        const selectedBitLength = value ? Number(value) : 32;
-        const selectedByteLength = selectedBitLength / 4;
-        //setInputValue(inputValue.slice(0, selectedByteLength));
     };
 
-    const selectedBitLength = selectedOption ? Number(selectedOption) : 32;
-    const selectedByteLength = selectedBitLength / 4;
+    // selectChangeでセレクターを変更した時にだけ実行したい
+    const selectedBitLength = useMemo(
+        () => (selectedOption ? Number(selectedOption) : 32),
+        [selectedOption]
+    );
 
     // input
     const initialValue = "";

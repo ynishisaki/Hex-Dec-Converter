@@ -20,8 +20,6 @@ export const InputWithRadix = (props: ChildCompProps) => {
                 type='text'
                 placeholder={props.placeholder}
                 value={props.value}
-                // デフォルトinheritだと、js読み込みタイミングで--chakra-colors-chakra-border-colorが設定されるため、ページ生成時に一瞬黒色で表示される
-                // borderColor='#e2e8f0'
                 // 入力値の場合の設定
                 // 入力値を正規表現で制限し、値が不正な場合は赤枠で表示
                 onChange={props.isInput ? props.onChange : undefined}
