@@ -22,7 +22,7 @@ const Home: NextPage = () => {
     return (
         <>
             <Head>
-                <title>Hex-Dec Converter</title>
+                <title>Hex Dec Converter - Integers & Floating Point</title>
             </Head>
 
             <header>
