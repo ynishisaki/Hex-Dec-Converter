@@ -1,28 +1,28 @@
 html,
 body {
-    padding: 0;
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+	padding: 0;
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+		Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 
-    /* 色指定がデフォルトinheritだと、js読み込みタイミングで--chakra-colors-*が設定されるため、
+	/* 色指定がデフォルトinheritだと、js読み込みタイミングで--chakra-colors-*が設定されるため、
     ページ生成時に一瞬だけrgb(0,0,0)で表示される */
-    /* "chakra-border-color": { _light: "gray.200", _dark: "whiteAlpha.300" } */
-    /* --chakra-colors-gray-200: #e2e8f0; */
-    --chakra-colors-chakra-border-color: #e2e8f0;
+	/* "chakra-border-color": { _light: "gray.200", _dark: "whiteAlpha.300" } */
+	/* --chakra-colors-gray-200: #e2e8f0; */
+	--chakra-colors-chakra-border-color: #e2e8f0;
 }
 
 input {
-    /* "chakra-placeholder-color": { _light: "gray.500", _dark: "whiteAlpha.400" } */
-    /* --chakra-colors-gray-500: #718096; */
-    --chakra-colors-chakra-placeholder-color: #718096;
+	/* "chakra-placeholder-color": { _light: "gray.500", _dark: "whiteAlpha.400" } */
+	/* --chakra-colors-gray-500: #718096; */
+	--chakra-colors-chakra-placeholder-color: #718096;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 }
 
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }

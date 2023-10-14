@@ -1,20 +1,22 @@
-import { Button } from "@chakra-ui/react";
+import { IconButton } from "@chakra-ui/react";
+import { MdOutlineClear } from "react-icons/md";
 
 type ChildCompProps = {
-    onClick: (
-        event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
-    ) => void;
+	onClick: (
+		event: React.MouseEvent<HTMLButtonElement, globalThis.MouseEvent>
+	) => void;
 };
 
 export const ClearButton = (props: ChildCompProps) => {
-    return (
-        <Button
-            ml='7'
-            minW={"90px"}
-            size='lg'
-            fontSize={{ base: "lg", md: "xl" }}
-            onClick={(e) => props.onClick(e)}>
-            clear
-        </Button>
-    );
+	return (
+		<IconButton
+			ml='2'
+			width={"50px"}
+			size='lg'
+			colorScheme='gray'
+			variant='outline'
+			aria-label='clear'
+			icon={<MdOutlineClear />}
+			onClick={(e) => props.onClick(e)}></IconButton>
+	);
 };

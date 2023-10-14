@@ -3,7 +3,6 @@ import type { NextPage } from "next";
 
 import {
 	Box,
-	Center,
 	Tab,
 	TabList,
 	TabPanel,
@@ -20,7 +19,7 @@ import { HexConvertAsFloat } from "../components/large/HexConvertAsFloat";
 
 const Home: NextPage = () => {
 	return (
-		<>
+		<Box layerStyle='base'>
 			<Head>
 				<title>Hex Dec Converter - Integers & Floating Point</title>
 			</Head>
@@ -29,9 +28,10 @@ const Home: NextPage = () => {
 				<Box layerStyle='title'>Hex-Dec Converter</Box>
 			</header>
 			<main>
-				<Box layerStyle='base'>
+				<Box layerStyle='main'>
 					<Tabs
 						variant='line'
+						size={"lg"}
 						borderRadius={"2xl"}
 						colorScheme='green'>
 						<nav>
@@ -44,14 +44,14 @@ const Home: NextPage = () => {
 						<TabPanels>
 							{/* integer */}
 							<TabPanel>
-								<VStack spacing={20} pb={10}>
+								<VStack spacing={10} pb={4}>
 									<HexConvertAsInteger />
 									<DecConvertAsInteger />
 								</VStack>
 							</TabPanel>
 							{/* float (IEEE754) */}
 							<TabPanel>
-								<VStack spacing={20} pb={10}>
+								<VStack spacing={10} pb={4}>
 									<HexConvertAsFloat />
 									<DecConvertAsFloat />
 								</VStack>
@@ -65,7 +65,7 @@ const Home: NextPage = () => {
 					<Text>© 2022 monyo</Text>
 				</Box>
 			</footer>
-		</>
+		</Box>
 	);
 };
 

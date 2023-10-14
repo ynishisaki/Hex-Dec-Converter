@@ -1,8 +1,8 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import { ChakraProvider } from "@chakra-ui/react";
-import { theme } from "../theme";
 import { Noto_Serif_Display } from "next/font/google";
+import { ChakraProvider } from "@chakra-ui/react";
+import "../styles/globals.css";
+import { theme } from "../styles/theme";
 
 const notoSerifDisplay = Noto_Serif_Display({
 	subsets: [],
@@ -11,9 +11,9 @@ const notoSerifDisplay = Noto_Serif_Display({
 export default function MyApp({ Component, pageProps }: AppProps) {
 	return (
 		<ChakraProvider theme={theme}>
-			<main className={notoSerifDisplay.className}>
+			<div className={notoSerifDisplay.className}>
 				<Component {...pageProps} />
-			</main>
+			</div>
 		</ChakraProvider>
 	);
 }

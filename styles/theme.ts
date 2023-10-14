@@ -25,42 +25,36 @@ export const theme = extendTheme({
 
 	layerStyles: {
 		base: {
-			bg: "white",
 			maxW: "740px",
 			mx: { base: "12px", md: "auto" },
-			fontFamily:
-				'"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
 		},
 		title: {
 			fontSize: { base: "3xl", sm: "5xl", md: "7xl" },
 			fontWeight: "800",
-			maxW: "740px",
-			mx: { base: "12px", md: "auto" },
+			color: "white",
+			bgColor: "green.500",
 			px: "16px",
-			pt: "0.5rem",
-			pb: "1rem",
+			py: "0.5rem",
+			mb: { base: "0.5rem", md: "1rem" },
+		},
+		main: {
+			fontFamily:
+				'"Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif',
 		},
 		footer: {
-			borderTop: "2px solid rgb(226, 232, 240)",
-			flexDirection: "column",
 			display: "flex",
-			flex: "1",
-			maxW: "740px",
-			mx: { base: "12px", md: "auto" },
-			p: "0.8rem 0",
-			justifyContent: "center",
-			alignItems: "center",
+			justifyContent: "flex-end",
+			p: "0.8rem 16px",
+			fontWeight: "600",
+			color: "white",
+			bgColor: "green.500",
 			zIndex: "stickey", //1100
 		},
 		showBaseNumber: {
-			minW: "60px",
-			width: "35%", // 1/3
-			fontSize: "2xl",
+			fontSize: { base: "lg", md: "2xl" },
 		},
 		showUnsignedOrSigned: {
-			minW: "150px",
-			width: "65%", // 2/3
-			fontSize: "lg",
+			fontSize: { base: "xs", md: "md" },
 			ml: 2,
 		},
 	},
