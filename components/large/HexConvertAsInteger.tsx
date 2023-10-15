@@ -119,7 +119,12 @@ export const HexConvertAsInteger = () => {
 				width={"100%"}
 				display={{ md: "flex" }}>
 				<Flex alignItems={"center"} width={"20%"}>
-					<Box layerStyle='showBaseNumber'>HEX</Box>
+					<Box
+						layerStyle='showBaseNumber'
+						color='green.500'
+						fontWeight={"bold"}>
+						HEX
+					</Box>
 					<Spacer />
 				</Flex>
 				<Flex width={{ base: "100%", md: "80%" }}>

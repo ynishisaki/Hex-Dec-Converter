@@ -29,11 +29,7 @@ const Home: NextPage = () => {
 			</header>
 			<main>
 				<Box layerStyle='main'>
-					<Tabs
-						variant='line'
-						size={"lg"}
-						borderRadius={"2xl"}
-						colorScheme='green'>
+					<Tabs variant='line' size={"lg"} colorScheme='green'>
 						<nav>
 							<TabList>
 								<Tab>integer</Tab>

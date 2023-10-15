@@ -96,7 +96,12 @@ export const DecConvertAsFloat = () => {
 				width={"100%"}
 				display={{ md: "flex" }}>
 				<Flex alignItems={"center"} width={"10%"}>
-					<Box layerStyle='showBaseNumber'>DEC</Box>
+					<Box
+						layerStyle='showBaseNumber'
+						color='green.500'
+						fontWeight={"bold"}>
+						DEC
+					</Box>
 					<Box layerStyle='showUnsignedOrSigned'></Box>
 				</Flex>
 				<Flex width={{ base: "100%", md: "90%" }}>

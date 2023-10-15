@@ -213,8 +213,15 @@ export const DecConvertAsInteger = () => {
 				width={"100%"}
 				display={{ md: "flex" }}>
 				<Flex alignItems={"center"} width={"20%"}>
-					<Box layerStyle='showBaseNumber'>DEC</Box>
-					<Box layerStyle='showUnsignedOrSigned'>unsigned</Box>
+					<Box
+						layerStyle='showBaseNumber'
+						color='green.500'
+						fontWeight={"bold"}>
+						DEC
+					</Box>
+					<Box layerStyle='showUnsignedOrSigned' color='green.500'>
+						unsigned
+					</Box>
 				</Flex>
 				<Flex width={{ base: "100%", md: "80%" }}>
 					<InputWithRadix
@@ -233,8 +240,15 @@ export const DecConvertAsInteger = () => {
 				width={"100%"}
 				display={{ md: "flex" }}>
 				<Flex alignItems={"center"} width={"20%"}>
-					<Box layerStyle='showBaseNumber'>DEC</Box>
-					<Box layerStyle='showUnsignedOrSigned'>signed</Box>
+					<Box
+						layerStyle='showBaseNumber'
+						color='green.500'
+						fontWeight={"bold"}>
+						DEC
+					</Box>
+					<Box layerStyle='showUnsignedOrSigned' color='green.500'>
+						signed
+					</Box>
 				</Flex>
 				<Flex width={{ base: "100%", md: "80%" }}>
 					<InputWithRadix

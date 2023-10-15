@@ -49,7 +49,12 @@ export const HexConvertAsFloat = () => {
 				width={"100%"}
 				display={{ md: "flex" }}>
 				<Flex alignItems={"center"} width={"10%"}>
-					<Box layerStyle='showBaseNumber'>HEX</Box>
+					<Box
+						layerStyle='showBaseNumber'
+						color='green.500'
+						fontWeight={"bold"}>
+						HEX
+					</Box>
 					<Spacer />
 				</Flex>
 				<Flex width={{ base: "100%", md: "90%" }}>
