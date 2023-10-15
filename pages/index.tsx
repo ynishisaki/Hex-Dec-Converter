@@ -44,14 +44,14 @@ const Home: NextPage = () => {
 						<TabPanels>
 							{/* integer */}
 							<TabPanel>
-								<VStack spacing={10} pb={4}>
+								<VStack spacing={10} mb={4}>
 									<HexConvertAsInteger />
 									<DecConvertAsInteger />
 								</VStack>
 							</TabPanel>
 							{/* float (IEEE754) */}
 							<TabPanel>
-								<VStack spacing={10} pb={4}>
+								<VStack spacing={12} mt={4} mb={16}>
 									<HexConvertAsFloat />
 									<DecConvertAsFloat />
 								</VStack>

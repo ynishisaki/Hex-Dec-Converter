@@ -95,20 +95,21 @@ export const HexConvertAsInteger = () => {
 		<VStack width={"100%"}>
 			{/* selecter and button */}
 			<Box width={"100%"}>
-				<Flex justifyContent={"flex-end"} my={"1"}>
+				<Flex justifyContent={"flex-end"}>
 					{/* selecter */}
 					{!selectedOption && (
-						<Center fontSize={{ base: "lg", md: "xl" }} mx={4}>
+						<Center fontSize={{ base: "md", md: "lg" }} mx={4}>
 							{inputBitLength(inputValue) + "bit"}
 						</Center>
 					)}
 					<Center
-						fontSize={{ base: "lg", md: "xl" }}
+						fontSize={{ base: "md", md: "lg" }}
 						minW={"100px"}
-						mx={2}>
+						ml={2}>
 						bit length :
 					</Center>
 					<BitSelect onChange={(e) => selectChange(e)}></BitSelect>
+					<Box width={"58px"} />
 				</Flex>
 			</Box>
 			{/* input */}

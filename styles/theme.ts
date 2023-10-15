@@ -30,7 +30,7 @@ export const theme = extendTheme({
 		},
 		title: {
 			fontSize: { base: "3xl", sm: "5xl", md: "7xl" },
-			fontWeight: "800",
+			fontWeight: "extrabold", // 800
 			color: "white",
 			bgColor: "green.500",
 			px: "16px",
@@ -45,7 +45,7 @@ export const theme = extendTheme({
 			display: "flex",
 			justifyContent: "flex-end",
 			p: "0.8rem 16px",
-			fontWeight: "600",
+			fontWeight: "semibold", // 600
 			color: "white",
 			bgColor: "green.500",
 			zIndex: "stickey", //1100

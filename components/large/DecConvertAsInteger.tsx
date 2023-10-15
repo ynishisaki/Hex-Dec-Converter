@@ -183,7 +183,7 @@ export const DecConvertAsInteger = () => {
 				<Flex justifyContent={"flex-end"} my={"1"}>
 					{!selectedOption && (
 						<Center
-							fontSize={{ base: "lg", md: "xl" }}
+							fontSize={{ base: "md", md: "lg" }}
 							mx={4}
 							color={
 								isErrorUnsigned || isErrorSigned ? "tomato" : ""
@@ -196,12 +196,13 @@ export const DecConvertAsInteger = () => {
 						</Center>
 					)}
 					<Center
-						fontSize={{ base: "lg", md: "xl" }}
+						fontSize={{ base: "md", md: "lg" }}
 						minW={"100px"}
-						mx={2}>
+						ml={2}>
 						bit length :
 					</Center>
 					<BitSelect onChange={(e) => selectChange(e)}></BitSelect>
+					<Box width={"58px"} />
 				</Flex>
 			</Box>
 

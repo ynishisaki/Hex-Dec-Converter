@@ -16,7 +16,7 @@ export const InputWithRadix = (props: ChildCompProps) => {
 		<InputGroup size={"lg"} width={"calc(100% - 58px)"}>
 			<Input
 				htmlSize={30}
-				fontSize={"2xl"}
+				fontSize={{ base: "xl", md: "2xl" }}
 				type='text'
 				placeholder={props.placeholder}
 				value={props.value}
